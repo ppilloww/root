@@ -48,6 +48,13 @@
             <div class="container">
                 <div class="capture_time" id="capture_time">
                     <div class="mt-4 p-3 bg-light text-black rounded">
+                        <div class="system_date">
+                            <span id="day">00</span>
+                            <span>:</span>
+                            <span id="month">00</span>
+                            <span>:</span>
+                            <span id="year">00</span>
+                        </div>
                         <div class="clock">
                             <span id="hrs">00</span>
                             <span>:</span>
@@ -55,7 +62,13 @@
                             <span>:</span>
                             <span id="sec">00</span>
                         </div>
-                        <div><p>test</p></div>
+                        <div class="container">
+                            <div class="capture_button">
+                                <button type="button" class="btn btn-primary" id="checkin">Check In</button>
+                                <button type="button" class="btn btn-danger" id="checkout">Check Out</button>                            
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,7 +82,29 @@
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; BBQ GmbH 2024</div></footer>
         <!-- Clock -->
         <script>
+            // Systemdatum
+            let day = document.getElementById("day");
+            let month = document.getElementById("month");
+            let year = document.getElementById("year");
 
+            setInterval(() => {
+                let currentDate = new Date();
+
+                let dayOfMonth = currentDate.getDate(); 
+                let currentMonth = currentDate.getMonth() + 1;
+                let currentYear = currentDate.getFullYear();
+
+                // logic for numbers smaller 10
+                dayOfMonth = (dayOfMonth < 10) ? '0' + dayOfMonth : dayOfMonth;
+                currentMonth = (currentMonth < 10) ? '0' + currentMonth : currentMonth;
+
+                day.innerHTML = dayOfMonth;
+                month.innerHTML = currentMonth;
+                year.innerHTML = currentYear;
+
+            }, 1000);
+
+            // Systemuhrzeit
             let hrs = document.getElementById("hrs");
             let min = document.getElementById("min");
             let sec = document.getElementById("sec");
@@ -91,6 +126,7 @@
                 sec.innerHTML = seconds;
 
             },1000)
+        
 
             
 

@@ -1,9 +1,46 @@
 
 .capture_time {
-    padding-top: 5%;
-    margin: auto;
+    padding-top: 15%;
+    margin: auto;   
     
 }
+
+.system_date {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  /* If the screen size is bigger than 1200px */
+@media (min-width: 701px) {
+    .system_date span {
+        font-size: 5vw;
+        width: auto;
+        display: inline-block;
+        text-align: center;
+        position: relative;
+    }
+  }
+  /* If the screen size is smaller than 700px */
+@media (max-width: 700px) {
+    .system_date span {
+        font-size: 70px;
+        width: auto;
+        display: inline-block;
+        text-align: center;
+        position: relative;
+        }
+  }
+
+/* .system_date span{
+    font-size: 5vw;
+    width: auto;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+} */
 
 .clock {
     width: 100%;
@@ -13,10 +50,51 @@
     justify-content: center;
 }
 
-.clock span{
-    font-size: 80px;
+  /* If the screen size is bigger than 1200px */
+@media (min-width: 701px) {
+    .clock span {
+        font-size: 5vw;
+        width: auto;
+        display: inline-block;
+        text-align: center;
+        position: relative;
+    }
+  }
+  /* If the screen size is smaller than 700px */
+@media (max-width: 700px) {
+    .clock span {
+        font-size: 80px;
+        width: auto;
+        display: inline-block;
+        text-align: center;
+        position: relative;
+        }
+  }
+
+/* .clock span{
+    font-size: 5vw;
     width: auto;
     display: inline-block;
     text-align: center;
     position: relative;
+} */
+
+.capture_button {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#checkin {
+    margin: 5%;
+    font-weight: bold;
+    background-color: blue;
+}
+
+#checkout {
+    margin: 5%;
+    font-weight: bold;
+    background-color: red;
 }
