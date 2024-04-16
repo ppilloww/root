@@ -54,3 +54,57 @@ window.addEventListener('DOMContentLoaded', event => {
 });
 
 
+// Icon byUsername
+var user = {
+    tag: 'hr' // this could be 'admin', 'hr', 'ma'
+};
+
+// droptown by ID
+var dropdownItem = document.getElementById('user');
+
+// Create an icon element
+var icon = document.createElement('i');
+icon.style.marginRight = '5px'; // Add some space between the icon and the text
+
+// logic
+if (user.tag === 'admin') {
+    icon.className = 'fa-solid fa-user-plus';
+} else if (user.tag === 'hr') {
+    icon.className = 'fa-solid fa-user-tie';
+} else if (user.tag === 'ma') {
+    icon.className = 'fa-solid fa-user';
+}
+
+// Add icon to dropdown item
+dropdownItem.prepend(icon);
+
+//Password Change and alerts
+document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    var correctPassword = '12345';
+
+    var currentPassword = document.getElementById('currentPassword').value;
+    var newPassword = document.getElementById('newPassword').value;
+    var confirmNewPassword = document.getElementById('confirmNewPassword').value;
+    
+    if (!currentPassword || !newPassword || !confirmNewPassword) {
+        document.getElementById('message').textContent = 'All fields must be filled out.';
+        document.querySelector('.card').style.display = 'block'; // Show the card
+    } else if (currentPassword !== correctPassword) {
+        document.getElementById('message').textContent = 'Current password is incorrect.';
+        document.querySelector('.card').style.display = 'block'; // Show the card
+    } else if (newPassword.length < 8) {
+        document.getElementById('message').textContent = 'New password must be at least 8 characters long.';
+        document.querySelector('.card').style.display = 'block'; // Show the card
+    } else if (newPassword !== confirmNewPassword) {
+        document.getElementById('message').textContent = 'New password does not match the confirmed password.';
+        document.querySelector('.card').style.display = 'block'; // Show the card
+    } else {
+        document.getElementById('message').textContent = 'Password changed successfully.';
+        var card = document.querySelector('.card');
+        card.style.display = 'block'; // Show the card and store it in a variable
+        card.classList.add('bg-success'); // Add the 'bg-success' class to the card
+        // Here you can add the code to actually change the password
+    }
+});

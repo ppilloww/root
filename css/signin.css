@@ -46,3 +46,11 @@ header {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.alert_message {
+  margin-top: 3%;
+}
+
+#message {
+  font-weight: bold;
+}
