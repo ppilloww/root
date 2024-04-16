@@ -109,20 +109,20 @@
                 card.style.display = 'block'; // Show the card and store it in a variable
                 card.classList.add('bg-success'); // Add the 'bg-success' class to the card
                 // Here you can add the code to actually change the password
-
-                // Clear the input fields
-                currentPassword.value = '';
-                newPassword.value = '';
-                confirmNewPassword.value = '';
             }
+
+            // // Clear the input fields
+            // currentPassword.value = '';
+            // newPassword.value = '';
+            // confirmNewPassword.value = '';
         });
 
-        // document.querySelector('form').addEventListener('submit', function(event){
-        //     // Clear the input fields
-        //     currentPassword.value = '';
-        //     newPassword.value = '';
-        //     confirmNewPassword.value = '';
-        // })
+        document.querySelector('form').addEventListener('submit', function(event){
+            // Clear the input fields
+            currentPassword.value = '';
+            newPassword.value = '';
+            confirmNewPassword.value = '';
+        });
         </script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
