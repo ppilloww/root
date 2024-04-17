@@ -13,7 +13,7 @@
     justify-content: center;
 }
 
-  /* If the screen size is bigger than 1200px */
+  /* If the screen size is bigger than  */
 @media (min-width: 701px) {
     .system_date span {
         font-size: 5vw;
@@ -23,10 +23,10 @@
         position: relative;
     }
   }
-  /* If the screen size is smaller than 700px */
+  /* If the screen size is smaller than */
 @media (max-width: 700px) {
     .system_date span {
-        font-size: 70px;
+        font-size: 60px;
         width: auto;
         display: inline-block;
         text-align: center;
@@ -50,7 +50,7 @@
     justify-content: center;
 }
 
-  /* If the screen size is bigger than 1200px */
+  /* If the screen size is bigger than  */
 @media (min-width: 701px) {
     .clock span {
         font-size: 5vw;
@@ -60,10 +60,10 @@
         position: relative;
     }
   }
-  /* If the screen size is smaller than 700px */
+  /* If the screen size is smaller than  */
 @media (max-width: 700px) {
     .clock span {
-        font-size: 80px;
+        font-size: 60px;
         width: auto;
         display: inline-block;
         text-align: center;
@@ -81,7 +81,7 @@
 
 .capture_button {
     width: 100%;
-    height: 100%;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,3 +99,72 @@
     background-color: red;
 }
 
+.header_text {
+    font-size: 1.5vw;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.header_text .link:nth-child(1) {
+    margin-bottom: 0px;
+
+}
+
+.header_text .link:nth-child(2) {
+    margin-top: 0px;
+    margin-left: 5%;
+    margin-bottom: 50px;
+    font-size: 1vw;
+}
+
+/* If the screen size is smaller than  */
+@media (max-width: 700px) {
+.header_text {
+    font-size: 20px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    }
+}
+
+/* If the screen size is smaller than  */
+@media (max-width: 700px) {
+    .header_text .link:nth-child(2) {
+        display: none;
+        }
+    }
+
+.time_container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* If the screen size is bigger than  */
+@media (min-width: 768px) {
+    .time_container {
+        flex-direction: row;
+        
+    }
+
+}
+
+.alert_message {
+    margin-top: 10px;
+  }
+
+.week_day {
+    margin-top: 100px;
+    font-size: 1.5vw;
+    margin-left: 45px;
+    color: black;
+}
+
+/* If the screen size is smaller than  */
+@media (max-width: 700px) {
+    .week_day {
+        font-size: 20px;
+        }
+}
