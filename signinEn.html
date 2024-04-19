@@ -52,12 +52,19 @@
                           <label for="floatingPassword">Password</label>
                         </div>
                     
-                        <!-- <button class="w-100 btn btn-lg btn-primary" type="submit" >Sign in</button> -->
-                        <a class="w-100 btn btn-lg btn-primary" href="homeEnHr.html">Sign in</a>
+                        <button class="w-100 btn btn-lg btn-primary" type="submit" >Sign in</button>
+                        <!-- <a class="w-100 btn btn-lg btn-primary" href="homeEnHr.html">Sign in</a> -->
 
                         
                       </form>
                 </div>
+                <div class="alert_message"></div>
+                    <div class="card" style="display: none;">
+                        <div class="card-body">
+                        <div class="text-center" id="message"></div>
+                    </div>
+                </div>
+            </div>
             </div>
         </header>
 
@@ -144,6 +151,45 @@
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; BBQ GmbH 2024</div></footer>
 
+        <script>
+            //field input and alerts
+            document.querySelector('form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting
+                
+                var correctEmail = 'admin@bbq.de'; // GET the correct email from the database
+                var correctPassword = '12345'; // GET the correct password from the database
+
+                var email = document.getElementById('floatingInput').value;    
+                var currentPassword = document.getElementById('floatingPassword').value;
+
+                var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                
+                if (!email || !currentPassword) {
+                    document.getElementById('message').textContent = 'All fields must be filled out.';
+                    document.querySelector('.card').style.display = 'block'; // Show the card
+                } else if (email !== correctEmail) {
+                    document.getElementById('message').textContent = 'Email is incorrect.';
+                    document.querySelector('.card').style.display = 'block'; // Show the card
+                } else if (currentPassword !== correctPassword) {
+                    document.getElementById('message').textContent = 'Current password is incorrect.';
+                    document.querySelector('.card').style.display = 'block'; // Show the card
+                } else {
+                    window.location.href = 'homeEnHr.html';
+                }
+    
+                // // Clear the input fields
+                // currentPassword.value = '';
+                // newPassword.value = '';
+                // confirmNewPassword.value = '';
+            });
+    
+            document.querySelector('form').addEventListener('submit', function(event){
+                // Clear the input fields
+                floatingInput.value = '';
+                floatingPassword.value = '';
+
+            });
+            </script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
 
