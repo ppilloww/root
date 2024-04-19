@@ -1,7 +1,6 @@
 
 .capture_time {
     padding-top: 15%;
-    margin: auto;   
     
 }
 
@@ -151,9 +150,10 @@
 
 }
 
-/* .alert_message {
+/* alert message capture time */
+.alert_message {
     margin-top: 10px;
-  } */
+}
 
 .week_day {
     margin-top: 100px;
@@ -167,4 +167,8 @@
     .week_day {
         font-size: 20px;
         }
+}
+
+.card_empl_mng {
+    padding-top: 15%;
 }

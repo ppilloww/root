@@ -1,6 +1,6 @@
 // Icon byUsername
 var user = {
-    tag: 'hr' // this could be 'admin', 'hr', 'ma'
+    tag: 'admin' // this could be 'admin', 'hr', 'ma'
 };
 
 // droptown by ID
@@ -21,3 +21,28 @@ if (user.tag === 'admin') {
 
 // Add icon to dropdown item
 dropdownItem.prepend(icon);
+
+// show only link by userId
+document.addEventListener('DOMContentLoaded', function() {
+    var navbar = document.querySelector('.navbar-nav.ms-auto');
+
+    if (user.tag === "admin" || user.tag === "hr") {
+        // Create new nav item and link
+        var newItem = document.createElement('li');
+        newItem.className = 'nav-item';
+
+        var newLink = document.createElement('a');
+        newLink.className = 'nav-link';
+        newLink.href = 'employeeManagementEn.html';
+        newLink.textContent = 'Employee management';
+
+        // Append new link to new item
+        newItem.appendChild(newLink);
+
+        // Find the position where the new item should be inserted
+        var refItem = document.querySelector('.navbar-nav.ms-auto .nav-item.dropdown');
+
+        // Insert the new item before the reference item
+        navbar.insertBefore(newItem, refItem);
+    }
+});
