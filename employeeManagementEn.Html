@@ -63,46 +63,23 @@
                                         <th>#Id</th>
                                         <th>Firstname</th>
                                         <th>Lastname</th>
-                                        <th>Age</th>
-                                        <th>City</th>
-                                        <th>Country</th>
+                                        <th>Birthday</th>
                                         <th>Sex</th>
-                                        <th>Example</th>
-                                        <th>Example</th>
-                                        <th>Example</th>
-                                        <th>Example</th>
-                                        <th>Example</th>
-                                        <th>Example</th>
-                                        <th>Example</th>
-                                        <th>Example</th>
-                                        <th>Example</th>
-                                        <th>Example</th>
-                                        <th>Example</th>
-                                        <th>Example</th>
+                                        <th>Country</th>
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr>
-                                        <td>1234</td>
-                                        <td>Anna</td>
-                                        <td>Pitt</td>
-                                        <td>35</td>
-                                        <td>New York</td>
-                                        <td>USA</td>
-                                        <td>Female</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                      </tr>
+                                        {% for employee in employees %}
+                                        <tr data-id="{{ employee.id }}">
+                                            <td>{{ employee.id }}</td>
+                                            <td>{{ employee.first_name }}</td>
+                                            <td>{{ employee.last_name }}</td>
+                                            <td>{{ employee.birthday }}</td>
+                                            <td>{{ employee.sex }}</td>
+                                            <td>{{ employee.country }}</td>
+                                            <!-- rest of the data -->
+                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                                   </table>
                                 </div>
@@ -115,7 +92,24 @@
         
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; BBQ GmbH 2024</div></footer>
+        
+        <!-- Event listener for table rows -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            // Select all table rows in the tbody
+            var rows = document.querySelectorAll('tbody tr');
 
+            // Add a click event listener to each row
+            rows.forEach(function(row) {
+            row.addEventListener('click', function() {
+            // Get the employee ID from the data-id attribute
+            var id = this.dataset.id;
+
+            // Redirect to the employee info page
+            window.location.href = '/employee/' + id;
+        });
+    });
+});
         </script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
