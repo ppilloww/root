@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load static %}
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -7,12 +8,12 @@
         <meta name="author" content="H.Kniesick, P.Zurawel" />
         <meta name="Copyright" content="The source code is at all times the property of BBQ GmbH.">
         <title>BBQ GmbH - Employee time recording</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="{% static 'bbq_gmbh_app/assets/favicon.ico'%}" />
         <!-- Font Awesome icons private kit pandora.temp -->
         <script src="https://kit.fontawesome.com/d670f74c3b.js" crossorigin="anonymous"></script>
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-        <link href="css/myStyles.css" rel="stylesheet"/>        
+        <link href="{% static 'bbq_gmbh_app/css/styles.css'%}" rel="stylesheet" />
+        <link href="{% static 'bbq_gmbh_app/css/myStyles.css'%}" rel="stylesheet" />    
         <!-- log for console -->
         <!-- <script src="js/log.js"></script> -->
         <!-- online Bootstrap link for standard css-->
@@ -23,14 +24,14 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="homeEnHr.html">BBQ GmbH</a>
+                <a class="navbar-brand" href="{% url 'home'%}">BBQ GmbH</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="homeEnHr.html">Capture Time</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home'%}">Capture Time</a></li>
                         <!-- Autolink by Tag -->
                         <!-- <li class="nav-item"><a class="nav-link" href="#">link 2</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">link 3</a></li>                         -->
@@ -38,8 +39,8 @@
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" id="user">Dropdown</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">link 1</a></li>
-                                <li><a class="dropdown-item" href="pwEn.html"><i class="fa-solid fa-key"></i> Change Password</a></li>
-                                <li><a class="dropdown-item" href="indexEn.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                                <li><a class="dropdown-item" href="{% url 'changePassword'%}"><i class="fa-solid fa-key"></i> Change Password</a></li>
+                                <li><a class="dropdown-item" href="{% url 'index'%}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -112,8 +113,8 @@
 });
         </script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-        <script src="js/navIcon.js"></script>
+        <script src="{% static "bbq_gmbh_app/js/scripts.js" %}"></script>
+        <script src="{% static "bbq_gmbh_app/js/navIcon.js" %}"></script>
         <!--Connecting std Bootstrap popper and js-->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

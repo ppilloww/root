@@ -1,3 +1,9 @@
+//virtuelle Umgebung erstellen
+python -m venv env
+
+//virtuelle Umgebung aktivieren
+"./env/Scripts/activate"
+
 //Projekt starten
 django-admin startproject bbq_gmbh .
 
@@ -9,3 +15,6 @@ python manage.py runserver 0.0.0.0:8000
 
 //appplattform generieren. muss in settings.py unter applikation eingetragen werden
 python manage.py startapp bbq_gmbh_app"den Namen der App" 
+
+// This command copies all static files from your apps to the STATIC_ROOT directory specified in your settings file.
+python manage.py collectstatic

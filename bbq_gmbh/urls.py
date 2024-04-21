@@ -16,8 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from bbq_gmbh_app.views import *
 
 # Administrationsbereich von Django, kann als url/admin zugegriffen werden
 urlpatterns = [
     path('admin/', admin.site.urls), 
+    path('index/', index, name='index'),
+    path('signin/', signin, name='signin'),
+    path('home/', home, name='home'),
+    path('changePassword/', changePassword, name='changePassword'),
+    path('employeeManagement/', employeeManagement, name='employeeManagement'),
+    
+    
 ]
+
