@@ -27,6 +27,5 @@ urlpatterns = [
     path('changePassword/', changePassword, name='changePassword'),
     path('employeeManagement/', employeeManagement, name='employeeManagement'),
     
-    
 ]
 
