@@ -12,11 +12,11 @@ icon.style.marginRight = '5px'; // Add some space between the icon and the text
 
 // logic
 if (user.tag === 'admin') {
-    icon.className = 'fa-solid fa-user-plus';
+    icon.className = 'fa-solid fa-user-plus text-danger';
 } else if (user.tag === 'hr') {
-    icon.className = 'fa-solid fa-user-tie';
+    icon.className = 'fa-solid fa-user-tie text-warning';
 } else if (user.tag === 'ma') {
-    icon.className = 'fa-solid fa-user';
+    icon.className = 'fa-solid fa-user text-primary';
 }
 
 // Add icon to dropdown item

@@ -15,3 +15,6 @@ def changePassword(request):
 
 def employeeManagement(request):
     return render(request, 'employeeManagementEn.html')
+
+def profile(request):
+    return render(request, 'profileEn.html')
