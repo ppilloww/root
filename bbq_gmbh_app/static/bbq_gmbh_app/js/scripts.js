@@ -109,3 +109,10 @@ window.addEventListener('DOMContentLoaded', event => {
 //         // Here you can add the code to actually change the password
 //     }
 // });
+
+
+// altomaticly scroll element into view
+window.onload = function() {
+    var element = document.getElementById('myElement');
+    element.scrollIntoView({behavior: "smooth", block: "center"});
+}

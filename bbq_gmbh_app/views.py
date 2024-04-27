@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.http import JsonResponse
+from datetime import date
+import holidays
 
 # Create your views here.
 def index(request):
@@ -18,3 +21,12 @@ def employeeManagement(request):
 
 def profile(request):
     return render(request, 'profileEn.html')
+
+# checkig publick holidays
+def checkHolidays(request):
+    today = date.today()
+    de_holidays = holidays.Germany(prov='BW')
+    is_public_holiday = today in de_holidays
+    is_sunday = today.weekday() == 6 #6 = sunday
+    context = {'non_working_day': False } #is_public_holiday or is_sunday
+    return JsonResponse(context)
