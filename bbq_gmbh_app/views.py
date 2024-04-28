@@ -23,6 +23,8 @@ def employeeManagement(request):
 def profile(request):
     return render(request, 'profileEn.html')
 
+######################################### Logics #########################################
+
 # checkig publick holidays
 def checkHolidays(request):
     today = date.today()
@@ -31,6 +33,8 @@ def checkHolidays(request):
     is_sunday = today.weekday() == 6 #6 = sunday
     context = {'non_working_day': False } #is_public_holiday or is_sunday
     return JsonResponse(context)
+
+######################################### Logics #########################################
 
 ######################################### Database operations #########################################
 
