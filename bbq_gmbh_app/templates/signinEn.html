@@ -144,42 +144,7 @@
                 // currentPassword.value = '';
                 // newPassword.value = '';
                 // confirmNewPassword.value = '';
-            }); {% endcomment %}
-
-            // login logic
-            document.querySelector('form').addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent the form from submitting
-                var username = document.getElementById('floatingInput').value;
-                var password = document.getElementById('floatingPassword').value;
-                var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                if (!username || !password) {
-                    document.getElementById('message').textContent = 'All fields must be filled out.';
-                    document.querySelector('.card').style.display = 'block'; // Show the card
-                }
-                fetch('/signin/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRFToken': getCookie('csrftoken')
-                    },
-                    body: 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        window.location.href = "{% url 'home' %}";
-                    } else if (data.status === 'inactive') {
-                        // Show an error message saying the account is inactive
-                        document.getElementById('message').textContent = 'The account is inactive.';
-                        document.querySelector('.card').style.display = 'block'; // Show the card
-                    } else {
-                        // Show an error message saying the username or password is invalid
-                        document.getElementById('message').textContent = 'The username or password is incorrect.';
-                        document.querySelector('.card').style.display = 'block'; // Show the card
-                    }
-                });
             });
-
     
             document.querySelector('form').addEventListener('submit', function(event){
                 // Clear the input fields
