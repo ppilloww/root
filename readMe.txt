@@ -19,8 +19,8 @@ python manage.py startapp bbq_gmbh_app"den Namen der App"
 // This command copies all static files from your apps to the STATIC_ROOT directory specified in your settings file.
 python manage.py collectstatic
 
-{//Models.py migrieren Step 1/2
+//Models.py migrieren Step 1/2
 python manage.py makemigrations
 
 //SQL erstellen step 2/2
-python manage.py migrate}
+python manage.py migrate
