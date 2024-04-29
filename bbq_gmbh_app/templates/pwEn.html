@@ -90,6 +90,8 @@
 
             var correctPassword = '12345'; // GET the correct password from the database
 
+            var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
             var currentPassword = document.getElementById('currentPassword').value;
             var newPassword = document.getElementById('newPassword').value;
             var confirmNewPassword = document.getElementById('confirmNewPassword').value;
