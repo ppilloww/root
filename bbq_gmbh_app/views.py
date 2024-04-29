@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from datetime import date, datetime
 import holidays
 from .models import Adresse, Mitarbeiter, Abteilungsleiter, Abteilung
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def index(request):
@@ -22,6 +23,24 @@ def employeeManagement(request):
 
 def profile(request):
     return render(request, 'profileEn.html')
+
+######################################### authentcation #########################################
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return JsonResponse({'status': 'success'})
+            else:
+                return JsonResponse({'status': 'inactive'})
+        else:
+            return JsonResponse({'status': 'invalid'})
+
+######################################### authentcation #########################################
 
 ######################################### Logics #########################################
 

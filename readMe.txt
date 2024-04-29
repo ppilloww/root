@@ -24,3 +24,5 @@ python manage.py makemigrations
 
 //SQL erstellen step 2/2
 python manage.py migrate}
+
+// encoding MIME CSRF
