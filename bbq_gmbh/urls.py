@@ -28,5 +28,6 @@ urlpatterns = [
     path('employeeManagement/', employeeManagement, name='employeeManagement'),
     path('profile/', profile, name='profile'),
     path('checkHolidays/', checkHolidays, name='checkHolidays'),
+    path('login_view/', login_view, name='login_view'),
 ]
 

@@ -131,3 +131,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+######################################### backend #########################################
+
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', 'bbq_gmbh_app.backend.EmailBackend'] #add this 'bbq_gmbh_app.back end.EmailBackend', 'django.contrib.auth.backends.ModelBackend' l if you have some users who need to authenticate with an email and password, and others who need to authenticate with a username and password.
+
+######################################### backend #########################################
