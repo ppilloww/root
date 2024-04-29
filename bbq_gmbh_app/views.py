@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from datetime import date
+from datetime import date, datetime
 import holidays
 from .models import Adresse, Mitarbeiter, Abteilungsleiter, Abteilung
 from django.contrib.auth import authenticate, login, logout
