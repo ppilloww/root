@@ -29,6 +29,6 @@ urlpatterns = [
     path('profile/', profile, name='profile'),
     path('checkHolidays/', checkHolidays, name='checkHolidays'),
     path('login_view/', login_view, name='login_view'),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('get_user_role/', get_user_role, name='get_user_role'),
 ]
 

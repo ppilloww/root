@@ -1,11 +1,5 @@
 // fetch user tag
-fetch('/login_view/', {
-    method: 'POST',
-    body: JSON.stringify({
-        email: emailInput.value,
-        password: passwordInput.value
-    })
-})
+fetch('/get_user_role/')
 .then(response => response.json())
 .then(data => {
     if (data.user_role) {
