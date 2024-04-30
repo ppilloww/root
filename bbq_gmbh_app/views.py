@@ -40,7 +40,8 @@ def login_view(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return JsonResponse({'status': 'success'}, status=200)
+                request.session['user_role'] = user.role
+                return JsonResponse({'status': 'success', 'user_role': user.role}, status=200)
             else:
                 return JsonResponse({'status': 'inactive'}, status=401)
         else:
