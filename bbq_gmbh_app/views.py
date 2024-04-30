@@ -27,19 +27,41 @@ def profile(request):
 
 ######################################### authentcation #########################################
 
+# def login_view(request):
+#     if request.method == 'POST':
+#         email = request.POST['email']
+#         password = request.POST['passwort']
+#         user = authenticate(request, email=email, password=password)
+#         if user is not None:
+#             if user.is_active:
+#                 login(request, user)
+#                 user_role = 'ma'
+#                 if user.hr_tag:
+#                     user_role = 'hr'
+#                 elif user.admin_tag:
+#                     user_role = 'admin'
+#                 request.session['user_role'] = user_role
+#                 return JsonResponse({'status': 'success', 'user_role': user_role})
+#             else:
+#                 return JsonResponse({'status': 'inactive'})
+#         else:
+#             return JsonResponse({'status': 'invalid'})
+
 def login_view(request):
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return JsonResponse({'status': 'success'})
-            else:
-                return JsonResponse({'status': 'inactive'})
-        else:
-            return JsonResponse({'status': 'invalid'})
+        # Get email and password from POST data
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # Perform authentication
+        try:
+            user = Mitarbeiter.objects.get(email=email, passwort=password)
+            if user:
+                return JsonResponse({'status': 'success'}, status=200)
+        except Mitarbeiter.DoesNotExist:
+            return JsonResponse({'status': 'invalid'}, status=401)
+
+    return render(request, "login.html")
 
 ######################################### authentcation #########################################
 
