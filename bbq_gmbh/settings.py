@@ -135,7 +135,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ######################################### backend #########################################
 
-#AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', 'bbq_gmbh_app.backend.EmailBackend'] #add this 'bbq_gmbh_app.back end.EmailBackend', 'django.contrib.auth.backends.ModelBackend' l if you have some users who need to authenticate with an email and password, and others who need to authenticate with a username and password.
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Default Django authentication backend
+    'bbq_gmbh_app.auth_backends.CustomAuthBackend',  # Path to your custom authentication backend
+    
+]
+
 SESSION_COOKIE_AGE = 1800 # 30 minutes
 
 ######################################### backend #########################################
