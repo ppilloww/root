@@ -27,7 +27,7 @@ class Mitarbeiter(models.Model):
     position = models.CharField(max_length=255, blank=True)
     gehalt = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     hr_tag = models.BooleanField(default=False)
-    passwort = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
     admin_tag = models.BooleanField(default=False)
     urlaubstage = models.IntegerField()
     wochenstundensatz = models.IntegerField()

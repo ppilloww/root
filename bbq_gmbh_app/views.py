@@ -29,50 +29,52 @@ def profile(request):
 
 ######################################### authentcation #########################################
 
+# def login_view(request):
+#     if request.method == 'POST':
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+
+#         # Authenticate user
+#         user = authenticate(request, email=email, passwort=password)
+
+#         if user is not None:
+#             if user.is_active:
+#                 login(request, user)
+#                 request.session['user_role'] = user.role
+#                 return JsonResponse({'status': 'success', 'user_role': user.role}, status=200)
+#             else:
+#                 return JsonResponse({'status': 'inactive'}, status=401)
+#         else:
+#             return JsonResponse({'status': 'invalid'}, status=401)
+
+#     # Handle GET request (if needed)
+#     return render(request, "signinEn.html")
+
+
+
 def login_view(request):
     if request.method == 'POST':
+        # Get email and password from POST data
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        # Authenticate user
-        user = authenticate(request, email=email, passwort=password)
-
-        if user is not None:
-            if user.is_active:
-                login(request, user)
+        # Perform authentication
+        try:
+            user = Mitarbeiter.objects.get(email=email, password=password)
+            if user:
+                request.session['user_id'] = user.id
                 request.session['user_role'] = user.role
-                return JsonResponse({'status': 'success', 'user_role': user.role}, status=200)
-            else:
-                return JsonResponse({'status': 'inactive'}, status=401)
-        else:
+                print("User ID:", user.id)
+                print("User role:", request.session['user_role'])
+                return JsonResponse({'status': 'success'}, status=200)
+        except Mitarbeiter.DoesNotExist:
             return JsonResponse({'status': 'invalid'}, status=401)
 
-    # Handle GET request (if needed)
     return render(request, "signinEn.html")
 
 def get_user_role(request):
     user_role = request.session.get('user_role', None)
     return JsonResponse({'user_role': user_role})
-
-# def login_view(request):
-#     if request.method == 'POST':
-#         # Get email and password from POST data
-#         email = request.POST.get('email')
-#         password = request.POST.get('password')
-
-#         # Perform authentication
-#         try:
-#             user = Mitarbeiter.objects.get(email=email, passwort=password)
-#             if user:
-#                 request.session['user_id'] = user.id
-#                 request.session['user_role'] = 'hr' if user.hr_tag else 'admin' if user.admin_tag else 'ma'
-#                 print("User ID:", user.id)
-#                 print("User role:", request.session['user_role'])
-#                 return JsonResponse({'status': 'success'}, status=200)
-#         except Mitarbeiter.DoesNotExist:
-#             return JsonResponse({'status': 'invalid'}, status=401)
-
-#     return render(request, "signinEn.html")
 
 
 ######################################### authentcation #########################################
