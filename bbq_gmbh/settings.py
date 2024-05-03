@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-h0erxc9)5%h)3eo(qwcd@!s4zgcusnn4lr7_m6ts^p0g-(d9l*
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost','127.0.0.1'
+    'localhost',
+    '127.0.0.1',
 ]
 
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bbq_gmbh_app',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'bbq_gmbh.urls'
@@ -118,16 +121,30 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'static/' 
 
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'static',
+STATICFILES_DIRS = [
+   BASE_DIR / 'bbq_gmbh_app' / 'statics',
+]
 
-# ]
-
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+######################################### backend #########################################
+
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend',  # Default Django authentication backend
+#     'bbq_gmbh_app.auth_backends.CustomAuthBackend',  # Path to your custom authentication backend
+    
+# ]
+
+SESSION_COOKIE_AGE = 1800 # 30 minutes
+
+
+
+######################################### backend #########################################

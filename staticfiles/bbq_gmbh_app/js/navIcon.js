@@ -1,48 +1,67 @@
-// Icon byUsername
-var user = {
-    tag: 'admin' // this could be 'admin', 'hr', 'ma'
-};
+// fetch user tag
+fetch('/get_user_role/')
+.then(response => response.json())
+.then(data => {
+    if (data.user_role) {
 
-// droptown by ID
-var dropdownItem = document.getElementById('user');
+        // Icon byUsername
+        var user = {
+            tag: data.user_role // this could be 'admin', 'hr', 'ma'
+        };
 
-// Create an icon element
-var icon = document.createElement('i');
-icon.style.marginRight = '5px'; // Add some space between the icon and the text
+        // droptown by ID
+        var dropdownItem = document.getElementById('user');
 
-// logic
-if (user.tag === 'admin') {
-    icon.className = 'fa-solid fa-user-plus';
-} else if (user.tag === 'hr') {
-    icon.className = 'fa-solid fa-user-tie';
-} else if (user.tag === 'ma') {
-    icon.className = 'fa-solid fa-user';
-}
+        // Create an icon element
+        var icon = document.createElement('i');
+        icon.style.marginRight = '5px'; // Add some space between the icon and the text
 
-// Add icon to dropdown item
-dropdownItem.prepend(icon);
+        // logic
+        if (user.tag === 'admin') {
+            icon.className = 'fa-solid fa-user-plus text-danger';
+        } else if (user.tag === 'hr') {
+            icon.className = 'fa-solid fa-user-tie text-warning';
+        } else {
+            icon.className = 'fa-solid fa-user text-primary';
+        }
 
-// show only link by userId
-document.addEventListener('DOMContentLoaded', function() {
-    var navbar = document.querySelector('.navbar-nav.ms-auto');
+        // Add icon to dropdown item
+        dropdownItem.prepend(icon);
 
-    if (user.tag === "admin" || user.tag === "hr") {
-        // Create new nav item and link
-        var newItem = document.createElement('li');
-        newItem.className = 'nav-item';
+        // show only link by userId
+        //console.log("Script started");
 
-        var newLink = document.createElement('a');
-        newLink.className = 'nav-link';
-        newLink.href = 'employeeManagementEn.html';
-        newLink.textContent = 'Employee management';
-
-        // Append new link to new item
-        newItem.appendChild(newLink);
-
-        // Find the position where the new item should be inserted
-        var refItem = document.querySelector('.navbar-nav.ms-auto .nav-item.dropdown');
-
-        // Insert the new item before the reference item
-        navbar.insertBefore(newItem, refItem);
+        if (document.readyState === "loading") {  // Loading hasn't finished yet
+            document.addEventListener("DOMContentLoaded", executeMyCode);
+        } else {  // `DOMContentLoaded` has already fired
+            //console.log("DOMContentLoaded event already fired");
+            executeMyCode();
+        }
+        
+        function executeMyCode() {
+            var navbar = document.querySelector('.navbar-nav.ms-auto');
+        
+            if (user.tag === "admin" || user.tag === "hr") {
+                // Create new nav item and link
+                var employeeManagementUrl = document.body.dataset.employeeManagementUrl;
+                var newItem = document.createElement('li');
+                newItem.className = 'nav-item';
+        
+                var newLink = document.createElement('a');
+                newLink.className = 'nav-link';
+                newLink.href = employeeManagementUrl;
+                newLink.textContent = 'Employee management';
+        
+                // Append new link to new item
+                newItem.appendChild(newLink);
+        
+                // Find the position where the new item should be inserted
+                var refItem = document.querySelector('.navbar-nav.ms-auto .nav-item:nth-last-child(2)');
+        
+                // Insert the new item before the reference item
+                navbar.insertBefore(newItem, refItem);
+            }
+        }
+        
     }
 });

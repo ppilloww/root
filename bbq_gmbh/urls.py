@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from bbq_gmbh_app.views import *
 
 # Administrationsbereich von Django, kann als url/admin zugegriffen werden
@@ -28,5 +28,7 @@ urlpatterns = [
     path('employeeManagement/', employeeManagement, name='employeeManagement'),
     path('profile/', profile, name='profile'),
     path('checkHolidays/', checkHolidays, name='checkHolidays'),
+    path('login_view/', login_view, name='login_view'),
+    path('get_user_role/', get_user_role, name='get_user_role'),
 ]
 

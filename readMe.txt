@@ -24,3 +24,7 @@ python manage.py makemigrations
 
 //SQL erstellen step 2/2
 python manage.py migrate
+
+//  password hashing and salting.  {% csrf_token %} inside your form
+This is a security measure that protects against cross-site request forgery attacks. Django will not process a form submission without a valid CSRF token.
+

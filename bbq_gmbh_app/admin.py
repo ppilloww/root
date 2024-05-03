@@ -4,7 +4,7 @@ from .models import Adresse, Mitarbeiter, Abteilung, Arbeitsstunden, Urlaub, Abt
 
 
 ######################################### Database operations #########################################
-
+ 
 admin.site.register(Adresse)
 admin.site.register(Mitarbeiter)
 admin.site.register(Abteilung)

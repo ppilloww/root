@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -26,7 +27,7 @@ class Mitarbeiter(models.Model):
     position = models.CharField(max_length=255, blank=True)
     gehalt = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     hr_tag = models.BooleanField(default=False)
-    passwort = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
     admin_tag = models.BooleanField(default=False)
     urlaubstage = models.IntegerField()
     wochenstundensatz = models.IntegerField()
@@ -34,6 +35,22 @@ class Mitarbeiter(models.Model):
     geschlecht = models.CharField(max_length=1, choices=[('M', 'Männlich'), ('F', 'Weiblich')])
     quartalueberstunden = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     jahresueberstunden = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
+    is_active = models.BooleanField(default=True)
+    last_login = models.DateTimeField(default=timezone.now)
+    is_staff = models.BooleanField(default=False)
+
+    ROLE_CHOICES = [
+        ('admin', 'Admin'),
+        ('hr', 'HR'),
+        ('user', 'User'),
+    ]
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
+
+    def has_module_perms(self, app_label):
+        return self.is_staff
+
+    def get_username(self):
+        return self.email
 
     def __str__(self):
         return f"{self.vorname} {self.nachname}"
