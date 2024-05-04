@@ -25,6 +25,9 @@ def employeeManagement(request):
 def profile(request):
     return render(request, 'profileEn.html')
 
+def addUser(request):
+    return render(request, 'addUser.html')
+
 
 
 ######################################### authentcation #########################################
@@ -64,7 +67,7 @@ def login_view(request):
             if user:
                 request.session['user_id'] = user.id
                 request.session['user_role'] = user.role
-                print("User ID:", user.id)
+                print("User ID:", 'user_id')
                 print("User role:", request.session['user_role'])
                 return JsonResponse({'status': 'success'}, status=200)
         except Mitarbeiter.DoesNotExist:
@@ -76,6 +79,14 @@ def get_user_role(request):
     user_role = request.session.get('user_role', None)
     return JsonResponse({'user_role': user_role})
 
+def user_view(request):
+    user_id = request.session.get('user_id', None)
+    print("User_view_id:", user_id)
+    if user_id is not None:
+        print("User_view:", user_id)
+        employees = Mitarbeiter.objects.all()
+        return JsonResponse ({'employees': employees})
+    return JsonResponse({'error': 'User not found'}, status=404)
 
 ######################################### authentcation #########################################
 

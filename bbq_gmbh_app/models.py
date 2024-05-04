@@ -22,6 +22,8 @@ class Mitarbeiter(models.Model):
     vorgesetzter = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
     vorname = models.CharField(max_length=255)
     nachname = models.CharField(max_length=255)
+    # first_name = models.CharField(max_length=255)
+    # last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     geburtsdatum = models.DateField()
     position = models.CharField(max_length=255, blank=True)
@@ -46,11 +48,14 @@ class Mitarbeiter(models.Model):
     ]
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
 
-    def has_module_perms(self, app_label):
-        return self.is_staff
+    # USERNAME_FIELD = 'email'
+    # REQUIRED_FIELDS = ['first_name', 'last_name']  # add other fields that you want to prompt for when creating a user interactively
 
-    def get_username(self):
-        return self.email
+    # def has_module_perms(self, app_label):
+    #     return self.is_staff
+
+    # def get_username(self):
+    #     return self.email
 
     def __str__(self):
         return f"{self.vorname} {self.nachname}"

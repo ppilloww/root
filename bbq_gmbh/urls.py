@@ -30,5 +30,7 @@ urlpatterns = [
     path('checkHolidays/', checkHolidays, name='checkHolidays'),
     path('login_view/', login_view, name='login_view'),
     path('get_user_role/', get_user_role, name='get_user_role'),
+    path('user_view/', user_view, name='user_view'),
+    path('addUser/', addUser, name='addUser'),
 ]
 
