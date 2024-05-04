@@ -34,13 +34,13 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'bbq_gmbh_app.apps.BbqGmbhAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bbq_gmbh_app',
     'corsheaders',
 ]
 
@@ -124,7 +124,7 @@ USE_TZ = True
 STATIC_URL = 'static/' 
 
 STATICFILES_DIRS = [
-   BASE_DIR / 'bbq_gmbh_app' / 'statics',
+    os.path.join(BASE_DIR, 'bbq_gmbh_app', 'static'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -142,6 +142,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     'bbq_gmbh_app.auth_backends.CustomAuthBackend',  # Path to your custom authentication backend
     
 # ]
+
+# AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
 
 SESSION_COOKIE_AGE = 1800 # 30 minutes
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.hashers import make_password
 
 # Create your models here.
 
@@ -22,13 +23,16 @@ class Mitarbeiter(models.Model):
     vorgesetzter = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
     vorname = models.CharField(max_length=255)
     nachname = models.CharField(max_length=255)
+    # first_name = models.CharField(max_length=255)
+    # last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     geburtsdatum = models.DateField()
     position = models.CharField(max_length=255, blank=True)
     gehalt = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    hr_tag = models.BooleanField(default=False)
+    # hr_tag = models.BooleanField(default=False)
+    # admin_tag = models.BooleanField(default=False)
     password = models.CharField(max_length=255)
-    admin_tag = models.BooleanField(default=False)
+    password_hashed = models.CharField(max_length=255, default='defaultpassword')
     urlaubstage = models.IntegerField()
     wochenstundensatz = models.IntegerField()
     ueberstunden = models.DecimalField(max_digits=5, decimal_places=2, blank=-True, null=True)
@@ -46,11 +50,18 @@ class Mitarbeiter(models.Model):
     ]
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
 
-    def has_module_perms(self, app_label):
-        return self.is_staff
+    def save(self, *args, **kwargs):
+        self.password_hashed = make_password(self.password_hashed)
+        super().save(*args, **kwargs)
 
-    def get_username(self):
-        return self.email
+    # USERNAME_FIELD = 'email'
+    # REQUIRED_FIELDS = ['first_name', 'last_name']  # add other fields that you want to prompt for when creating a user interactively
+
+    # def has_module_perms(self, app_label):
+    #     return self.is_staff
+
+    # def get_username(self):
+    #     return self.email
 
     def __str__(self):
         return f"{self.vorname} {self.nachname}"
