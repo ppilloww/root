@@ -34,13 +34,13 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'bbq_gmbh_app.apps.BbqGmbhAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bbq_gmbh_app',
     'corsheaders',
 ]
 
@@ -124,7 +124,7 @@ USE_TZ = True
 STATIC_URL = 'static/' 
 
 STATICFILES_DIRS = [
-   BASE_DIR / 'bbq_gmbh_app' / 'statics',
+    os.path.join(BASE_DIR, 'bbq_gmbh_app', 'static'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

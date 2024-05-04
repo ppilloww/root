@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from datetime import date, datetime
 import holidays
 from .models import Adresse, Mitarbeiter, Abteilungsleiter, Abteilung
@@ -67,7 +67,7 @@ def login_view(request):
             if user:
                 request.session['user_id'] = user.id
                 request.session['user_role'] = user.role
-                print("User ID:", 'user_id')
+                print("User ID:", request.session['user_id'])
                 print("User role:", request.session['user_role'])
                 return JsonResponse({'status': 'success'}, status=200)
         except Mitarbeiter.DoesNotExist:
@@ -85,7 +85,9 @@ def user_view(request):
     if user_id is not None:
         print("User_view:", user_id)
         employees = Mitarbeiter.objects.all()
-        return JsonResponse ({'employees': employees})
+        print(employees)
+        # return render(request, "employeeManagementEn.html", {'employees': employees})
+        return HttpResponse("employeeManagementEn.html", {'employees': employees})
     return JsonResponse({'error': 'User not found'}, status=404)
 
 ######################################### authentcation #########################################

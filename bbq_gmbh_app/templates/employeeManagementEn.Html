@@ -72,29 +72,34 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                        {% for employee in employees %}
-                                        <tr>
-                                            <td>{{ employee.id }}</td>
-                                            <td>{{ employee.vorname }}</td>
-                                            <td>{{ employee.nachname }}</td>
-                                            <td>{{ employee.geburtsdatum }}</td>
-                                            <td>{{ employee.geschlecht }}</td>
-                                            <td>{{ employee.adresse.land }}</td>
-                                            <!-- rest of the data -->^
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        More Info
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#">Address: {{ employee.address }}</a>
-                                                        <a class="dropdown-item" href="#">Phone: {{ employee.phone }}</a>
-                                                        <!-- Add more fields as needed -->
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
+                                        {% if employees %}
+                                            {% for employee in employees %}
+                                                <tr>
+                                                    <td>{{ employee.id }}</td>
+                                                    <td>{{ employee.vorname }}</td>
+                                                    <td>{{ employee.nachname }}</td>
+                                                    <td>{{ employee.geburtsdatum }}</td>
+                                                    <td>{{ employee.geschlecht }}</td>
+                                                    <td>{{ employee.adresse.land }}</td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                More Info
+                                                            </button>
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                <a class="dropdown-item" href="#">Address: {{ employee.adresse }}</a>
+                                                                <a class="dropdown-item" href="#">Phone: {{ employee.telefon }}</a>
+                                                                <!-- Add more fields as needed -->
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="7">No data available</td>
+                                            </tr>
+                                        {% endif %}
                                     </tbody>
                                   </table>
                                 </div>
@@ -108,13 +113,6 @@
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; BBQ GmbH 2024</div></footer>
         
-        <script>
-            window.onload = function() {
-                fetch('/user_view/')
-                    .then(response => response.json())
-                    .then(data => console.log(data));
-            }
-        </script>
 
         <!-- Core theme JS-->
         <script src="{% static "bbq_gmbh_app/js/scripts.js" %}"></script>

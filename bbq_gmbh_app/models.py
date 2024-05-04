@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.hashers import make_password
 
 # Create your models here.
 
@@ -31,6 +32,7 @@ class Mitarbeiter(models.Model):
     # hr_tag = models.BooleanField(default=False)
     # admin_tag = models.BooleanField(default=False)
     password = models.CharField(max_length=255)
+    password_hashed = models.CharField(max_length=255, default='defaultpassword')
     urlaubstage = models.IntegerField()
     wochenstundensatz = models.IntegerField()
     ueberstunden = models.DecimalField(max_digits=5, decimal_places=2, blank=-True, null=True)
@@ -47,6 +49,10 @@ class Mitarbeiter(models.Model):
         ('user', 'User'),
     ]
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
+
+    def save(self, *args, **kwargs):
+        self.password_hashed = make_password(self.password_hashed)
+        super().save(*args, **kwargs)
 
     # USERNAME_FIELD = 'email'
     # REQUIRED_FIELDS = ['first_name', 'last_name']  # add other fields that you want to prompt for when creating a user interactively
