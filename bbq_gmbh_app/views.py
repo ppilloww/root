@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from datetime import date, datetime
 import holidays
-from .models import Adresse, Mitarbeiter, Abteilungsleiter, Abteilung
+from bbq_gmbh_app.models import Adresse, Mitarbeiter, Abteilungsleiter, Abteilung
 from django.contrib.auth import authenticate, login
 
 
@@ -20,7 +20,11 @@ def changePassword(request):
     return render(request, 'pwEn.html')
 
 def employeeManagement(request):
-    return render(request, 'employeeManagementEn.html')
+    user_view_response = user_view(request)
+    if 'error' in user_view_response:
+        return JsonResponse({'error': 'User not found'}, status=404)
+    employees = user_view_response['employees']
+    return render(request, 'employeeManagementEn.html', {'employees': employees})
 
 def profile(request):
     return render(request, 'profileEn.html')
@@ -67,8 +71,10 @@ def login_view(request):
             if user:
                 request.session['user_id'] = user.id
                 request.session['user_role'] = user.role
-                print("User ID:", request.session['user_id'])
-                print("User role:", request.session['user_role'])
+                # print("User ID:", request.session['user_id'])
+                # print("User role:", request.session['user_role'])
+                uno = Mitarbeiter.objects.all()
+                print(uno)
                 return JsonResponse({'status': 'success'}, status=200)
         except Mitarbeiter.DoesNotExist:
             return JsonResponse({'status': 'invalid'}, status=401)
@@ -81,13 +87,13 @@ def get_user_role(request):
 
 def user_view(request):
     user_id = request.session.get('user_id', None)
-    print("User_view_id:", user_id)
+    # print("User_view_id:", user_id)
     if user_id is not None:
-        print("User_view:", user_id)
+        # print("User_view:", user_id)
         employees = Mitarbeiter.objects.all()
-        print(employees)
+        # print(employees)
         # return render(request, "employeeManagementEn.html", {'employees': employees})
-        return HttpResponse("employeeManagementEn.html", {'employees': employees})
+        return {'employees': employees}
     return JsonResponse({'error': 'User not found'}, status=404)
 
 ######################################### authentcation #########################################

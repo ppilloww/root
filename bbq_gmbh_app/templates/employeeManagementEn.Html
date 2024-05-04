@@ -60,7 +60,7 @@
                                 <p></p>
                                 
                                 <div class="table-responsive">
-                                  <table class="table table-bordered">
+                                  <table class="table table-hover">
                                     <thead>
                                       <tr>
                                         <th>Employee Id</th>
@@ -81,18 +81,6 @@
                                                     <td>{{ employee.geburtsdatum }}</td>
                                                     <td>{{ employee.geschlecht }}</td>
                                                     <td>{{ employee.adresse.land }}</td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                More Info
-                                                            </button>
-                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                <a class="dropdown-item" href="#">Address: {{ employee.adresse }}</a>
-                                                                <a class="dropdown-item" href="#">Phone: {{ employee.telefon }}</a>
-                                                                <!-- Add more fields as needed -->
-                                                            </div>
-                                                        </div>
-                                                    </td>
                                                 </tr>
                                             {% endfor %}
                                         {% else %}
