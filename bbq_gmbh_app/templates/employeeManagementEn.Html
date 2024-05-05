@@ -13,6 +13,7 @@
         <script src="https://kit.fontawesome.com/d670f74c3b.js" crossorigin="anonymous"></script>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'bbq_gmbh_app/css/styles.css'%}" rel="stylesheet" />
+        <link href="{% static 'bbq_gmbh_app/css/myStyles.css'%}" rel="stylesheet" />
         {% comment %} <link href="{% static 'bbq_gmbh_app/css/myStyles.css'%}" rel="stylesheet" />     {% endcomment %}
         <!-- log for console -->
         <!-- <script src="js/log.js"></script> -->
@@ -55,7 +56,10 @@
                     <div class="card" id="myElement">
                         <div class="card-body">
                             <div class="container mt-3">
-                                <h2>Employee Management</h2>
+                                <div class="header_text">
+                                    <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> Employee Management</p>
+                                    <p class="link">Create new employee for EasyTimer</p>
+                                </div>
                                 <div style="text-align: right;">
                                     <a href="{% url 'addUser' %}" class="btn btn-primary">add User</a>
                                 </div>
@@ -99,6 +103,9 @@
                 </div>
             </div>
         </header>
+
+        <!-- Contact-->
+        {% include '_contact.html' %}
         
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; BBQ GmbH 2024</div></footer>
