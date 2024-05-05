@@ -32,5 +32,6 @@ urlpatterns = [
     path('get_user_role/', get_user_role, name='get_user_role'),
     path('user_view/', user_view, name='user_view'),
     path('addUser/', addUser, name='addUser'),
+    path('logout_view/', logout_view, name='logout'),
 ]
 

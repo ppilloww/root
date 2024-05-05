@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 from datetime import date, datetime
 import holidays
@@ -83,18 +83,14 @@ def login_view(request):
 
 def get_user_role(request):
     user_role = request.session.get('user_role', None)
+    if user_role is None:
+        return JsonResponse({'error': 'User not found'}, status=404)
     return JsonResponse({'user_role': user_role})
 
-def user_view(request):
-    user_id = request.session.get('user_id', None)
-    # print("User_view_id:", user_id)
-    if user_id is not None:
-        # print("User_view:", user_id)
-        employees = Mitarbeiter.objects.all()
-        # print(employees)
-        # return render(request, "employeeManagementEn.html", {'employees': employees})
-        return {'employees': employees}
-    return JsonResponse({'error': 'User not found'}, status=404)
+# def log out and flush session
+def logout_view(request):
+    request.session.flush()
+    return redirect('index')
 
 ######################################### authentcation #########################################
 
@@ -108,6 +104,18 @@ def checkHolidays(request):
     is_sunday = today.weekday() == 6 #6 = sunday
     context = {'non_working_day': False } #is_public_holiday or is_sunday
     return JsonResponse(context)
+
+# get all employees
+def user_view(request):
+    user_id = request.session.get('user_id', None)
+    # print("User_view_id:", user_id)
+    if user_id is not None:
+        # print("User_view:", user_id)
+        employees = Mitarbeiter.objects.all()
+        # print(employees)
+        # return render(request, "employeeManagementEn.html", {'employees': employees})
+        return {'employees': employees}
+    return JsonResponse({'error': 'User not found'}, status=404)
 
 ######################################### Logics #########################################
 

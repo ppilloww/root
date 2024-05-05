@@ -50,12 +50,13 @@ class Mitarbeiter(models.Model):
     ]
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
 
+    # USERNAME_FIELD = 'email'
+    # REQUIRED_FIELDS = ['first_name', 'last_name']  # prompts Superuser management fields
+
     def save(self, *args, **kwargs):
         self.password_hashed = make_password(self.password_hashed)
         super().save(*args, **kwargs)
 
-    # USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = ['first_name', 'last_name']  # add other fields that you want to prompt for when creating a user interactively
 
     # def has_module_perms(self, app_label):
     #     return self.is_staff
