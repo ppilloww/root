@@ -73,8 +73,8 @@ def login_view(request):
                 request.session['user_role'] = user.role
                 # print("User ID:", request.session['user_id'])
                 # print("User role:", request.session['user_role'])
-                uno = Mitarbeiter.objects.all()
-                print(uno)
+                # uno = Mitarbeiter.objects.get()
+                # print(uno)
                 return JsonResponse({'status': 'success'}, status=200)
         except Mitarbeiter.DoesNotExist:
             return JsonResponse({'status': 'invalid'}, status=401)
@@ -116,6 +116,8 @@ def user_view(request):
         # return render(request, "employeeManagementEn.html", {'employees': employees})
         return {'employees': employees}
     return JsonResponse({'error': 'User not found'}, status=404)
+
+# get user information
 
 ######################################### Logics #########################################
 
