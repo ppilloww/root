@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponse
 from datetime import date, datetime
 import holidays
 from bbq_gmbh_app.models import Adresse, Mitarbeiter, Abteilungsleiter, Abteilung
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
 # Create your views here.
