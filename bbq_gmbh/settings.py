@@ -143,7 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
     
 # ]
 
-# AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
+AUTH_USER_MODEL = 'bbq_gmbh_app.CustomUser'
 
 SESSION_COOKIE_AGE = 1800 # 30 minutes
 
