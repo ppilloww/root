@@ -86,6 +86,8 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'bbq_gmbh_app.CustomUser'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -137,13 +139,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ######################################### backend #########################################
 
-# AUTHENTICATION_BACKENDS = [
-#     'django.contrib.auth.backends.ModelBackend',  # Default Django authentication backend
-#     'bbq_gmbh_app.auth_backends.CustomAuthBackend',  # Path to your custom authentication backend
-    
-# ]
-
-AUTH_USER_MODEL = 'bbq_gmbh_app.CustomUser'
 
 SESSION_COOKIE_AGE = 1800 # 30 minutes
 

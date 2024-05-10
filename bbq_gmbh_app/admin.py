@@ -7,6 +7,6 @@ from .models import CustomUser
 
 ######################################### Database operations #########################################
  
-
+admin.site.register(CustomUser)
 
 ######################################### Database operations #########################################
