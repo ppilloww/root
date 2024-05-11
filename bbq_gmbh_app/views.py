@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from bbq_gmbh_app.forms import CreateUserForm
 from bbq_gmbh_app.models import CustomUser
@@ -39,46 +39,49 @@ def home(request):
 def changePassword(request):
     return render(request, 'pwEn.html')
 
+# def employeeManagement(request):
+#     user_view_response = user_view(request)
+#     if 'error' in user_view_response:
+#         return JsonResponse({'error': 'User not found'})
+#     employees = user_view_response['employees']
+#     return render(request, 'employeeManagementEn.html', {'employees': employees})
 def employeeManagement(request):
-    # user_view_response = user_view(request)
-    # if 'error' in user_view_response:
-    #     return JsonResponse({'error': 'User not found'})
-    # employees = user_view_response['employees']
-    # return render(request, 'employeeManagementEn.html', {'employees': employees})
-    return render(request, 'employeeManagementEn.html')
+    user_id = request.session.get('user_id', None)
+    if user_id is None:
+        return JsonResponse({'error': 'User not found'})
+    employees = CustomUser.objects.all()
+    return render(request, 'employeeManagementEn.html', {'employees': employees})
 
 def profile(request):
     return render(request, 'profileEn.html')
 
 def addUser(request):
     if request.method == 'POST':
-        print(request.POST)
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            print(user)
+            form.save()
             return redirect('employeeManagement')
-        else:
-            print(form.errors)
     else:
         form = CreateUserForm()
     return render(request, 'addUser.html', {'form': form})
+
+def bye(request):
+    return render(request, 'bye.html')
 
 
 
 ######################################### authentcation #########################################
 
 def get_user_role(request):
-    # user_role = request.session.get('user_role', None)
-    user_role = 'admin'
+    user_role = request.session.get('user_role', None)
     if user_role is None:
         return JsonResponse({'error': 'User not found'}, status=404)
     return JsonResponse({'user_role': user_role})
 
 # def log out and flush session
 def logout_view(request):
-    request.session.flush()
-    return redirect('index')
+    logout(request)
+    return redirect('bye')
 
 ######################################### authentcation #########################################
 
@@ -94,16 +97,16 @@ def checkHolidays(request):
     return JsonResponse(context)
 
 # get all employees
-def user_view(request):
-    user_id = request.session.get('user_id', None)
-    # print("User_view_id:", user_id)
-    if user_id is not None:
-        # print("User_view:", user_id)
-        employees = CustomUser.objects.all()
-        # print(employees)
-        # return render(request, "employeeManagementEn.html", {'employees': employees})
-        return {'employees': employees}
-    return JsonResponse({'error': 'User not found'})
+# def user_view(request):
+#     user_id = request.session.get('user_id', None)
+#     print("User_view_id:", user_id)
+#     if user_id is not None:
+#         # print("User_view:", user_id)
+#         employees = CustomUser.objects.all()
+#         print(employees)
+#         # return render(request, "employeeManagementEn.html", {'employees': employees})
+#         return {'employees': employees}
+#     return JsonResponse({'error': 'User not found'})
 
 # get user information
 

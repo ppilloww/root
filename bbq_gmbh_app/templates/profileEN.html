@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="card-body col-md-8">
                                     {% if request.user.is_authenticated %}
-                                        <h4 class="card-title">{{ request.user.vorname }} {{ user.nachname }}</h4>
+                                        <h4 class="card-title">{{ request.user.first_name }} {{ request.user.last_name }}</h4>
                                         <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
                                     {% else %}
                                         <h4 class="card-title">Guest</h4>

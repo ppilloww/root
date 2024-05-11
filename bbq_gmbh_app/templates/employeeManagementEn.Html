@@ -78,15 +78,15 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                        {% if employees %}
+                                        {% if request.user.is_authenticated %}
                                             {% for employee in employees %}
                                                 <tr>
                                                     <td>{{ employee.id }}</td>
-                                                    <td>{{ employee.vorname }}</td>
-                                                    <td>{{ employee.nachname }}</td>
-                                                    <td>{{ employee.geburtsdatum }}</td>
-                                                    <td>{{ employee.geschlecht }}</td>
-                                                    <td>{{ employee.adresse.land }}</td>
+                                                    <td>{{ employee.first_name }}</td>
+                                                    <td>{{ employee.last_name }}</td>
+                                                    <td>{{ employee.birthday }}</td>
+                                                    <td>{{ employee.gender }}</td>
+                                                    <td>{{ employee.adresse.state }}</td>
                                                 </tr>
                                             {% endfor %}
                                         {% else %}

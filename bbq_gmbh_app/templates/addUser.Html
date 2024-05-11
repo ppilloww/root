@@ -87,24 +87,21 @@
                                     <input type="password" class="form-control" id="password2" name="password2" value="{{ form.password2.value|default:'' }}" required>
                                   </div>                                  
                                   <div class="col-6">
-                                    <label for="inputAddress" class="form-label">Address</label>
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="Main St 1234">
+                                    <label for="adresse" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Main St 1234" value="{{ form.adresse.street.value|default:'' }}" required>
                                   </div>
                                   <br>
                                   <div class="col-md-6">
-                                    <label for="inputCity" class="form-label">City</label>
-                                    <input type="text" class="form-control" id="inputCity">
+                                    <label for="adresse" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="adresse" value="{{ form.adresse.city.value|default:'' }}" required>
                                   </div>
                                   <div class="col-md-4">
-                                    <label for="inputState" class="form-label">State</label>
-                                    <select id="inputState" class="form-select">
-                                      <option selected>Choose...</option>
-                                      <option>...</option>
-                                    </select>
+                                    <label for="adresse" class="form-label">State</label>
+                                    <input type="text" class="form-control" id="adresse" value="{{ form.adresse.state.value|default:'' }}" required>
                                   </div>
                                   <div class="col-md-2">
-                                    <label for="inputZip" class="form-label">Zip</label>
-                                    <input type="text" class="form-control" id="inputZip">
+                                    <label for="adresse" class="form-label">Zip</label>
+                                    <input type="text" class="form-control" id="adresse" value="{{ form.adresse.zip_code.value|default:'' }}" required>
                                   </div>
 
                                   <div class="col-md-2">
@@ -112,9 +109,11 @@
                                     <input type="date" class="form-control" id="birthday" name="birthday" value="{{ form.birthday.value|date:'Y-m-d' }}" required>
                                   </div>
                                   <div class="col-md-2">
-                                    <label for="inputGender" class="form-label">Gender</label>
-                                    <select id="inputGender" class="form-select">
-                                      <option selected>Choose...</option>
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <select id="gender" class="form-select" name="gender" required>
+                                      {% for value, display in form.fields.gender.choices %}
+                                        <option value="{{ value }}">{{ display }}</option>
+                                      {% endfor %}
                                     </select>
                                   </div>
                                   <div class="col-md-6"></div>
@@ -142,8 +141,12 @@
                                     <input type="number" min="24" max="40" class="form-control" id="inputVacation">
                                   </div>
                                   <div class="col-md-2">
-                                    <label for="inputHourlyRateWeek" class="form-label">HR/W</label>
-                                    <input type="number" min="30" max="40" class="form-control" id="inputHourlyRateWeek">
+                                    <label for="week_hours" class="form-label">HR/W</label>
+                                    <select id="week_hours" class="form-select" name="week_hours" required>
+                                      {% for value, display in form.fields.week_hours.choices %}
+                                        <option value="{{ value }}">{{ display }}</option>
+                                      {% endfor %}
+                                    </select>
                                   </div>
                                   <div class="col-md-2">
                                     <label for="inputRole" class="form-label">Role</label>
@@ -163,10 +166,19 @@
                       </div>
                 </div>
                 <div class="alert_message"></div>
-                <div class="card" style="display: none;">
-                    <div class="card-body">
-                    <div class="text-center" id="message"></div>
+                {% if form.errors %}
+                <div class="card" style="display: block;">
+                  <div class="card-body">
+                    <div class="text-center" id="message">
+                      {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                          <p>{{ field }}: {{ error }}</p>
+                        {% endfor %}
+                      {% endfor %}
+                    </div>
+                  </div>
                 </div>
+              {% endif %}
             </div>
             </div>
         </header>
@@ -177,6 +189,25 @@
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; BBQ GmbH 2024</div></footer>
         
+        <!-- error message-->
+        <script>
+          let errors = JSON.parse('{{ form.errors|escapejs|safe }}');
+          document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting
+        
+            if (Object.keys(errors).length > 0) {
+              document.querySelector('.card').style.display = 'block';
+              
+              let message = '';
+              for (let field in errors) {
+                message += field + ': ' + errors[field].join(', ') + '<br>';
+              }
+              document.getElementById('message').innerHTML = message;
+            } else {
+              document.querySelector('form').submit();
+            }
+          });
+        </script>
 
         <!-- Core theme JS-->
         <script src="{% static "bbq_gmbh_app/js/scripts.js" %}"></script>
