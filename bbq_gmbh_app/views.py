@@ -5,22 +5,22 @@ import holidays
 
 # Create your views here.
 def index(request):
-    return render(request, 'indexEn.html')
+    return render(request, 'bbq_gmbh_app/indexEn.html')
 
 def signin(request):
-    return render(request, 'signinEn.html')
+    return render(request, 'bbq_gmbh_app/signinEn.html')
 
 def home(request):
-    return render(request, 'homeEnHr.html')
+    return render(request, 'bbq_gmbh_app/homeEnHr.html')
 
 def changePassword(request):
-    return render(request, 'pwEn.html')
+    return render(request, 'bbq_gmbh_app/pwEn.html')
 
 def employeeManagement(request):
-    return render(request, 'employeeManagementEn.html')
+    return render(request, 'bbq_gmbh_app/employeeManagementEn.html')
 
 def profile(request):
-    return render(request, 'profileEn.html')
+    return render(request, 'bbq_gmbh_app/profileEn.html')
 
 # checkig publick holidays
 def checkHolidays(request):
