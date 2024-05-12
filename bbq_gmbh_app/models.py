@@ -34,6 +34,7 @@ class CustomUserManager(BaseUserManager):
             role=role,
             birthday=birthday,
             week_hours=week_hours,
+            gender=gender,
 
         )
         user.set_password(password) # hash
@@ -57,9 +58,7 @@ class CustomUserManager(BaseUserManager):
         user.is_staff = True
         user.save(using=self._db)
         return user
-    
-def get_default_adresse():
-    return Adresse.objects.get_or_create(street='Default Street', city='Default City', state='Default State', zip_code='Default Zip Code')[0].id
+
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
@@ -79,7 +78,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     week_hours = models.IntegerField(choices=WEEK_HOUR_CHOICES, default=35)
-    adresse = models.ForeignKey("Adresse", on_delete=models.PROTECT, default=get_default_adresse, related_name="customuser")
+    adresse = models.ForeignKey("Adresse", on_delete=models.PROTECT, related_name="customuser")
     gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female')], null=True, blank=True)
     urlaubstage = models.IntegerField(default=30, null=True, blank=True)
     job_title = models.CharField(max_length=225, null=True, blank=True)
@@ -110,10 +109,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 class Adresse(models.Model):
     street = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=10)
 
     def __str__(self):
-        return f"{self.street}, {self.city}, {self.state}, {self.zip_code}"
+        return f"{self.street}, {self.city}, {self.country}, {self.zip_code}"
 
 ######################################### Database operations #########################################
