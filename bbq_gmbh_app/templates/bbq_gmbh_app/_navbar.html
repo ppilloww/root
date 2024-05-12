@@ -9,15 +9,14 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="{% url 'home'%}">Capture Time</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 <!-- Autolink by Tag -->
-                <!-- <li class="nav-item"><a class="nav-link" href="#">link 2</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">link 3</a></li>                         -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" id="user">Dropdown</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'profile'%}"><i class="fa-solid fa-user text-primary"></i> Profile</a></li>
                         <li><a class="dropdown-item" href="{% url 'changePassword'%}"><i class="fa-solid fa-key text-primary"></i> Change Password</a></li>
-                        <li><a class="dropdown-item" href="{% url 'index'%}"><i class="fa-solid fa-right-from-bracket text-primary"></i> Logout</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout'%}"><i class="fa-solid fa-right-from-bracket text-primary"></i> Logout</a></li>
                     </ul>
                 </li>
             </ul>

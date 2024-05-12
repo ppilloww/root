@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
+from bbq_gmbh_app.forms import CreateUserForm
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from datetime import date
 import holidays
@@ -21,6 +23,16 @@ def employeeManagement(request):
 
 def profile(request):
     return render(request, 'bbq_gmbh_app/profileEn.html')
+
+def createUser(request):
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('employeeManagement')
+    else:
+        form = CreateUserForm()
+    return render(request, 'bbq_gmbh_app/createUser.html', {'form': form})
 
 # checkig publick holidays
 def checkHolidays(request):
