@@ -7,7 +7,7 @@ from .models import CustomUser, Adresse
 
 ######################################### Database operations #########################################
  
-admin.site.register(CustomUser)
-admin.site.register(Adresse)
+# admin.site.register(CustomUser)
+# admin.site.register(Adresse)
 
 ######################################### Database operations #########################################
