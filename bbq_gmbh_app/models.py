@@ -4,19 +4,15 @@ from django.db import models
 
 # Create your models here.
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name, role, birthday, week_hours, gender, password=None):
+    def create_user(self, email, first_name, last_name, birthday, gender, password=None):
         if not email:
             raise ValueError('The Email field must be set')
         if not first_name:
             raise ValueError('The First Name field must be set')
         if not last_name:
             raise ValueError('The Last Name field must be set')
-        if not role:
-            raise ValueError('The Role field must be set')
         if not birthday:
             raise ValueError('The Birthday field must be set')
-        if not week_hours:
-            raise ValueError('The Week Hours field must be set')
         if not gender:
             raise ValueError('The Gender field must be set')
         
@@ -24,9 +20,7 @@ class CustomUserManager(BaseUserManager):
             email=self.normalize_email(email),
             first_name=first_name,
             last_name=last_name,
-            role=role,
             birthday=birthday,
-            week_hours=week_hours,
             gender=gender,
 
         )
@@ -34,16 +28,14 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db) # for multiple databases
         return user
     
-    def create_superuser(self, email, first_name, last_name, role, birthday, week_hours, gender, password):
+    def create_superuser(self, email, first_name, last_name, birthday, gender, password):
         user = self.create_user(
             email=self.normalize_email(email),
             first_name=first_name,
             last_name=last_name,
-            role=role,
             birthday=birthday,
-            password=password,
             gender=gender,
-            week_hours=week_hours,
+            password=password,
         )
         user.is_superuser = True
         user.is_active = True
@@ -53,26 +45,12 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    ROLE_CHOICES = [
-        ('user', 'User'),
-        ('hr', 'HR'),
-        ('admin', 'Admin'),
-    ]
-    WEEK_HOUR_CHOICES = [
-        (30, '30'),
-        (35, '35'),
-        (40, '40'),
-    ]
         
     email = models.EmailField('email address', unique=True)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
     birthday = models.DateField()
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    week_hours = models.IntegerField(choices=WEEK_HOUR_CHOICES, default=35)
     gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female')], null=True, blank=True)
-    urlaubstage = models.IntegerField(default=30, null=True, blank=True)
-    job_title = models.CharField(max_length=50, null=True, blank=True)
 
     # required fields
     last_login = models.DateTimeField(auto_now=True)
@@ -82,7 +60,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'birthday']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'birthday', 'gender']
 
     objects = CustomUserManager()
 
