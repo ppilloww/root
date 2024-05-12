@@ -59,7 +59,7 @@ class CustomUserManager(BaseUserManager):
         return user
     
 def get_default_adresse():
-    return Adresse.objects.get_or_create(street='Default Street', city='Default City', state='Default State', zip_code='Default Zip Code')[0].id
+    return Adresse.objects.get_or_create(street='Default Street', city='Default City', zip_code='Default Zip Code')[0].id
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
@@ -110,10 +110,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 class Adresse(models.Model):
     street = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=10)
 
     def __str__(self):
-        return f"{self.street}, {self.city}, {self.state}, {self.zip_code}"
+        return f"{self.street}, {self.city}, {self.zip_code}"
 
 ######################################### Database operations #########################################

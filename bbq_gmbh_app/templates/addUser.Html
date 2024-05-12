@@ -87,21 +87,21 @@
                                     <input type="password" class="form-control" id="password2" name="password2" value="{{ form.password2.value|default:'' }}" required>
                                   </div>                                  
                                   <div class="col-6">
-                                    <label for="adresse" class="form-label">Address</label>
-                                    <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Main St 1234" value="{{ form.adresse.street.value|default:'' }}" required>
+                                    <label for="adresse.street" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="adresse.street" name="adresse.street" placeholder="Main St 1234" value="{{ form.adresse.street.value|default:'' }}" required>
                                   </div>
                                   <br>
                                   <div class="col-md-6">
-                                    <label for="adresse" class="form-label">City</label>
-                                    <input type="text" class="form-control" id="adresse" value="{{ form.adresse.city.value|default:'' }}" required>
+                                    <label for="adresse.city" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="adresse.city" name='adresse.city' value="{{ form.adresse.city.value|default:'' }}" required>
                                   </div>
                                   <div class="col-md-4">
-                                    <label for="adresse" class="form-label">State</label>
-                                    <input type="text" class="form-control" id="adresse" value="{{ form.adresse.state.value|default:'' }}" required>
+                                    <label for="adresse.country" class="form-label">Country</label>
+                                    <input type="text" class="form-control" id="adresse.country" name="adresse.country" value="{{ form.adresse.country.value|default:'' }}">
                                   </div>
                                   <div class="col-md-2">
-                                    <label for="adresse" class="form-label">Zip</label>
-                                    <input type="text" class="form-control" id="adresse" value="{{ form.adresse.zip_code.value|default:'' }}" required>
+                                    <label for="adresse.zip_code" class="form-label">Zip</label>
+                                    <input type="text" class="form-control" id="adresse.zip_code" name="adresse.zip_code" value="{{ form.adresse.zip_code.value|default:'' }}" required>
                                   </div>
 
                                   <div class="col-md-2">
