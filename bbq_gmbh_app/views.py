@@ -34,6 +34,19 @@ def createUser(request):
         form = CreateUserForm()
     return render(request, 'bbq_gmbh_app/createUser.html', {'form': form})
 
+
+def userLogout(request):
+    logout(request)
+    return redirect('index')
+
+
+
+
+
+
+
+
+
 # checkig publick holidays
 def checkHolidays(request):
     today = date.today()
