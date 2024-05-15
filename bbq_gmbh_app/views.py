@@ -58,15 +58,21 @@ def createUser(request):
         form = CreateUserForm()
     return render(request, 'bbq_gmbh_app/createUser.html', {'form': form})
 
+@login_required(login_url='signin')
+def profile(request):
+    return render(request, 'bbq_gmbh_app/profile.html')
+
 @login_required
 def get_user_role(request):
     return JsonResponse({'user_role': request.user.role})
 
+
+def logout_view(request):
+    return render(request, 'bbq_gmbh_app/bye.html')
+
 def userLogout(request):
     logout(request)
-    return redirect('index')
-
-
+    return redirect('logout_view')
 
 
 
