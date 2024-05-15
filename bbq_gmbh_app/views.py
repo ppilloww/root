@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from bbq_gmbh_app.forms import CreateUserForm
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -10,20 +11,40 @@ def index(request):
     return render(request, 'bbq_gmbh_app/indexEn.html')
 
 def signin(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # Authenticate user
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return JsonResponse({'status': 'success'}, status=200)
+            else:
+                return JsonResponse({'status': 'inactive'}, status=401)
+        else:
+            return JsonResponse({'status': 'invalid'}, status=401)
     return render(request, 'bbq_gmbh_app/signinEn.html')
 
+@login_required(login_url='signin')
 def home(request):
     return render(request, 'bbq_gmbh_app/homeEnHr.html')
 
+@login_required(login_url='signin')
 def changePassword(request):
     return render(request, 'bbq_gmbh_app/pwEn.html')
 
+@login_required(login_url='signin')
 def employeeManagement(request):
     return render(request, 'bbq_gmbh_app/employeeManagementEn.html')
 
+@login_required(login_url='signin')
 def profile(request):
     return render(request, 'bbq_gmbh_app/profileEn.html')
 
+@login_required(login_url='signin')
 def createUser(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)

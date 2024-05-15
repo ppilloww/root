@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 
 
@@ -44,7 +44,8 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+
+class CustomUser(AbstractBaseUser):
         
     email = models.EmailField('email address', unique=True)
     birthday = models.DateField()
@@ -64,23 +65,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
-    groups = models.ManyToManyField(
-        'auth.Group',
-        blank=True,
-        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
-        related_name="customuser_groups",
-        related_query_name="customuser",
-        verbose_name='groups'
-    )
 
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        blank=True,
-        help_text='Specific permissions for this user.',
-        related_name="customuser_user_permissions",
-        related_query_name="customuser",
-        verbose_name='user permissions'
-    )
 
     def __str__(self):
         return self.email
