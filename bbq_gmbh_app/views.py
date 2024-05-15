@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from bbq_gmbh_app.models import CustomUser
 from bbq_gmbh_app.forms import CreateUserForm
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -21,7 +22,8 @@ def signin(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return JsonResponse({'status': 'success'}, status=200)
+                request.session['user_role'] = user.role
+                return JsonResponse({'status': 'success', 'user_role':user.role}, status=200)
             else:
                 return JsonResponse({'status': 'inactive'}, status=401)
         else:
@@ -38,7 +40,8 @@ def changePassword(request):
 
 @login_required(login_url='signin')
 def employeeManagement(request):
-    return render(request, 'bbq_gmbh_app/employeeManagementEn.html')
+    users = CustomUser.objects.all()
+    return render(request, 'bbq_gmbh_app/employeeManagementEn.html', {'users': users})
 
 @login_required(login_url='signin')
 def profile(request):
@@ -55,6 +58,9 @@ def createUser(request):
         form = CreateUserForm()
     return render(request, 'bbq_gmbh_app/createUser.html', {'form': form})
 
+@login_required
+def get_user_role(request):
+    return JsonResponse({'user_role': request.user.role})
 
 def userLogout(request):
     logout(request)

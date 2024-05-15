@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name, birthday, gender, password=None):
+    def create_user(self, email, first_name, last_name, birthday, gender, role, password=None):
         if not email:
             raise ValueError('The Email field must be set')
         if not first_name:
@@ -15,6 +15,8 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('The Birthday field must be set')
         if not gender:
             raise ValueError('The Gender field must be set')
+        if not role:
+            raise ValueError('The Role field must be set')
         
         user = self.model(
             email=self.normalize_email(email),
@@ -22,19 +24,21 @@ class CustomUserManager(BaseUserManager):
             last_name=last_name,
             birthday=birthday,
             gender=gender,
+            role=role,
 
         )
         user.set_password(password) # hash
         user.save(using=self._db) # for multiple databases
         return user
     
-    def create_superuser(self, email, first_name, last_name, birthday, gender, password):
+    def create_superuser(self, email, first_name, last_name, birthday, gender, role, password):
         user = self.create_user(
             email=self.normalize_email(email),
             first_name=first_name,
             last_name=last_name,
             birthday=birthday,
             gender=gender,
+            role=role,
             password=password,
         )
         user.is_superuser = True
@@ -46,12 +50,19 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser):
+
+    ROLE_CHOICES = [
+        ('user', 'User'),
+        ('hr', 'HR'),
+        ('admin', 'Admin'),
+    ]
         
     email = models.EmailField('email address', unique=True)
     birthday = models.DateField()
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female')], null=True, blank=True)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
 
     # required fields
     last_login = models.DateTimeField(auto_now=True)

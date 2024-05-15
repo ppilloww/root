@@ -11,4 +11,5 @@ urlpatterns = [
     path('checkHolidays/', checkHolidays, name='checkHolidays'),
     path('createUser/', createUser, name='createUser'),
     path('userLogout/', userLogout, name='userLogout'),
+    path('get_user_role/', get_user_role, name='get_user_role'),
 ]
