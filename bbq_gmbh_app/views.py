@@ -62,6 +62,18 @@ def createUser(request):
 def profile(request):
     return render(request, 'bbq_gmbh_app/profile.html')
 
+@login_required(login_url='signin')
+def userDetail(request, user_id):
+    user = CustomUser.objects.get(id=user_id)
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('bbq_gmbh_app/', user_id=user.id)
+    else:
+        form = CreateUserForm(instance=user)
+    return render(request, 'bbq_gmbh_app/userDetail.html', {'user': user, 'form': form})
+
 @login_required
 def get_user_role(request):
     return JsonResponse({'user_role': request.user.role})
