@@ -138,25 +138,24 @@
             </div>
             <div class="alert_message"></div>
             {% if form.errors %}
-            <div class="card" style="display: block;">
-              <div class="card-body">
-                <div class="text-center" id="message">
-                  {% for field, errors in form.errors.items %}
-                    {% for error in errors %}
-                      <p>{{ field }}: {{ error }}</p>
+              <div class="card" style="display: block;">
+                <div class="card-body">
+                  <div class="text-center" id="message">
+                    {% for field, errors in form.errors.items %}
+                      {% for error in errors %}
+                        <p>{{ field }}: {{ error }}</p>
+                      {% endfor %}
                     {% endfor %}
-                  {% endfor %}
+                  </div>
                 </div>
               </div>
+            {% endif %}
             </div>
-          {% endif %}
-        </div>
-        </div>
+        </div> <!-- end container -->
     </header>
-
+    
     <!-- Contact-->
     {% include 'bbq_gmbh_app/_contact.html' %}
-    
     
     <!-- Footer-->
     <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; BBQ GmbH 2024</div></footer>

@@ -1,9 +1,11 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from bbq_gmbh_app.models import CustomUser
+from django.contrib.auth.forms import PasswordChangeForm
 from bbq_gmbh_app.forms import CreateUserForm
 from django.shortcuts import render, redirect
+from bbq_gmbh_app.models import CustomUser
 from django.http import JsonResponse
+from django.contrib import messages
 from datetime import date
 import holidays
 
@@ -36,7 +38,16 @@ def home(request):
 
 @login_required(login_url='signin')
 def changePassword(request):
-    return render(request, 'bbq_gmbh_app/pwEn.html')
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('home')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'bbq_gmbh_app/pwEn.html', {'form': form})
 
 @login_required(login_url='signin')
 def employeeManagement(request):
@@ -73,6 +84,7 @@ def userDetail(request, user_id):
     else:
         form = CreateUserForm(instance=user)
     return render(request, 'bbq_gmbh_app/userDetail.html', {'user': user, 'form': form})
+
 
 @login_required
 def get_user_role(request):

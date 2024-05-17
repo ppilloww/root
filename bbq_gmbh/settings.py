@@ -101,6 +101,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'bbq_gmbh_app.validators.OldPasswordValidator',
+    },
 ]
 
 
