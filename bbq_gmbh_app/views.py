@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from bbq_gmbh_app.forms import CreateUserForm
+from bbq_gmbh_app.forms import CreateUserForm, AddressForm
 from django.shortcuts import render, redirect
 from bbq_gmbh_app.models import CustomUser
 from django.http import JsonResponse
@@ -63,8 +63,23 @@ def createUser(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('employeeManagement')
+            # Parse address data from POST request
+            address_data = {
+                'street': request.POST.get('address.street'),
+                'city': request.POST.get('address.city'),
+                'country': request.POST.get('address.country'),
+                'zip_code': request.POST.get('address.zip_code')
+            }
+            # Create Address object
+            address_form = AddressForm(address_data)
+            if address_form.is_valid():
+                address = address_form.save()
+
+                user = form.save(commit=False)
+                user.address = address
+                user.save()
+
+                return redirect('employeeManagement')
     else:
         form = CreateUserForm()
     return render(request, 'bbq_gmbh_app/createUser.html', {'form': form})

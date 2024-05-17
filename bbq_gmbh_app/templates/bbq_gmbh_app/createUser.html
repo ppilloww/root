@@ -38,46 +38,46 @@
                               {% csrf_token %}
                               <div class="col-md-6">
                                 <label for="first_name" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ form.initial.first_name }}" required>
+                                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ form.first_name.value|default:'' }}" required>
                               </div>
                               <div class="col-md-6">
                                 <label for="last_name" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ form.initial.last_name }}" required>
+                                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ form.last_name.value|default:'' }}" required>
                               </div>
                               <div class="col-md-6">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{ form.initial.email }}" required>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ form.email.value|default:'' }}" required>
                               </div>
                               <div class="col-md-6">
                                 <label for="password1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password1" name="password1" value="{{ form.initial.password1 }}" required>
+                                <input type="password" class="form-control" id="password1" name="password1" value="{{ form.password1.value|default:'' }}" required>
                               </div>
                               <div class="col-md-6"></div>
                               <div class="col-md-6">
                                 <label for="password2" class="form-label">Repeat Password</label>
-                                <input type="password" class="form-control" id="password2" name="password2" value="{{ form.initial.password2 }}" required>
+                                <input type="password" class="form-control" id="password2" name="password2" value="{{ form.password2.value|default:'' }}" required>
                               </div>                                  
                               <div class="col-6">
-                                <label for="adresse.street" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="adresse.street" name="adresse.street" placeholder="Main St 1234" value="{{ form.adresse.street.value|default:'' }}">
+                                <label for="address.street" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address.street" name="address.street" placeholder="Main St 1234" value="{{ form.address.street.value|default:'' }}" required>
                               </div>
                               <br>
                               <div class="col-md-6">
-                                <label for="adresse.city" class="form-label">City</label>
-                                <input type="text" class="form-control" id="adresse.city" name='adresse.city' value="{{ form.adresse.city.value|default:'' }}">
+                                <label for="address.city" class="form-label">City</label>
+                                <input type="text" class="form-control" id="address.city" name='address.city' value="{{ form.address.city.value|default:'' }}" required>
                               </div>
                               <div class="col-md-4">
-                                <label for="adresse.country" class="form-label">Country</label>
-                                <input type="text" class="form-control" id="adresse.country" name="adresse.country" value="{{ form.adresse.country.value|default:'' }}">
+                                <label for="address.country" class="form-label">Country</label>
+                                <input type="text" class="form-control" id="address.country" name="address.country" value="{{ form.address.country.value|default:'' }}" required> 
                               </div>
                               <div class="col-md-2">
-                                <label for="adresse.zip_code" class="form-label">Zip</label>
-                                <input type="text" class="form-control" id="adresse.zip_code" name="adresse.zip_code" value="{{ form.adresse.zip_code.value|default:'' }}">
+                                <label for="address.zip_code" class="form-label">Zip</label>
+                                <input type="text" class="form-control" id="address.zip_code" name="address.zip_code" value="{{ form.address.zip_code.value|default:'' }}" required>
                               </div>
 
                               <div class="col-md-2">
                                 <label for="birthday" class="form-label">Date of Birth</label>
-                                <input type="date" class="form-control" id="birthday" name="birthday" value="{{ form.initial.birthday }}" required>
+                                <input type="date" class="form-control" id="birthday" name="birthday" value="{{ form.birthday.value|date:'Y-m-d' }}" required>
                               </div>
                               <div class="col-md-2">
                                 <label for="gender" class="form-label">Gender</label>
