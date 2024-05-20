@@ -8,7 +8,14 @@ python -m venv env
 pip install "Django>=4.2,<4.3"
 
 //Projekt starten
+python -m django startproject website .
 django-admin startproject bbq_gmbh .
+
+// copy requirements
+pip freeze > requirements.txt
+
+// reuse rewuirements
+pip install -r rewuirements.txt
 
 //applikation starten in cmd. IP kann in settings.py eingestellt werden
 python manage.py runserver 
