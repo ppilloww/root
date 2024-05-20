@@ -4,6 +4,9 @@ python -m venv env
 //virtuelle Umgebung aktivieren
 "./env/Scripts/activate"
 
+//django version 4.2 LTS
+pip install "Django>=4.2,<4.3"
+
 //Projekt starten
 django-admin startproject bbq_gmbh .
 
