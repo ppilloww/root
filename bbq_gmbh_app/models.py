@@ -47,10 +47,10 @@ class Mitarbeiter(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
-    birthday = models.DateField()
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')])
+    birthday = models.DateField(null=True, blank=True)
+    first_name = models.CharField(max_length=30, blank=True, null=True)
+    last_name = models.CharField(max_length=30, blank=True, null=True)
+    gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')], blank=True, null=True)
 
 
 

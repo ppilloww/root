@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+
+<!-- Navigation-->
+
+<!-- landing page BBQ GmbH-->
+{% block content %}
+
+<header class="masthead">
+    <div class="container">
+        <div class="card_empl_mng">
+            <div class="card" id="myElement">
+                <div class="card-body">
+                    <div class="container mt-3">
+                        <div class="header_text">
+                          <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> Employee Management</p>
+                          <p class="link">Create new employee for EasyTimer</p>
+                        </div>
+                        <br>
+
+                        <form class="row g-3" method="post">
+                          {% csrf_token %}
+                          <div class="col-md-6">
+                            <label for="first_name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ form.first_name.value|default:'' }}" required>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ form.last_name.value|default:'' }}" required>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ form.email.value|default:'' }}" required>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="password1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password1" name="password1" value="{{ form.password1.value|default:'' }}" required>
+                          </div>
+                          <div class="col-md-6"></div>
+                          <div class="col-md-6">
+                            <label for="password2" class="form-label">Repeat Password</label>
+                            <input type="password" class="form-control" id="password2" name="password2" value="{{ form.password2.value|default:'' }}" required>
+                          </div>                                  
+                          <div class="col-6">
+                            <label for="address.street" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address.street" name="address.street" placeholder="Main St 1234" value="{{ form.address.street.value|default:'' }}" required>
+                          </div>
+                          <br>
+                          <div class="col-md-6">
+                            <label for="address.city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="address.city" name='address.city' value="{{ form.address.city.value|default:'' }}" required>
+                          </div>
+                          <div class="col-md-4">
+                            <label for="address.country" class="form-label">Country</label>
+                            <input type="text" class="form-control" id="address.country" name="address.country" value="{{ form.address.country.value|default:'' }}" required> 
+                          </div>
+                          <div class="col-md-2">
+                            <label for="address.zip_code" class="form-label">Zip</label>
+                            <input type="text" class="form-control" id="address.zip_code" name="address.zip_code" value="{{ form.address.zip_code.value|default:'' }}" required>
+                          </div>
+
+                          <div class="col-md-2">
+                            <label for="birthday" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="birthday" name="birthday" value="{{ form.birthday.value|date:'Y-m-d' }}" required>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select id="gender" class="form-select" name="gender" required>
+                              {% for value, display in form.fields.gender.choices %}
+                                <option value="{{ value }}">{{ display }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="col-md-6"></div>
+
+                          <div class="col-md-8">
+                            <label for="inputPosition" class="form-label">Job title</label>
+                            <input type="text" class="form-control" id="inputPosition">
+                          </div>
+                          <div class="col-md-2">
+                            <label for="inputDepartment" class="form-label">Department</label>
+                            <select id="inputDepartment" class="form-select">
+                              <option selected>Choose...</option>
+                            </select>
+                          </div>
+                          <div class="col-md-2"></div>
+
+                          <div class="col-md-2">
+                            <label for="inputSalaryGroup" class="form-label">Salary group</label>
+                            <select id="inputSalaryGroup" class="form-select">
+                              <option selected>Choose...</option>
+                            </select>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="inputVacation" class="form-label">CAGV</label>
+                            <input type="number" min="24" max="40" class="form-control" id="inputVacation">
+                          </div>
+                          <div class="col-md-2">
+                            <label for="week_hours" class="form-label">HR/W</label>
+                            <select id="week_hours" class="form-select" name="week_hours">
+                              {% for value, display in form.fields.week_hours.choices %}
+                                <option value="{{ value }}">{{ display }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="inputRole" class="form-label">Role</label>
+                            <select id="inputRole" class="form-select" name="role" required>
+                              {% for value, display in form.fields.role.choices %}
+                                <option value="{{ value }}">{{ display }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+
+                          <div class="col-12" style="text-align: right;">
+                            <button type="submit" class="btn btn-primary">Create User</button>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+              </div>
+        </div>
+        <div class="alert_message"></div>
+        {% if form.errors %}
+          <div class="card" style="display: block;">
+            <div class="card-body">
+              <div class="text-center" id="message">
+                {% for field, errors in form.errors.items %}
+                  {% for error in errors %}
+                    <p>{{ field }}: {{ error }}</p>
+                  {% endfor %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        </div>
+    </div> <!-- end container -->
+</header>
+{% endblock content %}
+
+<!-- Contact-->
+
+<!-- Footer-->
+
+<!-- extra scripts -->
+{% block extra_js_bottom %}
+<!-- error message-->
+<script>
+  let errors = JSON.parse('{{ form.errors|escapejs|safe }}');
+  document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    if (Object.keys(errors).length > 0) {
+      document.querySelector('.card').style.display = 'block';
+      
+      let message = '';
+      for (let field in errors) {
+        message += field + ': ' + errors[field].join(', ') + '<br>';
+      }
+      document.getElementById('message').innerHTML = message;
+    } else {
+      document.querySelector('form').submit();
+    }
+  });
+</script>
+{% endblock extra_js_bottom %}
+

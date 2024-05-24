@@ -105,12 +105,18 @@ AUTH_PASSWORD_VALIDATORS = [
 # user Model
 AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
 
+# session settings
+CSRF_USE_SESSIONS = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 1800
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Berlin'
 
 USE_I18N = True
 

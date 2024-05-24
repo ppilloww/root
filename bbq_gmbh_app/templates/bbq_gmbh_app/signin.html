@@ -87,7 +87,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = "#"; // Redirect to the home page
+                    window.location.href = "home"; // Redirect to the home page
                 } else {
                     document.getElementById('message').textContent = 'Email or password is incorrect.';
                     document.querySelector('.card').style.display = 'block'; // Show the card
