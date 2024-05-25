@@ -1,3 +1,13 @@
+# Read Me: This file contains the models for Mitarbeiter 
+# and the custom manager for Mitarbeiter. The Mitarbeiter model
+# is a custom user model that extends the AbstractUser model
+# from Django.
+# Ensure that superusers can change the password of other users
+# but it will no be hashed.
+# Its generally a good idea to create a new user outside of the Admin 
+# interface and edit the user in the Admin interface.
+
+
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -58,6 +68,8 @@ class Mitarbeiter(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = MitarbeiterManager()
+
+
 
     def __str__(self):
         return self.email
