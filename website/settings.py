@@ -105,10 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # user Model
 AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
 
-# session settings
-CSRF_USE_SESSIONS = True
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 1800
 
 
 # Internationalization
@@ -132,3 +128,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# session settings
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 1800

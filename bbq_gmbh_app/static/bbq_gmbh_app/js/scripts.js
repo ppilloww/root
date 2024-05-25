@@ -149,7 +149,7 @@ function executeMyCode(user) {
 fetch('/get_user_role/')
 .then(response => response.json())
 .then(data => {
-    if (data.user_role) {
+    if (data && data.user_role) {
 
         // Icon byUsername
         var user = {
@@ -179,4 +179,7 @@ fetch('/get_user_role/')
         executeMyCode(user);
     }
 })
-.catch(error => console.error('Error:', error));
+
+.catch(error => {
+    console.log('User is not logged in yet.');
+})
