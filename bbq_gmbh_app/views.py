@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.shortcuts import render, redirect
 from bbq_gmbh_app.forms import CreateUserForm
 from bbq_gmbh_app.models import Mitarbeiter
@@ -18,10 +18,8 @@ def signin(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        print(email, password)
 
         user = authenticate(request, email=email, password=password)
-        print('user is', user)
 
         if user is not None:
             if user.is_active:
@@ -34,6 +32,10 @@ def signin(request):
             return JsonResponse({'status': 'invalid'}, status=401)
     return render(request, 'bbq_gmbh_app/signin.html')
 
+# This is a custom view that returns the user role
+# of the currently logged in user
+# which is nessesery to set the navigation links on the frontend
+# based on the user role.
 @login_required
 def get_user_role(request):
     return JsonResponse({'user_role': request.user.role})
@@ -83,6 +85,18 @@ def createUser(request):
     else:
         form = CreateUserForm()
     return render(request, 'bbq_gmbh_app/createUser.html', {'form': form})
+# def createUser(request):
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         print('form',form)
+#         if form.is_valid():
+
+#             form.save()
+#             return redirect('employeeManagement')
+
+#     else:
+#         form = UserCreationForm()
+#     return render(request, 'bbq_gmbh_app/createUser.html', {'form': form})
 
 login_required(login_url='signin')
 def userDetail(request, user_id):
