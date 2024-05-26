@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bbq_gmbh_app.apps.BbqGmbhAppConfig',
+    'django_countries',
 ]
 
 MIDDLEWARE = [

@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.shortcuts import render, redirect
-from bbq_gmbh_app.forms import CreateUserForm
+from bbq_gmbh_app.forms import CreateUserForm, AdresseForm
 from bbq_gmbh_app.models import Mitarbeiter
 from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
@@ -44,6 +44,10 @@ def get_user_role(request):
 def home(request):
     return render(request, 'bbq_gmbh_app/home.html')
 
+# This view is used to display all users
+# It is fetching all users from the database
+# and passing them to the template
+# easy
 @login_required(login_url='signin')
 def employeeManagement(request):
     users = Mitarbeiter.objects.all()
@@ -73,18 +77,30 @@ def userLogout(request):
     logout(request)
     return redirect('index')
 
+
+# This view is used to create a new user
+# It is handling the CreateUserForm and the AdresseForm
+# The CreateUserForm is a custom form that extends the UserCreationForm
+# from Django and adds an AdresseForm to it.
 @login_required(login_url='signin')
 def createUser(request):
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-
-            form.save()
+        userForm = CreateUserForm(request.POST)
+        adresseForm = AdresseForm(request.POST)
+        print("request.POST", request.POST)
+        if userForm.is_valid() and adresseForm.is_valid():
+            user = userForm.save(commit=False)
+            adresse = adresseForm.save()
+            user.adresse = adresse
+            user.save()
             return redirect('employeeManagement')
-
     else:
-        form = CreateUserForm()
-    return render(request, 'bbq_gmbh_app/createUser.html', {'form': form})
+        userForm = CreateUserForm()
+        adresseForm = AdresseForm()
+    return render(request, 'bbq_gmbh_app/createUser.html', {
+        'userForm': userForm, 
+        'adresseForm': adresseForm
+        })
 # def createUser(request):
 #     if request.method == 'POST':
 #         form = UserCreationForm(request.POST)
