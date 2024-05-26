@@ -116,12 +116,14 @@
     },1000)
 
     // logic for checkin with message and database
+    // Check-in button
+    // this is handling holidays, messages and the checkin time
     document.getElementById('checkin').addEventListener('click', function() {
         fetch('/checkHolidays/')
         .then(response => response.json())
         .then(data => {
             if (data.non_working_day) {
-                document.getElementById('message').textContent = 'Check-in is not allowed on public holidays.';
+                document.getElementById('message').textContent = 'Check-in is not allowed on public holidays. Enjoy your day off!';
                 var card = document.querySelector('.card');
                 card.style.display = 'block'; // Show the card and store it in a variable
                 card.classList.add('bg-danger'); // Add the 'bg-danger' class to the card
