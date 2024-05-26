@@ -11,6 +11,7 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_countries.fields import CountryField
 
 
 class MitarbeiterManager(BaseUserManager):
@@ -46,7 +47,9 @@ class MitarbeiterManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
-
+# this is the maincharakter of the app !!
+# this is the user model
+# evry changes MUST be migrated very carefully
 class Mitarbeiter(AbstractUser):
     ROLE_CHOICES = [
         ('user', 'User'),
@@ -57,10 +60,14 @@ class Mitarbeiter(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
+
+    # extra fields which are not required in the backend
+    # but can be required in the frontend
     birthday = models.DateField(null=True, blank=True)
     first_name = models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=30, blank=True, null=True)
     gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')], blank=True, null=True)
+    adresse = models.ForeignKey('Adresse', on_delete=models.PROTECT, null=True, blank=True)
 
 
 
@@ -73,3 +80,17 @@ class Mitarbeiter(AbstractUser):
 
     def __str__(self):
         return self.email
+    
+
+
+class Adresse(models.Model):
+
+    strasse = models.CharField(max_length=100)
+    stadt = models.CharField(max_length=100)
+    plz = models.CharField(max_length=10)
+    land = CountryField(default='DE')
+    
+
+    def __str__(self):
+        return f'{self.strasse}, {self.stadt}, {self.plz}, {self.land}'
+    

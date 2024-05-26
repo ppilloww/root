@@ -14,7 +14,7 @@
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     <!-- Autolink by Tag -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" id="user">Dropdown</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" id="user">Hello {{ user.first_name }}</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'profile'%}"><i class="fa-solid fa-user text-primary"></i> Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'changePassword'%}"><i class="fa-solid fa-key text-primary"></i> Change Password</a></li>
