@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+<!-- Navigation-->
+
+<!-- landing page BBQ GmbH-->
+{% block content %}
+
+<header class="masthead">
+    <div class="container">
+        <div class="card_empl_mng">
+            <div class="card" id="myElement">
+                <div class="card-body">
+                    <div class="container mt-3">
+                        <div class="header_text">
+                          <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> Employee Management</p>
+                          <p class="link">Create new employee for EasyTimer</p>
+                        </div>
+                        <br>
+
+                        <form class="row g-3" action="/createUser/" method="post">
+                          {% csrf_token %}
+                          <div class="col-md-6">
+                            <label for="first_name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ userForm.first_name.value|default:'' }}" required>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ userForm.last_name.value|default:'' }}" required>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ userForm.email.value|default:'' }}" required>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="password1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password1" name="password1" value="{{ userForm.password1.value|default:'' }}" required>
+                          </div>
+                          <div class="col-md-6"></div>
+                          <div class="col-md-6">
+                            <label for="password2" class="form-label">Repeat Password</label>
+                            <input type="password" class="form-control" id="password2" name="password2" value="{{ userForm.password2.value|default:'' }}" required>
+                          </div>                                  
+                          <div class="col-6">
+                            <label for="strasse" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="strasse" name="strasse" placeholder="MainSt 1234" value="{{ adresseForm.strasse.value|default:'' }}" required>
+                          </div>
+                          <br>
+                          <div class="col-md-6">
+                            <label for="stadt" class="form-label">City</label>
+                            <input type="text" class="form-control" id="stadt" name='stadt' value="{{ adresseForm.stadt.value|default:'' }}" required>
+                          </div>
+                          <div class="col-md-4">
+                            <label for="land" class="form-label">Country</label>
+                            <select id="land" class="form-select" name="land" required>
+                              {% for country_code, country_name in adresseForm.fields.land.choices %}
+                                  <option value="{{ country_code }}" {% if adresseForm.land.value == country_code %}selected{% endif %}>
+                                      {{ country_name }}
+                                  </option>
+                              {% endfor %}
+                          </select>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="plz" class="form-label">Zip</label>
+                            <input type="text" class="form-control" id="plz" name="plz" value="{{ adresseForm.plz.value|default:'' }}" required>
+                          </div>
+
+                          <div class="col-md-2">
+                            <label for="birthday" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="birthday" name="birthday" value="{{ userForm.birthday.value|date:'Y-m-d' }}" required>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select id="gender" class="form-select" name="gender" required>
+                              {% for value, display in userForm.fields.gender.choices %}
+                                <option value="{{ value }}">{{ display }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="col-md-6"></div>
+
+                          <div class="col-md-8">
+                            <label for="inputPosition" class="form-label">Job title</label>
+                            <input type="text" class="form-control" id="inputPosition">
+                          </div>
+                          <div class="col-md-2">
+                            <label for="inputDepartment" class="form-label">Department</label>
+                            <select id="inputDepartment" class="form-select">
+                              <option selected>Choose...</option>
+                            </select>
+                          </div>
+                          <div class="col-md-2"></div>
+
+                          <div class="col-md-2">
+                            <label for="inputSalaryGroup" class="form-label">Salary group</label>
+                            <select id="inputSalaryGroup" class="form-select">
+                              <option selected>Choose...</option>
+                            </select>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="inputVacation" class="form-label">CAGV</label>
+                            <input type="number" min="24" max="40" class="form-control" id="inputVacation">
+                          </div>
+                          <div class="col-md-2">
+                            <label for="week_hours" class="form-label">HR/W</label>
+                            <select id="week_hours" class="form-select" name="week_hours">
+                              {% for value, display in form.fields.week_hours.choices %}
+                                <option value="{{ value }}">{{ display }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="inputRole" class="form-label">Role</label>
+                            <select id="inputRole" class="form-select" name="role" required>
+                              {% for value, display in userForm.fields.role.choices %}
+                                <option value="{{ value }}">{{ display }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+
+                          <div class="col-12" style="text-align: right;">
+                            <button type="submit" class="btn btn-primary">Create User</button>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+              </div>
+        </div>
+        <div class="alert_message"></div>
+          {% if userForm.errors or adresseForm.errors %}
+            <div class="card">
+              <div class="card-body">
+                <div class="text-center" id="message">
+                  <div id="form-errors">
+                    {% for field, errors in userForm.errors.items %}
+                        {{ errors|first }}
+                    {% endfor %}
+                    {% for field, errors in adresseForm.errors.items %}
+                        {{ errors|first }}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+    </div> <!-- end container -->
+</header>
+{% endblock content %}
+
+<!-- Contact-->
+
+<!-- Footer-->
+
+<!-- extra scripts -->
+
+

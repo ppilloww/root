@@ -1,10 +1,20 @@
-window.addEventListener('load', function() {
-    // Überprüfe, ob die CSS-Datei geladen wurde
-    var linkElement = document.querySelector('link[href="#"]');
+// The form will only submit if there are no errors.
+// This script is used in the extra_js_bottom block of the templates.
+
+
+let errors = JSON.parse('{{ userForm.errors|escapejs|safe }}');
+document.querySelector('form').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent the form from submitting
+
+  if (Object.keys(errors).length > 0) {
+    document.querySelector('.card').style.display = 'block';
     
-    if (linkElement) {
-        console.log('Die CSS-Datei wurde erfolgreich geladen!');
-    } else {
-        console.error('Fehler beim Laden der CSS-Datei!');
+    let message = '';
+    for (let field in errors) {
+      message += field + ': ' + errors[field].join(', ') + '<br>';
     }
+    document.getElementById('message').innerHTML = message;
+  } else {
+    document.querySelector('form').submit();
+  }
 });

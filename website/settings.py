@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bbq_gmbh_app.apps.BbqGmbhAppConfig',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
@@ -102,13 +103,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# user Model
+AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Berlin'
 
 USE_I18N = True
 
@@ -124,3 +129,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# session settings
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 1800

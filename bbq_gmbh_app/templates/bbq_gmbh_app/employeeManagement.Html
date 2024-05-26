@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- Navigation-->
+
+
+
+<!-- landing page BBQ GmbH-->
+{% block content %}
+<header class="masthead">
+    <div class="container">
+        <div class="card_empl_mng">
+            <div class="card" id="myElement">
+                <div class="card-body">
+                    <div class="container mt-3">
+                      <div class="header_text">
+                        <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> Employee Management</p>
+                        <p class="link">Employees in EasyTimer</p>
+                      </div>
+                        <div class="row">
+                          <div class="col-md-8"></div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                              <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        
+                        <div class="table-responsive" style="max-height: 300px; overflow: auto;"> <!--You have set a limit to the card-->
+                          <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th style="position: sticky; top: 0; background: white;">Employee Id</th>
+                                <th style="position: sticky; top: 0; background: white;">Firstname</th>
+                                <th style="position: sticky; top: 0; background: white;">Lastname</th>
+                                <th style="position: sticky; top: 0; background: white;">Birthday</th>
+                                <th style="position: sticky; top: 0; background: white;">Sex</th>
+                                <th style="position: sticky; top: 0; background: white;">Country</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% if request.user.is_authenticated %}
+                                {% for user in users %}
+                                  <tr data-href="{% url 'userDetail' user.id %}">
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.first_name }}</td>
+                                    <td>{{ user.last_name }}</td>
+                                    <td>{{ user.birthday }}</td>
+                                    <td>{{ user.gender }}</td>
+                                    <td>{{ user.adresse.land.name }}</td>
+                                  </tr>
+                                  {% empty %}
+                                  <tr>
+                                      <td colspan="7">No data available</td>
+                                  </tr>
+                                  {% endfor %}
+                              {% else %}
+                                <tr>
+                                    <td colspan="7">No data available</td>
+                                </tr>
+                              {% endif %}
+                            </tbody>
+                          </table>
+                        </div>
+                        <div style="text-align: right;">
+                          <a href="{% url 'createUser' %}" class="btn btn-primary">Create User</a>
+                        </div>
+                      </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</header>
+{% endblock content %}
+
+<!-- Contact-->
+
+<!-- Footer-->
+
+
+<!--extra js-->
+
+<!--extra js bottom-->
+{% block extra_js_bottom %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static "bbq_gmbh_app/js/search.js" %}"></script>
+{% endblock extra_js_bottom %}
+

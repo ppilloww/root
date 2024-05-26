@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- Head -->
+
+
+<!-- Navigation-->
+
+<!-- landing page BBQ GmbH-->
+{% block content %}
+<header class="masthead">
+    <div class="container">
+        <div class="card_empl_mng">
+            <div class="card" id="myElement">
+                <div class="container mt-3">
+                    <div class="header_text">
+                        <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> Profile</p>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="card col-md-4 mb-3" style="width:400px">
+                            {% if request.user.gender == 'M' %}
+                                <img class="card-img-top mb-3" src="{% static "bbq_gmbh_app/assets/img/img_avatar1.png" %}" alt="Card image" style="width:100%">
+                            {% else %}
+                                <img class="card-img-top mb-3" src="{% static "bbq_gmbh_app/assets/img/img_avatar5.png" %}" alt="Card image" style="width:100%">
+                            {% endif %}
+                        </div>
+                        <div class="card-body col-md-8">
+                            {% if request.user.is_authenticated %}
+                                <h4 class="card-title">{{ request.user.first_name }} {{ request.user.last_name }}</h4>
+                                <p class="card-text">add job titel</p>
+
+                                <div class="col-lg-8">
+                                    <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Date of Birth</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ request.user.birthday }}</p>
+                                        </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Email</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ request.user.email }}</p>
+                                        </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Business phone number</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">(0711) 696969</p>
+                                        </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Business mobile phone</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">(098) 765-4321</p>
+                                        </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Address</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <h4 class="card-title">Guest</h4>
+                            {% endif %}
+                        </div> 
+                    </div>                              
+                </div>
+                    
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock content %}
+
+<!-- Contact-->
+
+<!-- Footer-->
