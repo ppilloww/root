@@ -13,5 +13,7 @@ urlpatterns = [
     path('createUser/', views.createUser, name='createUser'),
     path('userDetail/<int:user_id>/', views.userDetail, name='userDetail'),
     path('checkHolidays/', views.checkHolidays, name='checkHolidays'),
+    path('checkIn/', views.checkIn, name='checkIn'),
+    path('checkOut/', views.checkOut, name='checkOut'),
     
 ]

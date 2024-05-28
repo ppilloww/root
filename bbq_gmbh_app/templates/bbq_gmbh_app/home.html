@@ -133,9 +133,9 @@
                 var card = document.querySelector('.card');
                 card.style.display = 'block'; // Show the card and store it in a variable
                 card.classList.add('bg-danger'); // Add the 'bg-danger' class to the card   
-            } else {
-                console.log(currentDate, currentTime);
-                fetch('/#/', {
+            } else if (data.checkOutStatus) {
+                console.log(currentDate, currentTime, data.checkInStatus, data.checkOutStatus);
+                fetch('/checkIn/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -154,13 +154,80 @@
                         document.getElementById('message').textContent = 'Network response was not ok';
                         var card = document.querySelector('.card');
                         card.style.display = 'block'; // Show the card and store it in a variable
-                        card.classList.add('bg-danger');
+                        card.classList.add('bg-warning');
                         throw new Error('Network response was not ok');
+                    } else {
+                        document.getElementById('message').textContent = 'Have a nice day at work. ' + dayOfMonth + '.' + currentMonth + '.' + currentYear;
+                        var card = document.querySelector('.card');
+                        card.style.display = 'block'; // Show the card and store it in a variable
+                        card.classList.add('bg-success');
                     }
-                    document.getElementById('message').textContent = 'Have a nice day at work. ' + dayOfMonth + '.' + currentMonth + '.' + currentYear;
+
+                })
+                .catch(error => {
+                    document.getElementById('message').textContent = 'There has been a problem with your fetch checkin operation', error;
                     var card = document.querySelector('.card');
                     card.style.display = 'block'; // Show the card and store it in a variable
-                    card.classList.add('bg-success');
+                    card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
+                    console.error('There has been a problem with your fetch checkin operation:', error);
+                });                
+            } else {
+                document.getElementById('message').textContent = 'You are already checked in!';
+                var card = document.querySelector('.card');
+                card.style.display = 'block'; // Show the card and store it in a variable
+                card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
+            }
+        })
+        .catch(error => { // Removed semicolon before this line
+            document.getElementById('message').textContent = 'There has been a problem with your fetch holiday checkin operation', error;
+            var card = document.querySelector('.card');
+            card.style.display = 'block'; // Show the card and store it in a variable
+            card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
+            console.error('There has been a problem with your fetch holiday operation:', error);
+        });
+    });
+
+    // this is handling the checkout time
+    document.getElementById('checkout').addEventListener('click', function(event) {
+        event.preventDefault();
+
+        fetch('/checkHolidays/')
+        .then(response => response.json())
+        .then(data => {
+            if (data.non_working_day) {
+                document.getElementById('message').textContent = 'Check-in is not allowed on public holidays. Enjoy your day off!';
+                var card = document.querySelector('.card');
+                card.style.display = 'block'; // Show the card and store it in a variable
+                card.classList.add('bg-danger'); // Add the 'bg-danger' class to the card 
+            } else if (data.checkInStatus){
+                console.log(data.checkInStatus);
+                fetch('/checkOut/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': document.getElementById('csrfToken').value,
+                    },
+                    body: new URLSearchParams({
+                        'datum': currentDate.toISOString().split('T')[0],
+                        'ende': currentTime.toISOString().split('T')[1].split('.')[0],
+                        'status': 'False',
+                    }),
+                })
+                .then(response => {
+                    console.log(response.status, response.statusText);
+                    if (!response.ok) {
+                        document.getElementById('message').textContent = 'Network response was not ok';
+                        var card = document.querySelector('.card');
+                        card.style.display = 'block'; // Show the card and store it in a variable
+                        card.classList.add('bg-warning');
+                        throw new Error('Network response was not ok');
+                    } else{
+                        document.getElementById('message').textContent = 'Have a great evening. ' + dayOfMonth + '.' + currentMonth + '.' + currentYear;
+                        var card = document.querySelector('.card');
+                        card.style.display = 'block'; // Show the card and store it in a variable
+                        card.classList.add('bg-danger');
+                    }
+
                 })
                 .catch(error => {
                     document.getElementById('message').textContent = 'There has been a problem with your fetch checkin operation', error;
@@ -169,10 +236,15 @@
                     card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
                     console.error('There has been a problem with your fetch checkin operation:', error);
                 });
+            } else {
+                document.getElementById('message').textContent = 'You are not checked in!';
+                var card = document.querySelector('.card');
+                card.style.display = 'block'; // Show the card and store it in a variable
+                card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
             }
         })
         .catch(error => { // Removed semicolon before this line
-            document.getElementById('message').textContent = 'There has been a problem with your fetch holiday operation:', error;
+            document.getElementById('message').textContent = 'There has been a problem with your fetch holiday checkout operation', error;
             var card = document.querySelector('.card');
             card.style.display = 'block'; // Show the card and store it in a variable
             card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card

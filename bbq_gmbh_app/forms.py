@@ -24,4 +24,4 @@ class CheckInForm(forms.ModelForm):
 class CheckOutForm(forms.ModelForm):
     class Meta:
         model = Arbeitsstunden
-        fields = ['datum2', 'ende', 'status']
+        fields = ['datum', 'ende', 'status']

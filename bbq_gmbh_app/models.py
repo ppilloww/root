@@ -99,7 +99,6 @@ class Arbeitsstunden(models.Model):
     
         mitarbeiter = models.ForeignKey(Mitarbeiter, on_delete=models.CASCADE)
         datum = models.DateField(blank=True, null=True)
-        datum2 = models.DateField(blank=True, null=True)
         beginn = models.TimeField(blank=True, null=True)
         ende = models.TimeField(blank=True, null=True)
         pause = models.TimeField(default='01:00')
