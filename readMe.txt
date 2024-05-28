@@ -13,6 +13,11 @@ python -m venv env
 
 //django install LTS
 pip install "Django>=4.2,<4.3"
+    //save the requirement.txt 
+    pip freeze > requirements.txt
+    // restore pip
+    pip install -r requirements.txt
+
 
 //Projekt starten
 django-admin startproject website .
@@ -34,3 +39,5 @@ python manage.py makemigrations
 
 //SQL erstellen step 2/2
 python manage.py migrate}
+
+

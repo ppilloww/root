@@ -56,6 +56,7 @@ class Mitarbeiter(AbstractUser):
         ('hr', 'HR'),
         ('admin', 'Admin'),
     ]
+    
 
     username = None
     email = models.EmailField(_('email address'), unique=True)
@@ -94,3 +95,17 @@ class Adresse(models.Model):
     def __str__(self):
         return f'{self.strasse}, {self.stadt}, {self.plz}, {self.land}'
     
+class Arbeitsstunden(models.Model):
+    
+        mitarbeiter = models.ForeignKey(Mitarbeiter, on_delete=models.CASCADE)
+        datum = models.DateField(blank=True, null=True)
+        datum2 = models.DateField(blank=True, null=True)
+        beginn = models.TimeField(blank=True, null=True)
+        ende = models.TimeField(blank=True, null=True)
+        pause = models.TimeField(default='01:00')
+        stunden = models.TimeField(default='08:00')
+        ueberstunden = models.TimeField(default='00:00')
+        status = models.BooleanField(default=False)
+    
+        def __str__(self):
+            return f'{self.mitarbeiter} - {self.datum} - {self.beginn} - {self.ende} - {self.stunden}h - {self.ueberstunden}h - {self.status}'

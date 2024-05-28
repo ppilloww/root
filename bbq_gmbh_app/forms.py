@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from bbq_gmbh_app.models import Mitarbeiter, Adresse
+from bbq_gmbh_app.models import Mitarbeiter, Adresse, Arbeitsstunden
 
 
 
@@ -16,4 +16,12 @@ class CreateUserForm(UserCreationForm):
         fields = ['email', 'role', 'birthday', 'first_name', 'last_name', 'gender', 'adresse', 'password1', 'password2']
 
 
+class CheckInForm(forms.ModelForm):
+    class Meta:
+        model = Arbeitsstunden
+        fields = ['datum', 'beginn', 'status']
 
+class CheckOutForm(forms.ModelForm):
+    class Meta:
+        model = Arbeitsstunden
+        fields = ['datum2', 'ende', 'status']

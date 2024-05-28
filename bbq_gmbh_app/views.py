@@ -2,11 +2,12 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.shortcuts import render, redirect
-from bbq_gmbh_app.forms import CreateUserForm, AdresseForm
+from bbq_gmbh_app.forms import CreateUserForm, AdresseForm, CheckInForm, CheckOutForm
 from bbq_gmbh_app.models import Mitarbeiter
 from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
-from datetime import date
+from datetime import date, datetime
+import holidays
 
 
 
@@ -36,9 +37,12 @@ def signin(request):
 # of the currently logged in user
 # which is nessesery to set the navigation links on the frontend
 # based on the user role.
-@login_required
+
 def get_user_role(request):
-    return JsonResponse({'user_role': request.user.role})
+    if request.user.is_authenticated:
+        return JsonResponse({'user_role': request.user.role})
+    else:
+        return JsonResponse({'status': 'not authenticated'}, status=401)
 
 @login_required(login_url='signin')
 def home(request):
@@ -68,7 +72,7 @@ def changePassword(request):
             messages.success(request, 'Your password was successfully updated!')
             return redirect('logout')
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.error(request, 'Changing password failed. Please correct the error below')
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'bbq_gmbh_app/changePassword.html',  {'form': form})
@@ -87,7 +91,7 @@ def createUser(request):
     if request.method == 'POST':
         userForm = CreateUserForm(request.POST)
         adresseForm = AdresseForm(request.POST)
-        print("request.POST", request.POST)
+        # print("request.POST", request.POST)
         if userForm.is_valid() and adresseForm.is_valid():
             user = userForm.save(commit=False)
             adresse = adresseForm.save()
@@ -125,4 +129,20 @@ def userDetail(request, user_id):
     else:
         form = CreateUserForm(instance=user)
     return render(request, 'bbq_gmbh_app/userDetail.html', {'user': user, 'form': form})
+
+# This view is used to check if today is a public holiday
+# or a sunday. It is returning a JsonResponse with a boolean
+# for testing purposes set the non_working_day to True if today is a public holiday or a sunday
+# and to False if today is a working day
+# else {'non_working_day': is_public_holiday or is_sunday}
+def checkHolidays(request):
+    today = date.today()
+    de_holidays = holidays.Germany(prov='BW')
+    is_public_holiday = today in de_holidays
+    is_sunday = today.weekday() == 6 #6 = sunday
+    context = {'non_working_day': is_public_holiday or is_sunday }
+    return JsonResponse(context)
+
+
+
 

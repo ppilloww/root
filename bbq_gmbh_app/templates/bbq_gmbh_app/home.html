@@ -36,6 +36,8 @@
                 <hr class="separator">
                 <div class="container">
                     <div class="capture_button">
+                        {% csrf_token %}
+                        <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
                         <button type="button" class="btn btn-primary" id="checkin">Check In</button>
                         <button type="button" class="btn btn-danger" id="checkout">Check Out</button>                            
                     </div>
@@ -115,26 +117,66 @@
 
     },1000)
 
+
+
     // logic for checkin with message and database
-    document.getElementById('checkin').addEventListener('click', function() {
+    // Check-in button
+    // this is handling holidays, messages and the checkin time
+    document.getElementById('checkin').addEventListener('click', function(event) {
+        event.preventDefault();
+    
         fetch('/checkHolidays/')
         .then(response => response.json())
         .then(data => {
             if (data.non_working_day) {
-                document.getElementById('message').textContent = 'Check-in is not allowed on public holidays.';
+                document.getElementById('message').textContent = 'Check-in is not allowed on public holidays. Enjoy your day off!';
                 var card = document.querySelector('.card');
                 card.style.display = 'block'; // Show the card and store it in a variable
-                card.classList.add('bg-danger'); // Add the 'bg-danger' class to the card
-                // Here you can add the code to actually change the password                    
+                card.classList.add('bg-danger'); // Add the 'bg-danger' class to the card   
             } else {
-                var date = currentDate.getDate()+'-'+(currentDate.getMonth()+1)+'-'+currentDate.getFullYear();
-                var time = currentTime.getHours() + ":" + currentTime.getMinutes();
-                document.getElementById('message').textContent = 'Have a nice day at work. ' + date + ' ' + time;
-                var card = document.querySelector('.card');
-                card.style.display = 'block'; // Show the card and store it in a variable
-                card.classList.add('bg-success');
-                
+                console.log(currentDate, currentTime);
+                fetch('/#/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': document.getElementById('csrfToken').value,
+                    },
+                    body: new URLSearchParams({
+                        'checkin': 'True',
+                        'datum': currentDate.toISOString().split('T')[0],
+                        'beginn': currentTime.toISOString().split('T')[1].split('.')[0],
+                        'status': 'True',
+                    }),
+                })
+                .then(response => {
+                    console.log(response.status, response.statusText);
+                    if (!response.ok) {
+                        document.getElementById('message').textContent = 'Network response was not ok';
+                        var card = document.querySelector('.card');
+                        card.style.display = 'block'; // Show the card and store it in a variable
+                        card.classList.add('bg-danger');
+                        throw new Error('Network response was not ok');
+                    }
+                    document.getElementById('message').textContent = 'Have a nice day at work. ' + dayOfMonth + '.' + currentMonth + '.' + currentYear;
+                    var card = document.querySelector('.card');
+                    card.style.display = 'block'; // Show the card and store it in a variable
+                    card.classList.add('bg-success');
+                })
+                .catch(error => {
+                    document.getElementById('message').textContent = 'There has been a problem with your fetch checkin operation', error;
+                    var card = document.querySelector('.card');
+                    card.style.display = 'block'; // Show the card and store it in a variable
+                    card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
+                    console.error('There has been a problem with your fetch checkin operation:', error);
+                });
             }
+        })
+        .catch(error => { // Removed semicolon before this line
+            document.getElementById('message').textContent = 'There has been a problem with your fetch holiday operation:', error;
+            var card = document.querySelector('.card');
+            card.style.display = 'block'; // Show the card and store it in a variable
+            card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
+            console.error('There has been a problem with your fetch holiday operation:', error);
         });
     });
 
