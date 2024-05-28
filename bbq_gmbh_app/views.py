@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.shortcuts import render, redirect
 from bbq_gmbh_app.forms import CreateUserForm, AdresseForm, CheckInForm, CheckOutForm
-from bbq_gmbh_app.models import Mitarbeiter
+from bbq_gmbh_app.models import Mitarbeiter, Arbeitsstunden
 from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
 from datetime import date, datetime
@@ -43,6 +43,7 @@ def get_user_role(request):
         return JsonResponse({'user_role': request.user.role})
     else:
         return JsonResponse({'status': 'not authenticated'}, status=401)
+
 
 @login_required(login_url='signin')
 def home(request):
@@ -140,9 +141,57 @@ def checkHolidays(request):
     de_holidays = holidays.Germany(prov='BW')
     is_public_holiday = today in de_holidays
     is_sunday = today.weekday() == 6 #6 = sunday
-    context = {'non_working_day': is_public_holiday or is_sunday }
+
+    checkInStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
+    checkInStatus = checkInStatus.status
+    checkOutStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
+    checkOutStatus = not checkOutStatus.status
+
+    context = {'non_working_day': is_public_holiday or is_sunday,
+                'checkInStatus': checkInStatus,
+                'checkOutStatus': checkOutStatus
+    }
+
+
+    print('checkInStatus', checkInStatus)
+    print('checkOutStatus', checkOutStatus)
+
     return JsonResponse(context)
 
+# This view is used to check in a user
+# It is handling the CheckInForm and setting the user
+# and the status of the Arbeitsstunden object
+# to the currently logged in user and 'checked_in'
+@login_required(login_url='signin')
+def checkIn(request):
+    if request.method == 'POST':
+        checkInForm = CheckInForm(request.POST)
+        if checkInForm.is_valid():
+            checkIn = checkInForm.save(commit=False)
+            checkIn.mitarbeiter = request.user
+            checkIn.save()
+            checkInStatus = checkIn.status # handling too late! set this to home view
+            return redirect('home')
+    else:
+        checkInForm = CheckInForm()
+    return render(request, 'bbq_gmbh_app/home.html', {'checkInForm': checkInForm})
 
+# This view is used to check out a user
+# It is handling the CheckOutForm and setting the user
+# and the status of the Arbeitsstunden object
+# to the currently logged in user and 'checked_out'
+@login_required(login_url='signin')
+def checkOut(request):
+    if request.method == 'POST':
+        checkOutForm = CheckOutForm(request.POST)
+        if checkOutForm.is_valid():
+            checkOut = checkOutForm.save(commit=False)
+            checkOut.mitarbeiter = request.user
+            checkOut.save()
+            checkOutStatus = checkOut.status # handling too late! set this to home view
+            return redirect('home')
+    else:
+        checkOutForm = CheckOutForm()
+    return render(request, 'bbq_gmbh_app/home.html', {'checkOutForm': checkOutForm})
 
 
