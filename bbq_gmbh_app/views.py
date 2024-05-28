@@ -2,11 +2,11 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.shortcuts import render, redirect
-from bbq_gmbh_app.forms import CreateUserForm, AdresseForm
+from bbq_gmbh_app.forms import CreateUserForm, AdresseForm, CheckInForm, CheckOutForm
 from bbq_gmbh_app.models import Mitarbeiter
 from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
-from datetime import date
+from datetime import date, datetime
 import holidays
 
 
@@ -91,7 +91,7 @@ def createUser(request):
     if request.method == 'POST':
         userForm = CreateUserForm(request.POST)
         adresseForm = AdresseForm(request.POST)
-        print("request.POST", request.POST)
+        # print("request.POST", request.POST)
         if userForm.is_valid() and adresseForm.is_valid():
             user = userForm.save(commit=False)
             adresse = adresseForm.save()
@@ -142,4 +142,7 @@ def checkHolidays(request):
     is_sunday = today.weekday() == 6 #6 = sunday
     context = {'non_working_day': is_public_holiday or is_sunday }
     return JsonResponse(context)
+
+
+
 

@@ -44,7 +44,7 @@
                           </div>                                  
                           <div class="col-6">
                             <label for="strasse" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="strasse" name="strasse" placeholder="MainSt 1234" value="{{ adresseForm.strasse.value|default:'' }}" required>
+                            <input type="text" class="form-control" id="strasse" name="strasse" placeholder="MainSt 1234" value="{{ adresseForm.strasse.value|default:'' }}" >
                           </div>
                           <br>
                           <div class="col-md-6">
@@ -134,10 +134,10 @@
                 <div class="text-center" id="message">
                   <div id="form-errors">
                     {% for field, errors in userForm.errors.items %}
-                        {{ errors|first }}
+                        <p>{{ errors|first|upper }}</p>
                     {% endfor %}
                     {% for field, errors in adresseForm.errors.items %}
-                        {{ errors|first }}
+                        {{ errors|first|upper }} : {{ field|upper }} 
                     {% endfor %}
                   </div>
                 </div>

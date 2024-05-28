@@ -16,7 +16,12 @@ class CreateUserForm(UserCreationForm):
         fields = ['email', 'role', 'birthday', 'first_name', 'last_name', 'gender', 'adresse', 'password1', 'password2']
 
 
-class ArbeitsstundenForm(forms.ModelForm):
+class CheckInForm(forms.ModelForm):
     class Meta:
         model = Arbeitsstunden
-        fields = ['datum', 'beginn', 'ende', 'pause', 'stunden', 'ueberstunden', 'status']
+        fields = ['datum', 'beginn', 'status']
+
+class CheckOutForm(forms.ModelForm):
+    class Meta:
+        model = Arbeitsstunden
+        fields = ['datum2', 'ende', 'status']
