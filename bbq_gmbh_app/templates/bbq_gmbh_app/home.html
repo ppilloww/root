@@ -64,6 +64,7 @@
 <!-- Clock -->
 {% block extra_js %}
 <script>
+    
     // Systemdatum
     let day = document.getElementById("day");
     let weekday = document.getElementById("weekday");
@@ -122,12 +123,19 @@
     // logic for checkin with message and database
     // Check-in button
     // this is handling holidays, messages and the checkin time
+    var cardRemove = document.querySelector('.card');
+
+
     document.getElementById('checkin').addEventListener('click', function(event) {
         event.preventDefault();
+
     
         fetch('/checkHolidays/')
         .then(response => response.json())
         .then(data => {
+            cardRemove.classList.remove('bg-danger'); // this is to refresh the card
+            cardRemove.classList.remove('bg-warning');
+            cardRemove.classList.remove('bg-success');
             if (data.non_working_day) {
                 document.getElementById('message').textContent = 'Check-in is not allowed on public holidays. Enjoy your day off!';
                 var card = document.querySelector('.card');
@@ -194,6 +202,9 @@
         fetch('/checkHolidays/')
         .then(response => response.json())
         .then(data => {
+            cardRemove.classList.remove('bg-danger'); // this is to refresh the card
+            cardRemove.classList.remove('bg-warning');
+            cardRemove.classList.remove('bg-success');
             if (data.non_working_day) {
                 document.getElementById('message').textContent = 'Check-in is not allowed on public holidays. Enjoy your day off!';
                 var card = document.querySelector('.card');
@@ -230,7 +241,7 @@
 
                 })
                 .catch(error => {
-                    document.getElementById('message').textContent = 'There has been a problem with your fetch checkin operation', error;
+                    document.getElementById('message').textContent = 'There has been a problem with your fetch checkout operation', error;
                     var card = document.querySelector('.card');
                     card.style.display = 'block'; // Show the card and store it in a variable
                     card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
