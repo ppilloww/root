@@ -14,9 +14,9 @@ python -m venv env
 //django install LTS
 pip install "Django>=4.2,<4.3"
     //save the requirement.txt 
-    pip freeze > requirements.txt
+    pip freeze > requirement.txt
     // restore pip
-    pip install -r requirements.txt
+    pip install -r requirement.txt
 
 
 //Projekt starten
