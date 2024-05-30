@@ -52,9 +52,9 @@ class MitarbeiterManager(BaseUserManager):
 # evry changes MUST be migrated very carefully
 class Mitarbeiter(AbstractUser):
     ROLE_CHOICES = [
-        ('user', 'User'),
-        ('hr', 'HR'),
-        ('admin', 'Admin'),
+        ('User', 'User'),
+        ('Hr', 'HR'),
+        ('Admin', 'Admin'),
     ]
     
 

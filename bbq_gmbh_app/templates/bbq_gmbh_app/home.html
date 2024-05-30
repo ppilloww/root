@@ -7,51 +7,78 @@
 {% block content %}
 <header class="masthead">
     <div class="container">
-        <div class="capture_time" id="capture_time">
-            <div class="mt-4 p-3 bg-light text-black rounded"  id="myElement">
-                <div class="header_text">
-                    <p class="link"><i class="fa-solid fa-clock" style="color: #63E6BE;"></i> Capture Time</p>
-                    <p class="link">Track your time spent</p>
-                </div>
-                <div class="time_container">
-                    <div class="week_day">
-                        <span id="weekday">Weekday</span>
-                    </div>
-                    <div class="system_date">
-                        <span id="day">00</span>
-                        <span>:</span>
-                        <span id="month">00</span>
-                        <span>:</span>
-                        <span id="year">00</span>
-                    </div>
-                    <div class="clock">
-                        <span id="hrs">00</span>
-                        <span>:</span>
-                        <span id="min">00</span>
-                        <span>:</span>
-                        <span id="sec">00</span>
-                        <span>h</span>
-                    </div>
-                </div>
-                <hr class="separator">
-                <div class="container">
-                    <div class="capture_button">
-                        {% csrf_token %}
-                        <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
-                        <button type="button" class="btn btn-primary" id="checkin">Check In</button>
-                        <button type="button" class="btn btn-danger" id="checkout">Check Out</button>                            
-                    </div>
+        <div class="capture_time " id="capture_time">
 
+            <div class="row">
+                <div class="col-md-8">
+                    <div class=" bg-light text-black rounded"  id="myElement">
+                        <div class="header_text">
+                            <p class="link"><i class="fa-solid fa-clock" style="color: #63E6BE;"></i> Capture Time</p>
+                            <p class="link">Track your time spent</p>
+                        </div>
+                        <div class="time_container row">
+                            <div class="week_day col-12">
+                                <span id="weekday">Weekday</span>
+                            </div>
+                            <div class="system_date col-md-6">
+                                <span id="day">00</span>
+                                <span>:</span>
+                                <span id="month">00</span>
+                                <span>:</span>
+                                <span id="year">00</span>
+                            </div>
+                            <div class="clock col-md-6">
+                                <span id="hrs">00</span>
+                                <span>:</span>
+                                <span id="min">00</span>
+                                <span>:</span>
+                                <span id="sec">00</span>
+                                <span>h</span>
+                            </div>
+                        </div>
+                        <hr class="separator">
+                        <div class="container">
+                            <div class="capture_button">
+                                {% csrf_token %}
+                                <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+                                <div class="col-md-6 d-flex justify-content-center align-item-center">
+                                    <button type="button" class="btn btn-primary" id="checkin">Check In</button>
+                                </div>
+                                <div class="col-md-6 d-flex justify-content-center align-item-center">
+                                    <button type="button" class="btn btn-danger" id="checkout">Check Out</button>
+                                </div>                        
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Welcome to BBQ GmbH</h5>
+                            <p class="card-text">Please check in and out to track your time spent at work.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+
         </div>
+        
+        
         <div class="alert_message">
-            <div class="card" style="display: none;">
-                <div class="card-body">
+            <div class="card alert alert-dismissible fade show" role="alert" style="display: none;">
+                <div class="card-body" style="padding: 0.0rem">
                     <div class="text-center" id="message"></div>
                 </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
+
+        
+
+
     </div>
 </header>
 {% endblock content %}
@@ -62,7 +89,7 @@
 <!-- Footer-->
 
 <!-- Clock -->
-{% block extra_js %}
+{% block extra_js_bottom %}
 <script>
     
     // Systemdatum
@@ -123,7 +150,7 @@
     // logic for checkin with message and database
     // Check-in button
     // this is handling holidays, messages and the checkin time
-    var cardRemove = document.querySelector('.card');
+    var cardRemove = document.querySelector('.alert');
 
 
     document.getElementById('checkin').addEventListener('click', function(event) {
@@ -138,7 +165,7 @@
             cardRemove.classList.remove('bg-success');
             if (data.non_working_day) {
                 document.getElementById('message').textContent = 'Check-in is not allowed on public holidays. Enjoy your day off!';
-                var card = document.querySelector('.card');
+                var card = document.querySelector('.alert');
                 card.style.display = 'block'; // Show the card and store it in a variable
                 card.classList.add('bg-danger'); // Add the 'bg-danger' class to the card   
             } else if (data.checkOutStatus) {
@@ -150,9 +177,6 @@
                         'X-CSRFToken': document.getElementById('csrfToken').value,
                     },
                     body: new URLSearchParams({
-                        'checkin': 'True',
-                        'datum': currentDate.toISOString().split('T')[0],
-                        'beginn': currentTime.toISOString().split('T')[1].split('.')[0],
                         'status': 'True',
                     }),
                 })
@@ -160,13 +184,13 @@
                     console.log(response.status, response.statusText);
                     if (!response.ok) {
                         document.getElementById('message').textContent = 'Network response was not ok';
-                        var card = document.querySelector('.card');
+                        var card = document.querySelector('.alert');
                         card.style.display = 'block'; // Show the card and store it in a variable
                         card.classList.add('bg-warning');
                         throw new Error('Network response was not ok');
                     } else {
                         document.getElementById('message').textContent = 'Have a nice day at work. ' + dayOfMonth + '.' + currentMonth + '.' + currentYear;
-                        var card = document.querySelector('.card');
+                        var card = document.querySelector('.alert');
                         card.style.display = 'block'; // Show the card and store it in a variable
                         card.classList.add('bg-success');
                     }
@@ -174,21 +198,21 @@
                 })
                 .catch(error => {
                     document.getElementById('message').textContent = 'There has been a problem with your fetch checkin operation', error;
-                    var card = document.querySelector('.card');
+                    var card = document.querySelector('.alert');
                     card.style.display = 'block'; // Show the card and store it in a variable
                     card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
                     console.error('There has been a problem with your fetch checkin operation:', error);
                 });                
             } else {
                 document.getElementById('message').textContent = 'You are already checked in!';
-                var card = document.querySelector('.card');
+                var card = document.querySelector('.alert');
                 card.style.display = 'block'; // Show the card and store it in a variable
                 card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
             }
         })
         .catch(error => { // Removed semicolon before this line
             document.getElementById('message').textContent = 'There has been a problem with your fetch holiday checkin operation', error;
-            var card = document.querySelector('.card');
+            var card = document.querySelector('.alert');
             card.style.display = 'block'; // Show the card and store it in a variable
             card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
             console.error('There has been a problem with your fetch holiday operation:', error);
@@ -207,7 +231,7 @@
             cardRemove.classList.remove('bg-success');
             if (data.non_working_day) {
                 document.getElementById('message').textContent = 'Check-in is not allowed on public holidays. Enjoy your day off!';
-                var card = document.querySelector('.card');
+                var card = document.querySelector('.alert');
                 card.style.display = 'block'; // Show the card and store it in a variable
                 card.classList.add('bg-danger'); // Add the 'bg-danger' class to the card 
             } else if (data.checkInStatus){
@@ -219,8 +243,6 @@
                         'X-CSRFToken': document.getElementById('csrfToken').value,
                     },
                     body: new URLSearchParams({
-                        'datum': currentDate.toISOString().split('T')[0],
-                        'ende': currentTime.toISOString().split('T')[1].split('.')[0],
                         'status': 'False',
                     }),
                 })
@@ -228,13 +250,13 @@
                     console.log(response.status, response.statusText);
                     if (!response.ok) {
                         document.getElementById('message').textContent = 'Network response was not ok';
-                        var card = document.querySelector('.card');
+                        var card = document.querySelector('.alert');
                         card.style.display = 'block'; // Show the card and store it in a variable
                         card.classList.add('bg-warning');
                         throw new Error('Network response was not ok');
                     } else{
                         document.getElementById('message').textContent = 'Have a great evening. ' + dayOfMonth + '.' + currentMonth + '.' + currentYear;
-                        var card = document.querySelector('.card');
+                        var card = document.querySelector('.alert');
                         card.style.display = 'block'; // Show the card and store it in a variable
                         card.classList.add('bg-danger');
                     }
@@ -242,21 +264,21 @@
                 })
                 .catch(error => {
                     document.getElementById('message').textContent = 'There has been a problem with your fetch checkout operation', error;
-                    var card = document.querySelector('.card');
+                    var card = document.querySelector('.alert');
                     card.style.display = 'block'; // Show the card and store it in a variable
                     card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
                     console.error('There has been a problem with your fetch checkin operation:', error);
                 });
             } else {
                 document.getElementById('message').textContent = 'You are not checked in!';
-                var card = document.querySelector('.card');
+                var card = document.querySelector('.alert');
                 card.style.display = 'block'; // Show the card and store it in a variable
                 card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
             }
         })
         .catch(error => { // Removed semicolon before this line
             document.getElementById('message').textContent = 'There has been a problem with your fetch holiday checkout operation', error;
-            var card = document.querySelector('.card');
+            var card = document.querySelector('.alert');
             card.style.display = 'block'; // Show the card and store it in a variable
             card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
             console.error('There has been a problem with your fetch holiday operation:', error);
@@ -265,5 +287,5 @@
 
 
 </script>
-{% endblock extra_js %}
+{% endblock extra_js_bottom %}
 
