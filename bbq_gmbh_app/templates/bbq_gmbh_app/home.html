@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+<!-- display the time in 24-hour format, with a leading zero for hours less than 10 -->
+{% load tz %}
 
 <!-- Navigation-->
 
@@ -10,7 +12,7 @@
         <div class="capture_time " id="capture_time">
 
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-8" style="padding-right: 0%;">
                     <div class=" bg-light text-black rounded"  id="myElement">
                         <div class="header_text">
                             <p class="link"><i class="fa-solid fa-clock" style="color: #63E6BE;"></i> Capture Time</p>
@@ -52,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" style="padding-left: 10px;">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Welcome to BBQ GmbH</h5>
@@ -62,19 +64,88 @@
                 </div>
 
             </div>
-
-
-        </div>
-        
-        
-        <div class="alert_message">
-            <div class="card alert alert-dismissible fade show" role="alert" style="display: none;">
-                <div class="card-body" style="padding: 0.0rem">
-                    <div class="text-center" id="message"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert_message">
+                        <div class="card alert alert-dismissible fade show" role="alert" style="display: none;">
+                            <div class="card-body" style="padding: 0.0rem">
+                                <div class="text-center" id="message"></div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
                 </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+            <!-- This is handling the time view of the user -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card" id="myElement">
+                        <div class="card-body">
+                            <div class="container mt-3">
+                            <div class="header_text">
+                                <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> Time Table</p>
+                                <p class="link">EasyTimer</p>
+                            </div>
+                                <div class="row">
+                                <div class="col-md-8"></div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                    <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+                                    </div>
+                                </div>
+                                </div>
+                                <br>
+                                
+                                <div class="table-responsive" style="max-height: 300px; overflow: auto;"> <!--You have set a limit to the card-->
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th style="position: sticky; top: 0; background: white;">Date</th>
+                                        <th style="position: sticky; top: 0; background: white;">Check In</th>
+                                        <th style="position: sticky; top: 0; background: white;">Check Out</th>
+                                        <th style="position: sticky; top: 0; background: white;">Break</th>
+                                        <th style="position: sticky; top: 0; background: white;">Compulsory hours</th>
+                                        <th style="position: sticky; top: 0; background: white;">Overtime</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="table_body">
+                                    {% if request.user.is_authenticated %}
+                                        {% for user in arbeitsstunden %}
+                                        <tr data-href="{% url 'userDetail' user.id %}">
+                                            <td>{{ user.datum }}</td>
+                                            <td>{{ user.beginn|time:"H:i" }}</td>
+                                            <td>{{ user.ende|time:"H:i" }}</td>
+                                            <td>{{ user.pause|time:"H:i" }}</td>
+                                            <td>{{ user.stunden|time:"H:i" }}</td>
+                                            <td>{{ user.ueberstunden|time:"H:i" }}</td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="7">No data available</td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="7">No data available</td>
+                                        </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                                </div>
+
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
+        
+        
+
 
         
 
@@ -152,7 +223,6 @@
     // this is handling holidays, messages and the checkin time
     var cardRemove = document.querySelector('.alert');
 
-
     document.getElementById('checkin').addEventListener('click', function(event) {
         event.preventDefault();
 
@@ -189,10 +259,17 @@
                         card.classList.add('bg-warning');
                         throw new Error('Network response was not ok');
                     } else {
-                        document.getElementById('message').textContent = 'Have a nice day at work. ' + dayOfMonth + '.' + currentMonth + '.' + currentYear;
+                        document.getElementById('message').textContent = 'Have a nice day at work. ';
                         var card = document.querySelector('.alert');
                         card.style.display = 'block'; // Show the card and store it in a variable
                         card.classList.add('bg-success');
+
+                        // refresh the table after check-in
+                        fetch('/home/')  // replace with the path to your Django view
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('table_body').innerHTML = html;
+                        });
                     }
 
                 })
@@ -255,10 +332,17 @@
                         card.classList.add('bg-warning');
                         throw new Error('Network response was not ok');
                     } else{
-                        document.getElementById('message').textContent = 'Have a great evening. ' + dayOfMonth + '.' + currentMonth + '.' + currentYear;
+                        document.getElementById('message').textContent = 'Have a great evening. ';
                         var card = document.querySelector('.alert');
                         card.style.display = 'block'; // Show the card and store it in a variable
                         card.classList.add('bg-danger');
+
+                        // refresh the table after check-in
+                        fetch('/home/')  // replace with the path to your Django view
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('table_body').innerHTML = html;
+                        });
                     }
 
                 })

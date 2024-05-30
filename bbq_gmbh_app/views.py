@@ -48,7 +48,8 @@ def get_user_role(request):
 
 @login_required(login_url='signin')
 def home(request):
-    return render(request, 'bbq_gmbh_app/home.html')
+    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user).order_by('-datum', '-id')
+    return render(request, 'bbq_gmbh_app/home.html', {'arbeitsstunden': arbeitsstunden})
 
 # This view is used to display all users
 # It is fetching all users from the database

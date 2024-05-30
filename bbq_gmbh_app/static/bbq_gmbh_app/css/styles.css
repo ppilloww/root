@@ -11210,6 +11210,8 @@ body {
 
 .capture_time {
   padding-top: 15%;
+  padding-left: 0%;
+  padding-right: 0%;
   
 }
 
@@ -11393,4 +11395,14 @@ tr[data-href]:hover {
 
 .dot_online {
   background-color: #90ee90;
+}
+
+/* no Padding beween rows */
+.no-padding {
+  padding: 0 !important;
+}
+
+/* centering td home */
+.center_td {
+  text-align: center;
 }
