@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'bbq_gmbh_app.middleware.ForcePasswordChangeMiddleware',
 ]
 
 ROOT_URLCONF = 'website.urls'

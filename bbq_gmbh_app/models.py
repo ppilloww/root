@@ -26,6 +26,7 @@ class MitarbeiterManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
+        user.must_change_password = True
         user.save(using=self._db)
         return user
 
@@ -39,6 +40,7 @@ class MitarbeiterManager(BaseUserManager):
         """Create and save a SuperUser with the given email and password."""
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('must_change_password', False)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
@@ -61,6 +63,7 @@ class Mitarbeiter(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
+    must_change_password = models.BooleanField(default=True)
 
     # extra fields which are not required in the backend
     # but can be required in the frontend

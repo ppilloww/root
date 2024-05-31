@@ -16,5 +16,6 @@ urlpatterns = [
     path('checkIn/', views.checkIn, name='checkIn'),
     path('checkOut/', views.checkOut, name='checkOut'),
     path('arbeitsstunden/', views.arbeitsstunden, name='arbeitsstunden'),
+    path('newPassword/', views.newPassword, name='newPassword'),
     
 ]

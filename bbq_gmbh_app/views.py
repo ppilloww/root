@@ -1,9 +1,9 @@
+from bbq_gmbh_app.forms import CreateUserForm, AdresseForm, CheckInForm, CheckOutForm, CustomPasswordChangeForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
-from bbq_gmbh_app.forms import CreateUserForm, AdresseForm, CheckInForm, CheckOutForm
 from bbq_gmbh_app.models import Mitarbeiter, Arbeitsstunden
 from django.http import JsonResponse
 from django.contrib import messages
@@ -27,6 +27,8 @@ def signin(request):
             if user.is_active:
                 login(request, user)
                 request.session['user_role'] = user.role
+                if user.must_change_password:
+                    return redirect('newPassword')
                 return JsonResponse({'status': 'success', 'user_role':user.role}, status=200)
             else:
                 return JsonResponse({'status': 'inactive'}, status=401)
@@ -74,7 +76,7 @@ def profile(request):
 @login_required(login_url='signin')
 def changePassword(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
+        form = CustomPasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
@@ -83,8 +85,27 @@ def changePassword(request):
         else:
             messages.error(request, 'Changing password failed. Please correct the error below')
     else:
-        form = PasswordChangeForm(request.user)
+        form = CustomPasswordChangeForm(request.user)
     return render(request, 'bbq_gmbh_app/changePassword.html',  {'form': form})
+
+# This view is to force the user to change the password
+@login_required(login_url='signin')
+def newPassword(request):
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.must_change_password = False
+            user.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('logout')
+        else:
+            messages.error(request, 'Changing password failed. Please correct the error below')
+    else:
+        form = CustomPasswordChangeForm(request.user)
+
+    return render(request, 'bbq_gmbh_app/newPassword.html',  {'form': form})
 
 def userLogout(request):
     logout(request)
