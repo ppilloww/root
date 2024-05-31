@@ -54,14 +54,15 @@
                         </div>
                     </div>
                 </div>
+                <!-- infobox -->
                 <div class="col-md-4" style="padding-left: 10px;">
                     <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Welcome to BBQ GmbH</h5>
-                            <p class="card-text">Please check in and out to track your time spent at work.</p>
+                        <div class="card-body" id="infobox">
+                            {% include 'bbq_gmbh_app/_infoBox.html' %}
                         </div>
                     </div>
                 </div>
+
 
             </div>
             <div class="row">
@@ -252,6 +253,12 @@
                         .then(html => {
                             document.getElementById('table_body').innerHTML = html;
                         });
+                        // refresh infobox
+                        fetch('/infoBox/')  // replace with the path to your Django view
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('infobox').innerHTML = html;
+                        });
                     }
 
                 })
@@ -324,6 +331,12 @@
                         .then(response => response.text())
                         .then(html => {
                             document.getElementById('table_body').innerHTML = html;
+                        });
+                        // refresh infobox
+                        fetch('/infoBox/')  // replace with the path to your Django view
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('infobox').innerHTML = html;
                         });
                     }
 

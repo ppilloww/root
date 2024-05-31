@@ -1,0 +1,8 @@
+
+<h5 class="card-title">Welcome to BBQ GmbH</h5>
+<p class="card-text">Please check in and out to track your time spent at work.</p>
+{% if arbeitsstunden.last.status %}
+<p class="card-text" style="font-size: 1rem"><span class="dot dot_online"></span> Online</p>
+{% else %}
+<p class="card-text" style="font-size: 1rem"><span class="dot bg-secondary"></span> Offline</p>
+{% endif %}

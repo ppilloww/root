@@ -1,5 +1,5 @@
 {% if request.user.is_authenticated %}
-    {% for user in arbeitsstunden %}
+    {% for user in arbeitsstunden|dictsortreversed:"id" %}
     <tr>
         <td>{{ user.datum }}</td>
         <td>{{ user.beginn|time:"H:i" }}</td>

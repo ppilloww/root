@@ -1,7 +1,6 @@
 from bbq_gmbh_app.forms import CreateUserForm, AdresseForm, CheckInForm, CheckOutForm, CustomPasswordChangeForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from bbq_gmbh_app.models import Mitarbeiter, Arbeitsstunden
@@ -50,13 +49,18 @@ def get_user_role(request):
 
 @login_required(login_url='signin')
 def home(request):
-    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user).order_by('-datum', '-id')
+    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
     return render(request, 'bbq_gmbh_app/home.html', {'arbeitsstunden': arbeitsstunden})
 
-@login_required(login_url='signin')
+# This ishandling the refreshing of the time table
 def arbeitsstunden(request):
     arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user).order_by('-datum', '-id')
     return render(request, 'bbq_gmbh_app/_timeTable.html', {'arbeitsstunden': arbeitsstunden})
+
+# This is handling the refreshing of the info box
+def infoBox(request):
+    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
+    return render(request, 'bbq_gmbh_app/_infoBox.html', {'arbeitsstunden': arbeitsstunden})
 
 # This view is used to display all users
 # It is fetching all users from the database
@@ -171,7 +175,7 @@ def checkHolidays(request):
     checkOutStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
     checkOutStatus = not checkOutStatus.status
 
-    context = {'non_working_day': False,
+    context = {'non_working_day': is_public_holiday or is_sunday,
                 'checkInStatus': checkInStatus,
                 'checkOutStatus': checkOutStatus
     }
