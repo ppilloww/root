@@ -51,6 +51,11 @@ def home(request):
     arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user).order_by('-datum', '-id')
     return render(request, 'bbq_gmbh_app/home.html', {'arbeitsstunden': arbeitsstunden})
 
+@login_required(login_url='signin')
+def arbeitsstunden(request):
+    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user).order_by('-datum', '-id')
+    return render(request, 'bbq_gmbh_app/_timeTable.html', {'arbeitsstunden': arbeitsstunden})
+
 # This view is used to display all users
 # It is fetching all users from the database
 # and passing them to the template
