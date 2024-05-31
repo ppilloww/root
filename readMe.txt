@@ -4,6 +4,8 @@
 !!! WENN DU DEN DJANGO TOUROTIAL NICHT VERSTANDEN HAST,
     BIST DU HIER FALSCH !!!
 
+    !!! ACHTUNG ... Lege für deinen PC eine neu virtuelle Umgebung an und installiere requirements.txt in deiner virtuellen Umgebung !!!
+
 //virtuelle Umgebung erstellen
 python -m venv env
 
