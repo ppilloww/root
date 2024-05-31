@@ -40,4 +40,13 @@ python manage.py makemigrations
 //SQL erstellen step 2/2
 python manage.py migrate}
 
-
+// --------------- ERROR PYTHON OR PIP NOT FOUND --------------------
+1 "./env/Scripts/deactivate"
+2 pip --version = true?
+3 python --version = true?
+4 python -m venv (choose new name) //dont delete or choose the existing env
+5 ( python -m ) pip install -r requirement.txt = true?
+6 "./env/Scripts/activate" = true?
+7 ( python -m ) pip freeze = true?
+8 python manage.py runserver = true?
+9 drink a beer
