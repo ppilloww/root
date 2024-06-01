@@ -26,6 +26,7 @@ class MitarbeiterManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
+        user.must_change_password = True
         user.save(using=self._db)
         return user
 
@@ -39,6 +40,7 @@ class MitarbeiterManager(BaseUserManager):
         """Create and save a SuperUser with the given email and password."""
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('must_change_password', False)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
@@ -52,15 +54,16 @@ class MitarbeiterManager(BaseUserManager):
 # evry changes MUST be migrated very carefully
 class Mitarbeiter(AbstractUser):
     ROLE_CHOICES = [
-        ('user', 'User'),
-        ('hr', 'HR'),
-        ('admin', 'Admin'),
+        ('User', 'User'),
+        ('Hr', 'HR'),
+        ('Admin', 'Admin'),
     ]
     
 
     username = None
     email = models.EmailField(_('email address'), unique=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
+    must_change_password = models.BooleanField(default=True)
 
     # extra fields which are not required in the backend
     # but can be required in the frontend
@@ -96,15 +99,15 @@ class Adresse(models.Model):
         return f'{self.strasse}, {self.stadt}, {self.plz}, {self.land}'
     
 class Arbeitsstunden(models.Model):
+        
+
+        
     
         mitarbeiter = models.ForeignKey(Mitarbeiter, on_delete=models.CASCADE)
         datum = models.DateField(blank=True, null=True)
         beginn = models.TimeField(blank=True, null=True)
         ende = models.TimeField(blank=True, null=True)
-        pause = models.TimeField(default='01:00')
-        stunden = models.TimeField(default='08:00')
-        ueberstunden = models.TimeField(default='00:00')
         status = models.BooleanField(default=False)
     
         def __str__(self):
-            return f'{self.mitarbeiter} - {self.datum} - {self.beginn} - {self.ende} - {self.stunden}h - {self.ueberstunden}h - {self.status}'
+            return f'{self.mitarbeiter} - {self.datum} - {self.beginn} - {self.ende} - {self.status}'

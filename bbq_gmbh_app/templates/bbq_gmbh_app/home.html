@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+<!-- display the time in 24-hour format, with a leading zero for hours less than 10 -->
+{% load tz %}
 
 <!-- Navigation-->
 
@@ -7,51 +9,131 @@
 {% block content %}
 <header class="masthead">
     <div class="container">
-        <div class="capture_time" id="capture_time">
-            <div class="mt-4 p-3 bg-light text-black rounded"  id="myElement">
-                <div class="header_text">
-                    <p class="link"><i class="fa-solid fa-clock" style="color: #63E6BE;"></i> Capture Time</p>
-                    <p class="link">Track your time spent</p>
-                </div>
-                <div class="time_container">
-                    <div class="week_day">
-                        <span id="weekday">Weekday</span>
-                    </div>
-                    <div class="system_date">
-                        <span id="day">00</span>
-                        <span>:</span>
-                        <span id="month">00</span>
-                        <span>:</span>
-                        <span id="year">00</span>
-                    </div>
-                    <div class="clock">
-                        <span id="hrs">00</span>
-                        <span>:</span>
-                        <span id="min">00</span>
-                        <span>:</span>
-                        <span id="sec">00</span>
-                        <span>h</span>
-                    </div>
-                </div>
-                <hr class="separator">
-                <div class="container">
-                    <div class="capture_button">
-                        {% csrf_token %}
-                        <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
-                        <button type="button" class="btn btn-primary" id="checkin">Check In</button>
-                        <button type="button" class="btn btn-danger" id="checkout">Check Out</button>                            
-                    </div>
+        <div class="capture_time " id="capture_time">
 
+            <div class="row">
+                <div class="col-md-8" style="padding-right: 0%;">
+                    <div class=" bg-light text-black rounded"  id="myElement">
+                        <div class="header_text">
+                            <p class="link"><i class="fa-solid fa-clock" style="color: #63E6BE;"></i> Capture Time</p>
+                            <p class="link">Track your time spent</p>
+                        </div>
+                        <div class="time_container row">
+                            <div class="week_day col-12">
+                                <span id="weekday">Weekday</span>
+                            </div>
+                            <div class="system_date col-md-6">
+                                <span id="day">00</span>
+                                <span>:</span>
+                                <span id="month">00</span>
+                                <span>:</span>
+                                <span id="year">00</span>
+                            </div>
+                            <div class="clock col-md-6">
+                                <span id="hrs">00</span>
+                                <span>:</span>
+                                <span id="min">00</span>
+                                <span>:</span>
+                                <span id="sec">00</span>
+                                <span>h</span>
+                            </div>
+                        </div>
+                        <hr class="separator">
+                        <div class="container">
+                            <div class="capture_button">
+                                {% csrf_token %}
+                                <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+                                <div class="col-md-6 d-flex justify-content-center align-item-center">
+                                    <button type="button" class="btn btn-primary" id="checkin">Check In</button>
+                                </div>
+                                <div class="col-md-6 d-flex justify-content-center align-item-center">
+                                    <button type="button" class="btn btn-danger" id="checkout">Check Out</button>
+                                </div>                        
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- infobox -->
+                <div class="col-md-4" style="padding-left: 10px;">
+                    <div class="card">
+                        <div class="card-body" id="infobox">
+                            {% include 'bbq_gmbh_app/_infoBox.html' %}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="alert_message">
-            <div class="card" style="display: none;">
-                <div class="card-body">
-                    <div class="text-center" id="message"></div>
+
+            <!-- Alert message -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert_message">
+                        <div class="card alert alert-dismissible fade show" role="alert" style="display: none;">
+                            <div class="card-body" style="padding: 0.0rem">
+                                <div class="text-center" id="message"></div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Time Table -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card" id="myElement">
+                        <div class="card-body">
+                            <div class="container mt-3">
+                            <div class="header_text">
+                                <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> Time Table</p>
+                                <p class="link">EasyTimer</p>
+                            </div>
+                                <div class="row">
+                                <div class="col-md-8"></div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                    <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+                                    </div>
+                                </div>
+                                </div>
+                                <br>
+                                
+                                <div class="table-responsive" style="max-height: 300px; overflow: auto;"> <!--You have set a limit to the card-->
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th style="position: sticky; top: 0; background: white;">Date</th>
+                                        <th style="position: sticky; top: 0; background: white;">Check In</th>
+                                        <th style="position: sticky; top: 0; background: white;">Check Out</th>
+                                        <th style="position: sticky; top: 0; background: white;">Break</th>
+                                        <th style="position: sticky; top: 0; background: white;">Compulsory hours</th>
+                                        <th style="position: sticky; top: 0; background: white;">Overtime</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="table_body">
+                                        <!-- This is handling the time view of the user -->
+                                        {% include "bbq_gmbh_app/_timeTable.html" %}
+                                    </tbody>
+                                </table>
+                                </div>
+            
+            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
+        
+        
+
+
+        
+
+
     </div>
 </header>
 {% endblock content %}
@@ -62,8 +144,9 @@
 <!-- Footer-->
 
 <!-- Clock -->
-{% block extra_js %}
+{% block extra_js_bottom %}
 <script>
+    
     // Systemdatum
     let day = document.getElementById("day");
     let weekday = document.getElementById("weekday");
@@ -117,20 +200,29 @@
 
     },1000)
 
+    // This is for the session cookie age
+
+
 
 
     // logic for checkin with message and database
     // Check-in button
     // this is handling holidays, messages and the checkin time
+    var cardRemove = document.querySelector('.alert');
+
     document.getElementById('checkin').addEventListener('click', function(event) {
         event.preventDefault();
+
     
         fetch('/checkHolidays/')
         .then(response => response.json())
         .then(data => {
+            cardRemove.classList.remove('bg-danger'); // this is to refresh the card
+            cardRemove.classList.remove('bg-warning');
+            cardRemove.classList.remove('bg-success');
             if (data.non_working_day) {
                 document.getElementById('message').textContent = 'Check-in is not allowed on public holidays. Enjoy your day off!';
-                var card = document.querySelector('.card');
+                var card = document.querySelector('.alert');
                 card.style.display = 'block'; // Show the card and store it in a variable
                 card.classList.add('bg-danger'); // Add the 'bg-danger' class to the card   
             } else if (data.checkOutStatus) {
@@ -142,9 +234,6 @@
                         'X-CSRFToken': document.getElementById('csrfToken').value,
                     },
                     body: new URLSearchParams({
-                        'checkin': 'True',
-                        'datum': currentDate.toISOString().split('T')[0],
-                        'beginn': currentTime.toISOString().split('T')[1].split('.')[0],
                         'status': 'True',
                     }),
                 })
@@ -152,35 +241,48 @@
                     console.log(response.status, response.statusText);
                     if (!response.ok) {
                         document.getElementById('message').textContent = 'Network response was not ok';
-                        var card = document.querySelector('.card');
+                        var card = document.querySelector('.alert');
                         card.style.display = 'block'; // Show the card and store it in a variable
                         card.classList.add('bg-warning');
                         throw new Error('Network response was not ok');
                     } else {
-                        document.getElementById('message').textContent = 'Have a nice day at work. ' + dayOfMonth + '.' + currentMonth + '.' + currentYear;
-                        var card = document.querySelector('.card');
+                        document.getElementById('message').textContent = 'Have a nice day at work. ';
+                        var card = document.querySelector('.alert');
                         card.style.display = 'block'; // Show the card and store it in a variable
                         card.classList.add('bg-success');
+
+                        // refresh the table after check-in
+                        fetch('/arbeitsstunden/')  // replace with the path to your Django view
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('table_body').innerHTML = html;
+                        });
+                        // refresh infobox
+                        fetch('/infoBox/')  // replace with the path to your Django view
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('infobox').innerHTML = html;
+                        });
                     }
 
                 })
                 .catch(error => {
                     document.getElementById('message').textContent = 'There has been a problem with your fetch checkin operation', error;
-                    var card = document.querySelector('.card');
+                    var card = document.querySelector('.alert');
                     card.style.display = 'block'; // Show the card and store it in a variable
                     card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
                     console.error('There has been a problem with your fetch checkin operation:', error);
                 });                
             } else {
                 document.getElementById('message').textContent = 'You are already checked in!';
-                var card = document.querySelector('.card');
+                var card = document.querySelector('.alert');
                 card.style.display = 'block'; // Show the card and store it in a variable
                 card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
             }
         })
         .catch(error => { // Removed semicolon before this line
             document.getElementById('message').textContent = 'There has been a problem with your fetch holiday checkin operation', error;
-            var card = document.querySelector('.card');
+            var card = document.querySelector('.alert');
             card.style.display = 'block'; // Show the card and store it in a variable
             card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
             console.error('There has been a problem with your fetch holiday operation:', error);
@@ -194,9 +296,12 @@
         fetch('/checkHolidays/')
         .then(response => response.json())
         .then(data => {
+            cardRemove.classList.remove('bg-danger'); // this is to refresh the card
+            cardRemove.classList.remove('bg-warning');
+            cardRemove.classList.remove('bg-success');
             if (data.non_working_day) {
                 document.getElementById('message').textContent = 'Check-in is not allowed on public holidays. Enjoy your day off!';
-                var card = document.querySelector('.card');
+                var card = document.querySelector('.alert');
                 card.style.display = 'block'; // Show the card and store it in a variable
                 card.classList.add('bg-danger'); // Add the 'bg-danger' class to the card 
             } else if (data.checkInStatus){
@@ -208,8 +313,6 @@
                         'X-CSRFToken': document.getElementById('csrfToken').value,
                     },
                     body: new URLSearchParams({
-                        'datum': currentDate.toISOString().split('T')[0],
-                        'ende': currentTime.toISOString().split('T')[1].split('.')[0],
                         'status': 'False',
                     }),
                 })
@@ -217,35 +320,48 @@
                     console.log(response.status, response.statusText);
                     if (!response.ok) {
                         document.getElementById('message').textContent = 'Network response was not ok';
-                        var card = document.querySelector('.card');
+                        var card = document.querySelector('.alert');
                         card.style.display = 'block'; // Show the card and store it in a variable
                         card.classList.add('bg-warning');
                         throw new Error('Network response was not ok');
                     } else{
-                        document.getElementById('message').textContent = 'Have a great evening. ' + dayOfMonth + '.' + currentMonth + '.' + currentYear;
-                        var card = document.querySelector('.card');
+                        document.getElementById('message').textContent = 'Have a great evening. ';
+                        var card = document.querySelector('.alert');
                         card.style.display = 'block'; // Show the card and store it in a variable
                         card.classList.add('bg-danger');
+
+                        // refresh the table after check-in
+                        fetch('/arbeitsstunden/')  // replace with the path to your Django view
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('table_body').innerHTML = html;
+                        });
+                        // refresh infobox
+                        fetch('/infoBox/')  // replace with the path to your Django view
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('infobox').innerHTML = html;
+                        });
                     }
 
                 })
                 .catch(error => {
-                    document.getElementById('message').textContent = 'There has been a problem with your fetch checkin operation', error;
-                    var card = document.querySelector('.card');
+                    document.getElementById('message').textContent = 'There has been a problem with your fetch checkout operation', error;
+                    var card = document.querySelector('.alert');
                     card.style.display = 'block'; // Show the card and store it in a variable
                     card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
                     console.error('There has been a problem with your fetch checkin operation:', error);
                 });
             } else {
                 document.getElementById('message').textContent = 'You are not checked in!';
-                var card = document.querySelector('.card');
+                var card = document.querySelector('.alert');
                 card.style.display = 'block'; // Show the card and store it in a variable
                 card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
             }
         })
         .catch(error => { // Removed semicolon before this line
             document.getElementById('message').textContent = 'There has been a problem with your fetch holiday checkout operation', error;
-            var card = document.querySelector('.card');
+            var card = document.querySelector('.alert');
             card.style.display = 'block'; // Show the card and store it in a variable
             card.classList.add('bg-warning'); // Add the 'bg-warning' class to the card
             console.error('There has been a problem with your fetch holiday operation:', error);
@@ -254,5 +370,5 @@
 
 
 </script>
-{% endblock extra_js %}
+{% endblock extra_js_bottom %}
 

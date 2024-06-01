@@ -63,9 +63,11 @@
                             </tbody>
                           </table>
                         </div>
+
                         <div style="text-align: right;">
                           <a href="{% url 'createUser' %}" class="btn btn-primary">Create User</a>
                         </div>
+
                       </div>
                 </div>
               </div>
@@ -83,6 +85,7 @@
 
 <!--extra js bottom-->
 {% block extra_js_bottom %}
+<!-- These two scripts are used for the search function clickable rows and live search  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{% static "bbq_gmbh_app/js/search.js" %}"></script>
 {% endblock extra_js_bottom %}

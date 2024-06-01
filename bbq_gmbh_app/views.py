@@ -1,10 +1,10 @@
+from bbq_gmbh_app.forms import CreateUserForm, AdresseForm, CheckInForm, CheckOutForm, CustomPasswordChangeForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
-from bbq_gmbh_app.forms import CreateUserForm, AdresseForm, CheckInForm, CheckOutForm
 from bbq_gmbh_app.models import Mitarbeiter, Arbeitsstunden
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.contrib import messages
 from datetime import date, datetime
 import holidays
@@ -26,6 +26,8 @@ def signin(request):
             if user.is_active:
                 login(request, user)
                 request.session['user_role'] = user.role
+                if user.must_change_password:
+                    return redirect('newPassword')
                 return JsonResponse({'status': 'success', 'user_role':user.role}, status=200)
             else:
                 return JsonResponse({'status': 'inactive'}, status=401)
@@ -47,7 +49,22 @@ def get_user_role(request):
 
 @login_required(login_url='signin')
 def home(request):
-    return render(request, 'bbq_gmbh_app/home.html')
+    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
+    return render(request, 'bbq_gmbh_app/home.html', {'arbeitsstunden': arbeitsstunden})
+
+# This ishandling the refreshing of the time table
+@login_required(login_url='signin')
+def arbeitsstunden(request):
+    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
+    return render(request, 'bbq_gmbh_app/_timeTable.html', {'arbeitsstunden': arbeitsstunden})
+
+# This is handling the refreshing of the info box
+@login_required(login_url='signin')
+def infoBox(request):
+    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
+    sessionAge = request.session.get_expiry_age()
+    print('sessionAge', sessionAge)
+    return render(request, 'bbq_gmbh_app/_infoBox.html', {'arbeitsstunden': arbeitsstunden, 'sesssionAge': sessionAge})
 
 # This view is used to display all users
 # It is fetching all users from the database
@@ -61,12 +78,13 @@ def employeeManagement(request):
 
 @login_required(login_url='signin')
 def profile(request):
-    return render(request, 'bbq_gmbh_app/profile.html')
+    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
+    return render(request, 'bbq_gmbh_app/profile.html', {'arbeitsstunden': arbeitsstunden})
 
 @login_required(login_url='signin')
 def changePassword(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
+        form = CustomPasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
@@ -75,8 +93,27 @@ def changePassword(request):
         else:
             messages.error(request, 'Changing password failed. Please correct the error below')
     else:
-        form = PasswordChangeForm(request.user)
+        form = CustomPasswordChangeForm(request.user)
     return render(request, 'bbq_gmbh_app/changePassword.html',  {'form': form})
+
+# This view is to force the user to change the password
+@login_required(login_url='signin')
+def newPassword(request):
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.must_change_password = False
+            user.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('logout')
+        else:
+            messages.error(request, 'Changing password failed. Please correct the error below')
+    else:
+        form = CustomPasswordChangeForm(request.user)
+
+    return render(request, 'bbq_gmbh_app/newPassword.html',  {'form': form})
 
 def userLogout(request):
     logout(request)
@@ -106,18 +143,7 @@ def createUser(request):
         'userForm': userForm, 
         'adresseForm': adresseForm
         })
-# def createUser(request):
-#     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
-#         print('form',form)
-#         if form.is_valid():
 
-#             form.save()
-#             return redirect('employeeManagement')
-
-#     else:
-#         form = UserCreationForm()
-#     return render(request, 'bbq_gmbh_app/createUser.html', {'form': form})
 
 login_required(login_url='signin')
 def userDetail(request, user_id):
@@ -142,6 +168,12 @@ def checkHolidays(request):
     is_public_holiday = today in de_holidays
     is_sunday = today.weekday() == 6 #6 = sunday
 
+    # This is handling a cross block of the checkIn and checkOut status
+    # if the last Arbeitsstunden object of the currently logged in user
+    # has the status 'True' the checkInStatus is set to True and the user can't check in again
+    # if the last Arbeitsstunden object of the currently logged in user
+    # has the status 'False' the checkOutStatus is set to False and the user can't check out again
+
     checkInStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
     checkInStatus = checkInStatus.status
     checkOutStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
@@ -152,9 +184,8 @@ def checkHolidays(request):
                 'checkOutStatus': checkOutStatus
     }
 
-
-    print('checkInStatus', checkInStatus)
-    print('checkOutStatus', checkOutStatus)
+    # print('checkInStatus', checkInStatus)
+    # print('checkOutStatus', checkOutStatus)
 
     return JsonResponse(context)
 
@@ -168,6 +199,8 @@ def checkIn(request):
         checkInForm = CheckInForm(request.POST)
         if checkInForm.is_valid():
             checkIn = checkInForm.save(commit=False)
+            checkIn.datum = date.today()
+            checkIn.beginn = datetime.now().strftime('%H:%M')
             checkIn.mitarbeiter = request.user
             checkIn.save()
             checkInStatus = checkIn.status # handling too late! set this to home view
@@ -183,9 +216,16 @@ def checkIn(request):
 @login_required(login_url='signin')
 def checkOut(request):
     if request.method == 'POST':
-        checkOutForm = CheckOutForm(request.POST)
+        try:
+            arbeitsstunde = Arbeitsstunden.objects.filter(mitarbeiter=request.user, datum=date.today()).latest('id')
+        except ObjectDoesNotExist:
+            arbeitsstunde = Arbeitsstunden(mitarbeiter=request.user, datum=date.today())
+        
+        checkOutForm = CheckOutForm(request.POST, instance=arbeitsstunde)
         if checkOutForm.is_valid():
             checkOut = checkOutForm.save(commit=False)
+            checkOut.datum = date.today()
+            checkOut.ende = datetime.now().strftime('%H:%M')
             checkOut.mitarbeiter = request.user
             checkOut.save()
             checkOutStatus = checkOut.status # handling too late! set this to home view
