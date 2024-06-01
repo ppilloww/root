@@ -53,14 +53,18 @@ def home(request):
     return render(request, 'bbq_gmbh_app/home.html', {'arbeitsstunden': arbeitsstunden})
 
 # This ishandling the refreshing of the time table
+@login_required(login_url='signin')
 def arbeitsstunden(request):
-    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user).order_by('-datum', '-id')
+    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
     return render(request, 'bbq_gmbh_app/_timeTable.html', {'arbeitsstunden': arbeitsstunden})
 
 # This is handling the refreshing of the info box
+@login_required(login_url='signin')
 def infoBox(request):
     arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
-    return render(request, 'bbq_gmbh_app/_infoBox.html', {'arbeitsstunden': arbeitsstunden})
+    sessionAge = request.session.get_expiry_age()
+    print('sessionAge', sessionAge)
+    return render(request, 'bbq_gmbh_app/_infoBox.html', {'arbeitsstunden': arbeitsstunden, 'sesssionAge': sessionAge})
 
 # This view is used to display all users
 # It is fetching all users from the database
