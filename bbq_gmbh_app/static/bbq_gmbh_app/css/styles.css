@@ -11228,7 +11228,7 @@ body {
 /* If the screen size is bigger than  */
 @media (min-width: 701px) {
   .system_date span {
-      font-size: 4em;
+      font-size: 4.5em;
       width: auto;
       display: inline-block;
       text-align: center;
@@ -11266,7 +11266,7 @@ body {
 /* If the screen size is bigger than  */
 @media (min-width: 701px) {
   .clock span {
-      font-size: 4em;
+      font-size: 4.5em;
       width: auto;
       display: inline-block;
       text-align: center;
