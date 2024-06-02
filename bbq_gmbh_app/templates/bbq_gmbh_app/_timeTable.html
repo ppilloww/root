@@ -1,12 +1,23 @@
+{% load durationFilters %}
+
 {% if request.user.is_authenticated %}
     {% for user in arbeitsstunden|dictsortreversed:"id" %}
     <tr>
         <td>{{ user.datum }}</td>
-        <td>{{ user.beginn|time:"H:i" }}</td>
-        <td>{{ user.ende|time:"H:i" }}</td>
-        <td>{{ user.pause|time:"H:i" }}</td>
-        <td>{{ user.stunden|time:"H:i" }}</td>
-        <td>{{ user.ueberstunden|time:"H:i" }}</td>
+        {% if user.beginn %}
+            <td>{{ user.beginn|time:"H:i" }}h</td>
+        {% else %}
+            <td>---</td>
+        {% endif %}
+        {% if user.ende %}
+            <td>{{ user.ende|time:"H:i" }}h</td>
+        {% else %}
+            <td>---</td>
+        {% endif %}
+        <td>{{ user.pause|duration }}h</td>
+        <td>{{ user.stunden }}h</td>
+        <td>{{ user.arbeitszeitTag|duration }}h</td>
+        <td>{{ user.ueberstunden|duration }}h</td>
     </tr>
     {% empty %}
     <tr>

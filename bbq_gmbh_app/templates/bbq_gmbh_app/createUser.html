@@ -103,9 +103,9 @@
                             <input type="number" min="24" max="40" class="form-control" id="inputVacation">
                           </div>
                           <div class="col-md-2">
-                            <label for="week_hours" class="form-label">HR/W</label>
-                            <select id="week_hours" class="form-select" name="week_hours">
-                              {% for value, display in form.fields.week_hours.choices %}
+                            <label for="wochenarbeitszeit" class="form-label">HR/W</label>
+                            <select id="wochenarbeitszeit" class="form-select" name="wochenarbeitszeit" required>
+                              {% for value, display in userForm.fields.wochenarbeitszeit.choices %}
                                 <option value="{{ value }}">{{ display }}</option>
                               {% endfor %}
                             </select>
