@@ -14,6 +14,8 @@ python -m venv env
 "./env_nb/Scripts/activate"
 
 "./env/Scripts/deactivate"
+"./env_nb/Scripts/deactivate"
+
 
 //django install LTS
 pip install "Django>=4.2,<4.3"
