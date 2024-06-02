@@ -14,13 +14,15 @@ python -m venv env
 "./env_nb/Scripts/activate"
 
 "./env/Scripts/deactivate"
+"./env_nb/Scripts/deactivate"
+
 
 //django install LTS
 pip install "Django>=4.2,<4.3"
-    //save the requirement.txt 
-    pip freeze > requirement.txt
+    //save the requirements.txt 
+    pip freeze > requirements.txt
     // restore pip
-    pip install -r requirement.txt
+    pip install -r requirements.txt
 
 
 //Projekt starten

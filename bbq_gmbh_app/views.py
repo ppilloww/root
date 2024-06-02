@@ -7,6 +7,7 @@ from bbq_gmbh_app.models import Mitarbeiter, Arbeitsstunden
 from django.http import JsonResponse
 from django.contrib import messages
 from datetime import date, datetime
+from django.utils import timezone
 import holidays
 
 
@@ -42,6 +43,7 @@ def signin(request):
 
 def get_user_role(request):
     if request.user.is_authenticated:
+        
         return JsonResponse({'user_role': request.user.role})
     else:
         return JsonResponse({'status': 'not authenticated'}, status=401)
@@ -173,15 +175,26 @@ def checkHolidays(request):
     # has the status 'True' the checkInStatus is set to True and the user can't check in again
     # if the last Arbeitsstunden object of the currently logged in user
     # has the status 'False' the checkOutStatus is set to False and the user can't check out again
-
     checkInStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
     checkInStatus = checkInStatus.status
     checkOutStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
     checkOutStatus = not checkOutStatus.status
 
+    # This is handling the allowed working hours
+    # if the current time is between 06:00 and 22:00 the user can check in
+    # else the user can't check in
+    now = datetime.now()
+    startWorkingHours = now.replace(hour=6, minute=0, second=0, microsecond=0)
+    endWorkingHours = now.replace(hour=22, minute=0, second=0, microsecond=0)
+    if now < startWorkingHours or now > endWorkingHours:
+        allowedWorkingHours = False
+    else:
+        allowedWorkingHours = True
+
     context = {'non_working_day': is_public_holiday or is_sunday,
                 'checkInStatus': checkInStatus,
-                'checkOutStatus': checkOutStatus
+                'checkOutStatus': checkOutStatus,
+                'allowedWorkingHours': allowedWorkingHours,
     }
 
     # print('checkInStatus', checkInStatus)
@@ -199,8 +212,8 @@ def checkIn(request):
         checkInForm = CheckInForm(request.POST)
         if checkInForm.is_valid():
             checkIn = checkInForm.save(commit=False)
-            checkIn.datum = date.today()
-            checkIn.beginn = datetime.now().strftime('%H:%M')
+            checkIn.datum = timezone.localdate()
+            checkIn.beginn = timezone.localtime().time()
             checkIn.mitarbeiter = request.user
             checkIn.save()
             checkInStatus = checkIn.status # handling too late! set this to home view
@@ -217,15 +230,16 @@ def checkIn(request):
 def checkOut(request):
     if request.method == 'POST':
         try:
-            arbeitsstunde = Arbeitsstunden.objects.filter(mitarbeiter=request.user, datum=date.today()).latest('id')
+            # This is handling the mathod to write the end time to the last Arbeitsstunden object
+            arbeitsstunde = Arbeitsstunden.objects.filter(mitarbeiter=request.user, datum=timezone.localdate()).latest('id')
         except ObjectDoesNotExist:
-            arbeitsstunde = Arbeitsstunden(mitarbeiter=request.user, datum=date.today())
+            arbeitsstunde = Arbeitsstunden(mitarbeiter=request.user, datum=timezone.localdate())
         
         checkOutForm = CheckOutForm(request.POST, instance=arbeitsstunde)
         if checkOutForm.is_valid():
             checkOut = checkOutForm.save(commit=False)
-            checkOut.datum = date.today()
-            checkOut.ende = datetime.now().strftime('%H:%M')
+            checkOut.datum = timezone.localdate()
+            checkOut.ende = timezone.localtime().time()
             checkOut.mitarbeiter = request.user
             checkOut.save()
             checkOutStatus = checkOut.status # handling too late! set this to home view

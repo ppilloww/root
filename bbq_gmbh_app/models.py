@@ -12,6 +12,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
+from datetime import timedelta, datetime
 
 
 class MitarbeiterManager(BaseUserManager):
@@ -58,6 +59,11 @@ class Mitarbeiter(AbstractUser):
         ('Hr', 'HR'),
         ('Admin', 'Admin'),
     ]
+    WOCHENARBEITSZEIT_CHOICES = [
+        (timedelta(hours=40), '40:00'),
+        (timedelta(hours=35), '35:00'),
+        (timedelta(hours=30), '30:00'),
+    ]
     
 
     username = None
@@ -72,6 +78,7 @@ class Mitarbeiter(AbstractUser):
     last_name = models.CharField(max_length=30, blank=True, null=True)
     gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')], blank=True, null=True)
     adresse = models.ForeignKey('Adresse', on_delete=models.PROTECT, null=True, blank=True)
+    wochenarbeitszeit = models.DurationField(choices=WOCHENARBEITSZEIT_CHOICES, blank=True, null=True)
 
 
 
@@ -99,15 +106,48 @@ class Adresse(models.Model):
         return f'{self.strasse}, {self.stadt}, {self.plz}, {self.land}'
     
 class Arbeitsstunden(models.Model):
-        
+    PAUSE_CHOICES = [
+    (timedelta(hours=1), '1:00'),
+    (timedelta(minutes=45), '0:45'),
+    (timedelta(minutes=30), '0:30'),
+    (timedelta(minutes=15), '0:15'),
+    (timedelta(minutes=0), '0:00'),
+    ]        
+    
+    mitarbeiter = models.ForeignKey(Mitarbeiter, on_delete=models.CASCADE)
+    datum = models.DateField(blank=True, null=True)
+    beginn = models.TimeField(blank=True, null=True)
+    ende = models.TimeField(blank=True, null=True)
+    status = models.BooleanField(default=False)
+    # This is handling the calculation of the working hours
+    pause = models.DurationField(choices=PAUSE_CHOICES, default=timedelta(hours=1))
+    ueberstunden = models.DurationField(default=timedelta())
+    arbeitszeitGes = models.DurationField(default=timedelta())
+    arbeitszeitTag = models.DurationField(default=timedelta())
+    minArbeitszeitTag = models.DurationField(default=timedelta())
+    maxArbeitszeitTag = models.DurationField(default=timedelta(hours=10))
 
-        
-    
-        mitarbeiter = models.ForeignKey(Mitarbeiter, on_delete=models.CASCADE)
-        datum = models.DateField(blank=True, null=True)
-        beginn = models.TimeField(blank=True, null=True)
-        ende = models.TimeField(blank=True, null=True)
-        status = models.BooleanField(default=False)
-    
-        def __str__(self):
-            return f'{self.mitarbeiter} - {self.datum} - {self.beginn} - {self.ende} - {self.status}'
+
+
+    def calculateArbeitszeit(self):
+        if self.datum and self.beginn and self.ende:
+            beginn_dt = datetime.combine(self.datum, self.beginn)
+            ende_dt = datetime.combine(self.datum, self.ende)
+            pause = timedelta(hours=self.pause.seconds//3600, minutes=(self.pause.seconds//60)%60) # dont forget to calculate the pause
+            arbeitszeit = ende_dt - beginn_dt
+
+            self.arbeitszeitTag = arbeitszeit
+
+            # Accumulate work time and calculate overtime
+            arbeitsstunden_all = Arbeitsstunden.objects.filter(mitarbeiter=self.mitarbeiter, datum__week=self.datum.isocalendar()[1])
+            total_arbeitszeit = sum((a.arbeitszeitTag for a in arbeitsstunden_all), timedelta())
+
+            self.arbeitszeitGes = total_arbeitszeit
+            #self.ueberstunden = total_arbeitszeit - self.wochenarbeitszeit # dont forget to calculate the overtime
+
+    def save(self, *args, **kwargs):
+        self.calculateArbeitszeit()
+        super(Arbeitsstunden, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.mitarbeiter} - {self.datum} - {self.beginn} - {self.ende} - {self.status}'
