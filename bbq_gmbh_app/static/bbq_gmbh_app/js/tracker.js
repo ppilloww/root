@@ -13,12 +13,15 @@ document.getElementById('checkin').addEventListener('click', function(event) {
         cardRemove.classList.remove('bg-danger'); // this is to refresh the card
         cardRemove.classList.remove('bg-warning');
         cardRemove.classList.remove('bg-success');
+
         if (data.non_working_day) {
+            
             document.getElementById('message').textContent = 'Check-in is not allowed on public holidays. Enjoy your day off!';
             var card = document.querySelector('.alert');
             card.style.display = 'block'; // Show the card and store it in a variable
             card.classList.add('bg-danger'); // Add the 'bg-danger' class to the card   
-        } else if (!allowedWorkingHours) {
+        } else if (!data.allowedWorkingHours) {
+            
             document.getElementById('message').textContent = 'A healthy sleep is important. Check-in is not allowed between 22:00h and 6:00h. Go to sleep!';
             var card = document.querySelector('.alert');
             card.style.display = 'block'; // Show the card and store it in a variable

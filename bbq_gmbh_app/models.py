@@ -12,7 +12,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, time
 
 
 class MitarbeiterManager(BaseUserManager):
@@ -121,11 +121,12 @@ class Arbeitsstunden(models.Model):
     status = models.BooleanField(default=False)
     # This is handling the calculation of the working hours
     pause = models.DurationField(choices=PAUSE_CHOICES, default=timedelta(hours=1))
-    ueberstunden = models.DurationField(default=timedelta())
-    arbeitszeitGes = models.DurationField(default=timedelta())
     arbeitszeitTag = models.DurationField(default=timedelta())
     minArbeitszeitTag = models.DurationField(default=timedelta())
     maxArbeitszeitTag = models.DurationField(default=timedelta(hours=10))
+    gleitzeitTag = models.DurationField(default=timedelta())
+    # ueberstunden = models.DurationField(default=timedelta())
+    # arbeitszeitGes = models.DurationField(default=timedelta())
 
 
 
@@ -134,16 +135,23 @@ class Arbeitsstunden(models.Model):
             beginn_dt = datetime.combine(self.datum, self.beginn)
             ende_dt = datetime.combine(self.datum, self.ende)
             pause = timedelta(hours=self.pause.seconds//3600, minutes=(self.pause.seconds//60)%60) # dont forget to calculate the pause
-            arbeitszeit = ende_dt - beginn_dt
 
-            self.arbeitszeitTag = arbeitszeit
+            arbeitszeit = pause - (ende_dt - beginn_dt)
+            self.minArbeitszeitTag = self.mitarbeiter.wochenarbeitszeit / 5
+
+            # This is handling the calculation of the working hours per day and the overtime per day
+            self.arbeitszeitTag = arbeitszeit - self.minArbeitszeitTag
+            if self.arbeitszeitTag > self.minArbeitszeitTag:
+                self.gleitzeitTag = self.arbeitszeitTag - self.minArbeitszeitTag
+            
 
             # Accumulate work time and calculate overtime
-            arbeitsstunden_all = Arbeitsstunden.objects.filter(mitarbeiter=self.mitarbeiter, datum__week=self.datum.isocalendar()[1])
-            total_arbeitszeit = sum((a.arbeitszeitTag for a in arbeitsstunden_all), timedelta())
+            # arbeitsstunden_all = Arbeitsstunden.objects.filter(mitarbeiter=self.mitarbeiter, datum__week=self.datum.isocalendar()[1])
+            # total_arbeitszeit = sum((a.arbeitszeitTag for a in arbeitsstunden_all), timedelta())
 
-            self.arbeitszeitGes = total_arbeitszeit
-            #self.ueberstunden = total_arbeitszeit - self.wochenarbeitszeit # dont forget to calculate the overtime
+            # self.arbeitszeitGes = total_arbeitszeit
+            # self.ueberstunden = total_arbeitszeit - self.mitarbeiter.wochenarbeitszeit # dont forget to calculate the overtime
+
 
     def save(self, *args, **kwargs):
         self.calculateArbeitszeit()

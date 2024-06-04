@@ -65,7 +65,7 @@ def arbeitsstunden(request):
 def infoBox(request):
     arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
     sessionAge = request.session.get_expiry_age()
-    print('sessionAge', sessionAge)
+    # print('sessionAge', sessionAge)
     return render(request, 'bbq_gmbh_app/_infoBox.html', {'arbeitsstunden': arbeitsstunden, 'sesssionAge': sessionAge})
 
 # This view is used to display all users

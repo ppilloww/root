@@ -45,8 +45,8 @@ class CreateUserForm(UserCreationForm):
         birthday = self.cleaned_data.get('birthday')
         today = date.today()
 
-        if birthday > today - timedelta(days=16*365.25):
-            raise forms.ValidationError("You must be at least 16 years old.")
+        if birthday > today - timedelta(days=15*365.25):
+            raise forms.ValidationError("You must be at least 15 years old.")
         if birthday < today - timedelta(days=150*365.25):
             raise forms.ValidationError("Invalid age. Are you sure, this person is still alive?")
 
