@@ -8,7 +8,10 @@ from django.http import JsonResponse
 from django.contrib import messages
 from datetime import date, datetime
 from django.utils import timezone
+
+
 import holidays
+
 
 
 
@@ -52,6 +55,7 @@ def get_user_role(request):
 @login_required(login_url='signin')
 def home(request):
     arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
+
     return render(request, 'bbq_gmbh_app/home.html', {'arbeitsstunden': arbeitsstunden})
 
 # This ishandling the refreshing of the time table
@@ -80,8 +84,8 @@ def employeeManagement(request):
 
 @login_required(login_url='signin')
 def profile(request):
-    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
-    return render(request, 'bbq_gmbh_app/profile.html', {'arbeitsstunden': arbeitsstunden})
+    
+    return render(request, 'bbq_gmbh_app/profile.html')
 
 @login_required(login_url='signin')
 def changePassword(request):
@@ -150,14 +154,8 @@ def createUser(request):
 login_required(login_url='signin')
 def userDetail(request, user_id):
     user = Mitarbeiter.objects.get(id=user_id)
-    if request.method == 'POST':
-        form = CreateUserForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('bbq_gmbh_app/', user_id=user.id)
-    else:
-        form = CreateUserForm(instance=user)
-    return render(request, 'bbq_gmbh_app/userDetail.html', {'user': user, 'form': form})
+
+    return render(request, 'bbq_gmbh_app/userDetail.html', {'user': user})
 
 # This view is used to check if today is a public holiday
 # or a sunday. It is returning a JsonResponse with a boolean

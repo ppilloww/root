@@ -1,1 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- head -->
+
+
+
+<!-- Navigation-->
+
+
+
+<!-- landing page BBQ GmbH-->
+{% block content %} 
+
+<header class="masthead">
+    <div class="container">
+
+            <div class="row" style="padding-top: 8%;">
+                <div class="col-md-6">
+                    <div class="card_empl_mng">
+                        <div class="card" id="myElement">
+                            <div class="container mt-3">
+                                <div class="header_text">
+                                    <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> User details</p>
+
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="card col-md-4">
+                                        <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                                            {% if request.user.gender == 'M' %}
+                                                <img class="card-img-top" src="{% static "bbq_gmbh_app/assets/img/img_avatar1.png" %}" alt="Card image" style="width:100%">
+                                            {% else %}
+                                                <img class="card-img-top" src="{% static "bbq_gmbh_app/assets/img/img_avatar5.png" %}" alt="Card image" style="width:100%">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="card-body col-md-8" style="font-size: 0.7rem;">
+                                        
+                                        <h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>
+                                        <div class="row">
+                                            <div class="col mx-auto">
+                                                <p class="card-text">Role: {{ user.role|upper }}</p>
+                                            </div>
+                                            <div class="col mx-auto">
+                                                <p class="card-text">Last check-in: {{ user.arbeitsstunden_set.last.datum|date:"d.m.Y" }} at {{ user.arbeitsstunden_set.last.beginn|time:"H:i" }}h</p>
+                                            </div>
+                                            <div class="col mx-auto">
+                                                {% if user.arbeitsstunden_set.last.status %}
+                                            
+                                                <p class="card-text" ><span class="dot dot_online"></span> Online</p>
+                                                {% else %}
+                                                <p class="card-text"><span class="dot bg-secondary"></span> Offline</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="card" >
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p class="mb-0">Date of Birth</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p class="text-muted mb-0">{{ user.birthday }}</p>
+                                                    </div>
+                                                    </div>
+                                                <hr style="margin: 5px 0;">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p class="mb-0">Email</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p class="text-muted mb-0">{{ user.email }}</p>
+                                                    </div>
+                                                    </div>
+                                                <hr style="margin: 5px 0;">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p class="mb-0">Address</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        {% if user.adresse %}
+                                                            <p class="text-muted mb-0">{{user.adresse.strasse}}, {{user.adresse.plz}}, {{user.adresse.stadt}}</p>
+                                                        {% else %}
+                                                            <p class="text-muted mb-0">No data available</p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <hr style="margin: 5px 0;">
+                                                <div class="row">
+                                                <div class="col">
+                                                    <p class="mb-0">Business mobile phone</p>
+                                                </div>
+                                                <div class="col">
+                                                    {% if user.phone %}
+                                                    <p class="text-muted mb-0">{{ user.phone }}</p>
+                                                    {% else %}
+                                                    <p class="text-muted mb-0">No data available</p>
+                                                    {% endif %}
+                                                </div>
+                                                </div>
+                                                <hr style="margin: 5px 0;">
+                                                <div class="row">
+                                                <div class="col">
+                                                    <p class="mb-0">Gender</p>
+                                                </div>
+                                                <div class="col">
+                                                    {% if user.gender == 'M' %}
+                                                        <p class="text-muted mb-0">Male</p>
+                                                    {% elif user.gender == 'F' %}
+                                                        <p class="text-muted mb-0">Female</p>
+                                                    {% else %}
+                                                        <p class="text-muted mb-0">Other</p>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+
+                                    </div> 
+                                </div>                              
+                            </div>
+                                
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+                
+            </div>
+            
+        
+
+
+    </div>
+</header>
+
+
+
+{% endblock content %}
+
+<!-- extra scripts -->
+
+
+<!-- Core theme JS-->
+
+<!-- extra scripts bottom -->
+
 <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+<p class="card-text" style="font-size: 1rem">Last check-in: {{ arbeitsstunden.last.datum|date:"d.m.Y" }} at {{ arbeitsstunden.last.beginn|time:"H:i" }}h</p>

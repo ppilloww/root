@@ -16,7 +16,7 @@ document.getElementById('checkin').addEventListener('click', function(event) {
 
         if (data.non_working_day) {
             
-            document.getElementById('message').textContent = 'Check-in is not allowed on public holidays. Enjoy your day off!';
+            document.getElementById('message').textContent = 'Check-in is not allowed on public holidays or Sundays. Enjoy your day off!';
             var card = document.querySelector('.alert');
             card.style.display = 'block'; // Show the card and store it in a variable
             card.classList.add('bg-danger'); // Add the 'bg-danger' class to the card   

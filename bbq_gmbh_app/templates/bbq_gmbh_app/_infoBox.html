@@ -10,15 +10,11 @@
         {% endif %}
     </div>
     <div class="col">
-        {% if arbeitsstunden.last.status %}
-        <p class="card-text" style="font-size: 1rem"><span class="dot dot_online"></span> Online</p>
-        {% else %}
-        <p class="card-text" style="font-size: 1rem"><span class="dot bg-secondary"></span> Offline</p>
-        {% endif %}
+        <p class="card-text" style="font-size: 1rem">Last check-in: {{ arbeitsstunden.last.datum|date:"d.m.Y" }} at {{ arbeitsstunden.last.beginn|time:"H:i" }}h</p>
     </div>
     <div class="col">
 
-        <p></p>
+        <p class="card-text" style="font-size: 1rem">max: {{ arbeitsstunden.last.maxArbeitszeitTag }} </p>
 
     </div>
 </div>

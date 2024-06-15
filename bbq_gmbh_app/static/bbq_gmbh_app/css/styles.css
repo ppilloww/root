@@ -11208,7 +11208,7 @@ body {
 
 /* ##############  */
 
-.capture_time {
+.content_top {
   padding-top: 15%;
   padding-left: 0%;
   padding-right: 0%;
@@ -11408,3 +11408,4 @@ tr[data-href]:hover {
 .center_td {
   text-align: center;
 }
+

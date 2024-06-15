@@ -37,6 +37,8 @@
                                 <th style="position: sticky; top: 0; background: white;">Birthday</th>
                                 <th style="position: sticky; top: 0; background: white;">Sex</th>
                                 <th style="position: sticky; top: 0; background: white;">Country</th>
+                                <th style="position: sticky; top: 0; background: white;">Last Online</th>
+                                <th style="position: sticky; top: 0; background: white;">Status</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -49,15 +51,25 @@
                                     <td>{{ user.birthday }}</td>
                                     <td>{{ user.gender }}</td>
                                     <td>{{ user.adresse.land.name }}</td>
+                                    {% if user.arbeitsstunden_set.last.datum %}
+                                      <td>{{ user.arbeitsstunden_set.last.datum|date:"d.m.Y" }} at {{ user.arbeitsstunden_set.last.beginn|time:"H:i" }}h</td>
+                                    {% else %}
+                                      <td>No data available</td>
+                                    {% endif %}
+                                    {% if user.arbeitsstunden_set.last.status %}
+                                      <td><span class="dot dot_online"></span> Online</td>
+                                    {% else %}
+                                      <td><span class="dot bg-secondary"></span> Offline</td>
+                                    {% endif %}
                                   </tr>
                                   {% empty %}
                                   <tr>
-                                      <td colspan="7">No data available</td>
+                                      <td colspan="8">No data available</td>
                                   </tr>
                                   {% endfor %}
                               {% else %}
                                 <tr>
-                                    <td colspan="7">No data available</td>
+                                    <td colspan="8">No data available</td>
                                 </tr>
                               {% endif %}
                             </tbody>

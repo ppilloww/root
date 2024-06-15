@@ -12,7 +12,8 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
-from datetime import timedelta, datetime, time
+from datetime import timedelta, datetime, date
+from django.db.models import Sum
 
 
 class MitarbeiterManager(BaseUserManager):
@@ -104,7 +105,13 @@ class Adresse(models.Model):
 
     def __str__(self):
         return f'{self.strasse}, {self.stadt}, {self.plz}, {self.land}'
-    
+
+# This is handling the calculation of the age
+def calculate_age(birthdate):
+    today = date.today()
+    return today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+
+
 class Arbeitsstunden(models.Model):
     PAUSE_CHOICES = [
     (timedelta(hours=1), '1:00'),
@@ -124,26 +131,59 @@ class Arbeitsstunden(models.Model):
     arbeitszeitTag = models.DurationField(default=timedelta())
     minArbeitszeitTag = models.DurationField(default=timedelta())
     maxArbeitszeitTag = models.DurationField(default=timedelta(hours=10))
+    averageArbeitszeit = models.DurationField(default=timedelta())
     gleitzeitTag = models.DurationField(default=timedelta())
-    # ueberstunden = models.DurationField(default=timedelta())
-    # arbeitszeitGes = models.DurationField(default=timedelta())
+    ueberstunden = models.DurationField(default=timedelta())
+    arbeitszeitGes = models.DurationField(default=timedelta())
 
 
 
     def calculateArbeitszeit(self):
+
+        # This is handling the calculation of the minimum working hours per day
+        self.minArbeitszeitTag = self.mitarbeiter.wochenarbeitszeit / 5
+
         if self.datum and self.beginn and self.ende:
             beginn_dt = datetime.combine(self.datum, self.beginn)
             ende_dt = datetime.combine(self.datum, self.ende)
             pause = timedelta(hours=self.pause.seconds//3600, minutes=(self.pause.seconds//60)%60) # dont forget to calculate the pause
 
-            arbeitszeit = pause - (ende_dt - beginn_dt)
-            self.minArbeitszeitTag = self.mitarbeiter.wochenarbeitszeit / 5
+            # This is handling the worked hours per day
+            arbeitszeit = (ende_dt - beginn_dt) - pause
 
-            # This is handling the calculation of the working hours per day and the overtime per day
+            # This is handling the calculation of the working hours per day
             self.arbeitszeitTag = arbeitszeit - self.minArbeitszeitTag
+
+            # This is handling the calculation of the flextime per day
             if self.arbeitszeitTag > self.minArbeitszeitTag:
                 self.gleitzeitTag = self.arbeitszeitTag - self.minArbeitszeitTag
+
+
+            # This is handling the calculation of the maximum working hours per day based on the age
+            age = calculate_age(self.mitarbeiter.birthday)
             
+            twenty_four_weeks_ago = datetime.now().date() - timedelta(weeks=24)
+            average_arbeitszeit = Arbeitsstunden.objects.filter(mitarbeiter=self.mitarbeiter, 
+                                                                datum__gte=twenty_four_weeks_ago).aggregate(Sum('arbeitszeitTag'))['arbeitszeitTag__sum'] / 24 # calculate the average working hours of the employee in the last 24 weeks
+
+            if age >= 15 and age < 18:
+                self.averageArbeitszeit = average_arbeitszeit if average_arbeitszeit < timedelta(hours=8) else timedelta(hours=8.5)
+                self.maxArbeitszeitTag = timedelta(hours=8.5)
+            else:
+                self.averageArbeitszeit = average_arbeitszeit if average_arbeitszeit < timedelta(hours=8) else timedelta(hours=10)
+                self.maxArbeitszeitTag = timedelta(hours=10)
+
+             
+
+
+            # This is handling the total working hours of the employee
+            # total_arbeitszeit = Arbeitsstunden.objects.filter(mitarbeiter=self.mitarbeiter).aggregate(Sum('arbeitszeitTag'))['arbeitszeitTag__sum'] # sum up all the working hours of the employee
+            # self.arbeitszeitGes = total_arbeitszeit if total_arbeitszeit else timedelta() # if there are no working hours, set the total working hours to 0
+
+            # # This is handling the total overtimes ofthe employee
+            # glleitzeit = Arbeitsstunden.objects.filter(mitarbeiter=self.mitarbeiter).aggregate(Sum('gleitzeitTag'))['gleitzeitTag__sum'] # sum up all the flextime of the employee
+            # self.ueberstunden = self.arbeitszeitGes - glleitzeit if self.arbeitszeitGes > glleitzeit else timedelta()
+            # self.save()
 
             # Accumulate work time and calculate overtime
             # arbeitsstunden_all = Arbeitsstunden.objects.filter(mitarbeiter=self.mitarbeiter, datum__week=self.datum.isocalendar()[1])
