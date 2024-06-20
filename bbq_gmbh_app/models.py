@@ -106,10 +106,20 @@ class Adresse(models.Model):
     def __str__(self):
         return f'{self.strasse}, {self.stadt}, {self.plz}, {self.land}'
 
+
+
 # This is handling the calculation of the age
 def calculate_age(birthdate):
     today = date.today()
     return today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+
+
+# This is handling the format of timedelta because its ****ing stupid
+# def format_timedelta(td):
+#     hours, remainder = divmod(td.seconds, 3600)
+#     minutes, seconds = divmod(remainder, 60)
+#     return f'{hours}:{minutes:02d}'
+
 
 
 class Arbeitsstunden(models.Model):
@@ -137,7 +147,6 @@ class Arbeitsstunden(models.Model):
     arbeitszeitGes = models.DurationField(default=timedelta())
 
 
-
     def calculateArbeitszeit(self):
 
         # This is handling the calculation of the minimum working hours per day
@@ -146,32 +155,58 @@ class Arbeitsstunden(models.Model):
         if self.datum and self.beginn and self.ende:
             beginn_dt = datetime.combine(self.datum, self.beginn)
             ende_dt = datetime.combine(self.datum, self.ende)
-            pause = timedelta(hours=self.pause.seconds//3600, minutes=(self.pause.seconds//60)%60) # dont forget to calculate the pause
+            # pause = timedelta(hours=self.pause.seconds//3600, minutes=(self.pause.seconds//60)%60) # dont forget to calculate pause
+
+            # This is handling the calculation of the age
+            age = calculate_age(self.mitarbeiter.birthday)
+
 
             # This is handling the worked hours per day
-            arbeitszeit = (ende_dt - beginn_dt) - pause
+            arbeitszeit = ende_dt - beginn_dt
+            if age >= 15 and age < 18:
+                if arbeitszeit < timedelta(hours=4.5):
+                    self.pause = timedelta(hours=0.25)
+                elif arbeitszeit < timedelta(hours=6):
+                    self.pause = timedelta(hours=0.5)
+                else: 
+                    self.pause = timedelta(hours=1)
+            else:
+                if arbeitszeit < timedelta(hours=4.5):
+                    self.pause = timedelta(hours=0)
+                elif arbeitszeit < timedelta(hours=6):
+                    self.pause = timedelta(hours=0.5)
+                else: 
+                    self.pause = timedelta(hours=1)
+
+            # Check pause time
+            if self.pause > arbeitszeit:
+                arbeitszeit = timedelta(hours=0)
+            else:
+                arbeitszeit -= self.pause
 
             # This is handling the calculation of the working hours per day
-            self.arbeitszeitTag = arbeitszeit - self.minArbeitszeitTag
+            self.arbeitszeitTag = arbeitszeit
+
 
             # This is handling the calculation of the flextime per day
             if self.arbeitszeitTag > self.minArbeitszeitTag:
                 self.gleitzeitTag = self.arbeitszeitTag - self.minArbeitszeitTag
 
 
+
             # This is handling the calculation of the maximum working hours per day based on the age
-            age = calculate_age(self.mitarbeiter.birthday)
-            
             twenty_four_weeks_ago = datetime.now().date() - timedelta(weeks=24)
             average_arbeitszeit = Arbeitsstunden.objects.filter(mitarbeiter=self.mitarbeiter, 
                                                                 datum__gte=twenty_four_weeks_ago).aggregate(Sum('arbeitszeitTag'))['arbeitszeitTag__sum'] / 24 # calculate the average working hours of the employee in the last 24 weeks
 
             if age >= 15 and age < 18:
-                self.averageArbeitszeit = average_arbeitszeit if average_arbeitszeit < timedelta(hours=8) else timedelta(hours=8.5)
                 self.maxArbeitszeitTag = timedelta(hours=8.5)
+                self.averageArbeitszeit = average_arbeitszeit if average_arbeitszeit < timedelta(hours=8) else self.maxArbeitszeitTag
+                
             else:
-                self.averageArbeitszeit = average_arbeitszeit if average_arbeitszeit < timedelta(hours=8) else timedelta(hours=10)
                 self.maxArbeitszeitTag = timedelta(hours=10)
+                self.averageArbeitszeit = average_arbeitszeit if average_arbeitszeit < timedelta(hours=8) else self.maxArbeitszeitTag
+                
 
              
 

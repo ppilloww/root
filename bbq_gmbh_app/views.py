@@ -55,8 +55,10 @@ def get_user_role(request):
 @login_required(login_url='signin')
 def home(request):
     arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
+    weekHours = request.user.wochenarbeitszeit.total_seconds() / 3600
 
-    return render(request, 'bbq_gmbh_app/home.html', {'arbeitsstunden': arbeitsstunden})
+    return render(request, 'bbq_gmbh_app/home.html', {'arbeitsstunden': arbeitsstunden,
+                                                        'weekHours': weekHours})
 
 # This ishandling the refreshing of the time table
 @login_required(login_url='signin')
@@ -67,10 +69,11 @@ def arbeitsstunden(request):
 # This is handling the refreshing of the info box
 @login_required(login_url='signin')
 def infoBox(request):
-    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
+    
     sessionAge = request.session.get_expiry_age()
+
     # print('sessionAge', sessionAge)
-    return render(request, 'bbq_gmbh_app/_infoBox.html', {'arbeitsstunden': arbeitsstunden, 'sesssionAge': sessionAge})
+    return render(request, 'bbq_gmbh_app/_infoBox.html')
 
 # This view is used to display all users
 # It is fetching all users from the database
@@ -154,8 +157,9 @@ def createUser(request):
 login_required(login_url='signin')
 def userDetail(request, user_id):
     user = Mitarbeiter.objects.get(id=user_id)
+    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=user)
 
-    return render(request, 'bbq_gmbh_app/userDetail.html', {'user': user})
+    return render(request, 'bbq_gmbh_app/userDetail.html', {'user': user, 'arbeitsstunden': arbeitsstunden})
 
 # This view is used to check if today is a public holiday
 # or a sunday. It is returning a JsonResponse with a boolean

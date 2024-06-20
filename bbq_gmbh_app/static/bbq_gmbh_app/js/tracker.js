@@ -133,7 +133,7 @@ document.getElementById('checkout').addEventListener('click', function(event) {
                     card.style.display = 'block'; // Show the card and store it in a variable
                     card.classList.add('bg-danger');
 
-                    // refresh the table after check-in
+                    // refresh the table after check-out
                     fetch('/arbeitsstunden/')  // replace with the path to your Django view
                     .then(response => response.text())
                     .then(html => {

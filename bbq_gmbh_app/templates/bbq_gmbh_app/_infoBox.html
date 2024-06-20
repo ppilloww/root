@@ -1,20 +1,24 @@
 
 <h5 class="card-title">Welcome to BBQ GmbH</h5>
-<p class="card-text">Please check in and out to track your time spent at work.</p>
-<div class="row">
-    <div class="col">
+<p class="card-text" style="font-size: 1rem;">Please check in and out to track your time.</p>
+<div class="row" style="font-size: 0.8rem">
+    <div class="col-md-3">
         {% if arbeitsstunden.last.status %}
-        <p class="card-text" style="font-size: 1rem"><span class="dot dot_online"></span> Online</p>
+        <p class="card-text" ><span class="dot dot_online"></span> Online</p>
         {% else %}
-        <p class="card-text" style="font-size: 1rem"><span class="dot bg-secondary"></span> Offline</p>
+        <p class="card-text"><span class="dot bg-secondary"></span> Offline</p>
         {% endif %}
     </div>
     <div class="col">
-        <p class="card-text" style="font-size: 1rem">Last check-in: {{ arbeitsstunden.last.datum|date:"d.m.Y" }} at {{ arbeitsstunden.last.beginn|time:"H:i" }}h</p>
+        <p class="card-text">Last check-in: {{ arbeitsstunden.last.datum|date:"d.m.Y" }} at {{ arbeitsstunden.last.beginn|time:"H:i" }}h</p>
+    </div>
+</div>
+<hr style="margin: 5px 0;">
+<div class="row" style="font-size: 0.8rem">
+    <div class="col">
+        <p class="card-text">Weekly Hours: {{ weekHours }}h</p>
     </div>
     <div class="col">
-
-        <p class="card-text" style="font-size: 1rem">max: {{ arbeitsstunden.last.maxArbeitszeitTag }} </p>
-
+        <p class="card-text">Violations:</p>
     </div>
 </div>
