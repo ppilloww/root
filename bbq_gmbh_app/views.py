@@ -174,13 +174,19 @@ def checkHolidays(request):
 
     # This is handling a cross block of the checkIn and checkOut status
     # if the last Arbeitsstunden object of the currently logged in user
-    # has the status 'True' the checkInStatus is set to True and the user can't check in again
+        # has the status 'True' the checkInStatus is set to True and the user can't check in again
     # if the last Arbeitsstunden object of the currently logged in user
-    # has the status 'False' the checkOutStatus is set to False and the user can't check out again
-    checkInStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
-    checkInStatus = checkInStatus.status
-    checkOutStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
-    checkOutStatus = not checkOutStatus.status
+        # has the status 'False' the checkOutStatus is set to False and the user can't check out again
+    # .exists() is used to check if the user has any Arbeitsstunden objects in the database at all
+        # if not the checkOutStatus is set to True and the user can't check out again until he checked in
+    if Arbeitsstunden.objects.filter(mitarbeiter=request.user).exists():
+        checkInStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
+        checkInStatus = checkInStatus.status
+        checkOutStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
+        checkOutStatus = not checkOutStatus.status
+    else:
+        checkOutStatus = True
+        checkInStatus = False
 
     # This is handling the allowed working hours
     # if the current time is between 06:00 and 22:00 the user can check in

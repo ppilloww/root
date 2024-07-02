@@ -54,13 +54,13 @@ document.getElementById('checkin').addEventListener('click', function(event) {
                     card.classList.add('bg-success');
 
                     // refresh the table after check-in
-                    fetch('/arbeitsstunden/')  // replace with the path to your Django view
+                    fetch('/arbeitsstunden/')  
                     .then(response => response.text())
                     .then(html => {
                         document.getElementById('table_body').innerHTML = html;
                     });
                     // refresh infobox
-                    fetch('/infoBox/')  // replace with the path to your Django view
+                    fetch('/infoBox/') 
                     .then(response => response.text())
                     .then(html => {
                         document.getElementById('infobox').innerHTML = html;
@@ -134,13 +134,13 @@ document.getElementById('checkout').addEventListener('click', function(event) {
                     card.classList.add('bg-danger');
 
                     // refresh the table after check-out
-                    fetch('/arbeitsstunden/')  // replace with the path to your Django view
+                    fetch('/arbeitsstunden/')  
                     .then(response => response.text())
                     .then(html => {
                         document.getElementById('table_body').innerHTML = html;
                     });
                     // refresh infobox
-                    fetch('/infoBox/')  // replace with the path to your Django view
+                    fetch('/infoBox/')  
                     .then(response => response.text())
                     .then(html => {
                         document.getElementById('infobox').innerHTML = html;

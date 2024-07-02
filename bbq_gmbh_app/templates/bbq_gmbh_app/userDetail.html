@@ -146,5 +146,8 @@
 <!-- Core theme JS-->
 
 <!-- extra scripts bottom -->
-
-<p class="card-text" style="font-size: 1rem">Last check-in: {{ arbeitsstunden.last.datum|date:"d.m.Y" }} at {{ arbeitsstunden.last.beginn|time:"H:i" }}h</p>
+{% block extra_js_bottom %}
+<!-- These two scripts are used for the search function clickable rows and live search  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static "bbq_gmbh_app/js/search.js" %}"></script>
+{% endblock extra_js_bottom %}

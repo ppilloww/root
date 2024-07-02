@@ -147,6 +147,9 @@ class Arbeitsstunden(models.Model):
     arbeitszeitGes = models.DurationField(default=timedelta())
 
 
+
+
+
     def calculateArbeitszeit(self):
 
         # This is handling the calculation of the minimum working hours per day
@@ -161,7 +164,7 @@ class Arbeitsstunden(models.Model):
             age = calculate_age(self.mitarbeiter.birthday)
 
 
-            # This is handling the worked hours per day
+            # This is handling the worked hours per day based on the age of the employee and the pause time based on the working hours
             arbeitszeit = ende_dt - beginn_dt
             if age >= 15 and age < 18:
                 if arbeitszeit < timedelta(hours=4.5):
@@ -172,15 +175,15 @@ class Arbeitsstunden(models.Model):
                     self.pause = timedelta(hours=1)
             else:
                 if arbeitszeit < timedelta(hours=4.5):
-                    self.pause = timedelta(hours=0)
+                    self.pause = timedelta(hours=0.25)
                 elif arbeitszeit < timedelta(hours=6):
                     self.pause = timedelta(hours=0.5)
                 else: 
                     self.pause = timedelta(hours=1)
 
-            # Check pause time
+            # Check pause time is not more than the working hours and set it to 0
             if self.pause > arbeitszeit:
-                arbeitszeit = timedelta(hours=0)
+                self.pause = timedelta(hours=0)
             else:
                 arbeitszeit -= self.pause
 
@@ -234,3 +237,32 @@ class Arbeitsstunden(models.Model):
 
     def __str__(self):
         return f'{self.mitarbeiter} - {self.datum} - {self.beginn} - {self.ende} - {self.status}'
+    
+
+class Urlaub(models.Model):
+    mitarbeiter = models.ForeignKey(Mitarbeiter, on_delete=models.CASCADE)
+    vertraglicheUrlaubstage = models.IntegerField(default=0)
+    sonderurlaub = models.IntegerField(default=0)
+    resturlaub = models.IntegerField(default=0)
+    beginn = models.DateField()
+    ende = models.DateField()
+    statusUrlaub = models.BooleanField(default=False)
+    genehmigtVon = models.ForeignKey(Mitarbeiter, on_delete=models.PROTECT, related_name='genehmigtVon', null=True, blank=True)
+
+
+    def calculateResturlaub(self):
+
+        # This is handling the calculation of the vacation days
+        
+
+        # This is handling the calculation of the rest vacation days
+        self.resturlaub = self.vertraglicheUrlaubstage + self.sonderurlaub
+
+
+    def save(self, *args, **kwargs):
+        self.calculateResturlaub()
+        super(Urlaub, self).save(*args, **kwargs)
+
+
+    def __str__(self):
+        return f'{self.mitarbeiter} - {self.beginn} - {self.ende} - {self.statusUrlaub}'
