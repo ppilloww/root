@@ -12,6 +12,8 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
+from datetime import timedelta, datetime, date
+from django.db.models import Sum
 
 
 class MitarbeiterManager(BaseUserManager):
@@ -26,6 +28,7 @@ class MitarbeiterManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
+        user.must_change_password = True
         user.save(using=self._db)
         return user
 
@@ -39,6 +42,7 @@ class MitarbeiterManager(BaseUserManager):
         """Create and save a SuperUser with the given email and password."""
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('must_change_password', False)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
@@ -52,14 +56,21 @@ class MitarbeiterManager(BaseUserManager):
 # evry changes MUST be migrated very carefully
 class Mitarbeiter(AbstractUser):
     ROLE_CHOICES = [
-        ('user', 'User'),
-        ('hr', 'HR'),
-        ('admin', 'Admin'),
+        ('User', 'User'),
+        ('Hr', 'HR'),
+        ('Admin', 'Admin'),
     ]
+    WOCHENARBEITSZEIT_CHOICES = [
+        (timedelta(hours=40), '40:00'),
+        (timedelta(hours=35), '35:00'),
+        (timedelta(hours=30), '30:00'),
+    ]
+    
 
     username = None
     email = models.EmailField(_('email address'), unique=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
+    must_change_password = models.BooleanField(default=True)
 
     # extra fields which are not required in the backend
     # but can be required in the frontend
@@ -68,6 +79,7 @@ class Mitarbeiter(AbstractUser):
     last_name = models.CharField(max_length=30, blank=True, null=True)
     gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')], blank=True, null=True)
     adresse = models.ForeignKey('Adresse', on_delete=models.PROTECT, null=True, blank=True)
+    wochenarbeitszeit = models.DurationField(choices=WOCHENARBEITSZEIT_CHOICES, blank=True, null=True)
 
 
 
@@ -93,4 +105,164 @@ class Adresse(models.Model):
 
     def __str__(self):
         return f'{self.strasse}, {self.stadt}, {self.plz}, {self.land}'
+
+
+
+# This is handling the calculation of the age
+def calculate_age(birthdate):
+    today = date.today()
+    return today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+
+
+# This is handling the format of timedelta because its ****ing stupid
+# def format_timedelta(td):
+#     hours, remainder = divmod(td.seconds, 3600)
+#     minutes, seconds = divmod(remainder, 60)
+#     return f'{hours}:{minutes:02d}'
+
+
+
+class Arbeitsstunden(models.Model):
+    PAUSE_CHOICES = [
+    (timedelta(hours=1), '1:00'),
+    (timedelta(minutes=45), '0:45'),
+    (timedelta(minutes=30), '0:30'),
+    (timedelta(minutes=15), '0:15'),
+    (timedelta(minutes=0), '0:00'),
+    ]        
     
+    mitarbeiter = models.ForeignKey(Mitarbeiter, on_delete=models.CASCADE)
+    datum = models.DateField(blank=True, null=True)
+    beginn = models.TimeField(blank=True, null=True)
+    ende = models.TimeField(blank=True, null=True)
+    status = models.BooleanField(default=False)
+    # This is handling the calculation of the working hours
+    pause = models.DurationField(choices=PAUSE_CHOICES, default=timedelta(hours=1))
+    arbeitszeitTag = models.DurationField(default=timedelta())
+    minArbeitszeitTag = models.DurationField(default=timedelta())
+    maxArbeitszeitTag = models.DurationField(default=timedelta(hours=10))
+    averageArbeitszeit = models.DurationField(default=timedelta())
+    gleitzeitTag = models.DurationField(default=timedelta())
+    ueberstunden = models.DurationField(default=timedelta())
+    arbeitszeitGes = models.DurationField(default=timedelta())
+
+
+
+
+
+    def calculateArbeitszeit(self):
+
+        # This is handling the calculation of the minimum working hours per day
+        self.minArbeitszeitTag = self.mitarbeiter.wochenarbeitszeit / 5
+
+        if self.datum and self.beginn and self.ende:
+            beginn_dt = datetime.combine(self.datum, self.beginn)
+            ende_dt = datetime.combine(self.datum, self.ende)
+            # pause = timedelta(hours=self.pause.seconds//3600, minutes=(self.pause.seconds//60)%60) # dont forget to calculate pause
+
+            # This is handling the calculation of the age
+            age = calculate_age(self.mitarbeiter.birthday)
+
+
+            # This is handling the worked hours per day based on the age of the employee and the pause time based on the working hours
+            arbeitszeit = ende_dt - beginn_dt
+            if age >= 15 and age < 18:
+                if arbeitszeit < timedelta(hours=4.5):
+                    self.pause = timedelta(hours=0.25)
+                elif arbeitszeit < timedelta(hours=6):
+                    self.pause = timedelta(hours=0.5)
+                else: 
+                    self.pause = timedelta(hours=1)
+            else:
+                if arbeitszeit < timedelta(hours=4.5):
+                    self.pause = timedelta(hours=0.25)
+                elif arbeitszeit < timedelta(hours=6):
+                    self.pause = timedelta(hours=0.5)
+                else: 
+                    self.pause = timedelta(hours=1)
+
+            # Check pause time is not more than the working hours and set it to 0
+            if self.pause > arbeitszeit:
+                self.pause = timedelta(hours=0)
+            else:
+                arbeitszeit -= self.pause
+
+            # This is handling the calculation of the working hours per day
+            self.arbeitszeitTag = arbeitszeit
+
+
+            # This is handling the calculation of the flextime per day
+            if self.arbeitszeitTag > self.minArbeitszeitTag:
+                self.gleitzeitTag = self.arbeitszeitTag - self.minArbeitszeitTag
+
+
+
+            # This is handling the calculation of the maximum working hours per day based on the age
+            twenty_four_weeks_ago = datetime.now().date() - timedelta(weeks=24)
+            average_arbeitszeit = Arbeitsstunden.objects.filter(mitarbeiter=self.mitarbeiter, 
+                                                                datum__gte=twenty_four_weeks_ago).aggregate(Sum('arbeitszeitTag'))['arbeitszeitTag__sum'] / 24 # calculate the average working hours of the employee in the last 24 weeks
+
+            if age >= 15 and age < 18:
+                self.maxArbeitszeitTag = timedelta(hours=8.5)
+                self.averageArbeitszeit = average_arbeitszeit if average_arbeitszeit < timedelta(hours=8) else self.maxArbeitszeitTag
+                
+            else:
+                self.maxArbeitszeitTag = timedelta(hours=10)
+                self.averageArbeitszeit = average_arbeitszeit if average_arbeitszeit < timedelta(hours=8) else self.maxArbeitszeitTag
+                
+
+             
+
+
+            # This is handling the total working hours of the employee
+            # total_arbeitszeit = Arbeitsstunden.objects.filter(mitarbeiter=self.mitarbeiter).aggregate(Sum('arbeitszeitTag'))['arbeitszeitTag__sum'] # sum up all the working hours of the employee
+            # self.arbeitszeitGes = total_arbeitszeit if total_arbeitszeit else timedelta() # if there are no working hours, set the total working hours to 0
+
+            # # This is handling the total overtimes ofthe employee
+            # glleitzeit = Arbeitsstunden.objects.filter(mitarbeiter=self.mitarbeiter).aggregate(Sum('gleitzeitTag'))['gleitzeitTag__sum'] # sum up all the flextime of the employee
+            # self.ueberstunden = self.arbeitszeitGes - glleitzeit if self.arbeitszeitGes > glleitzeit else timedelta()
+            # self.save()
+
+            # Accumulate work time and calculate overtime
+            # arbeitsstunden_all = Arbeitsstunden.objects.filter(mitarbeiter=self.mitarbeiter, datum__week=self.datum.isocalendar()[1])
+            # total_arbeitszeit = sum((a.arbeitszeitTag for a in arbeitsstunden_all), timedelta())
+
+            # self.arbeitszeitGes = total_arbeitszeit
+            # self.ueberstunden = total_arbeitszeit - self.mitarbeiter.wochenarbeitszeit # dont forget to calculate the overtime
+
+
+    def save(self, *args, **kwargs):
+        self.calculateArbeitszeit()
+        super(Arbeitsstunden, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.mitarbeiter} - {self.datum} - {self.beginn} - {self.ende} - {self.status}'
+    
+
+class Urlaub(models.Model):
+    mitarbeiter = models.ForeignKey(Mitarbeiter, on_delete=models.CASCADE)
+    vertraglicheUrlaubstage = models.IntegerField(default=0)
+    sonderurlaub = models.IntegerField(default=0)
+    resturlaub = models.IntegerField(default=0)
+    beginn = models.DateField()
+    ende = models.DateField()
+    statusUrlaub = models.BooleanField(default=False)
+    genehmigtVon = models.ForeignKey(Mitarbeiter, on_delete=models.PROTECT, related_name='genehmigtVon', null=True, blank=True)
+
+
+    def calculateResturlaub(self):
+
+        # This is handling the calculation of the vacation days
+        
+
+        # This is handling the calculation of the rest vacation days
+        self.resturlaub = self.vertraglicheUrlaubstage + self.sonderurlaub
+
+
+    def save(self, *args, **kwargs):
+        self.calculateResturlaub()
+        super(Urlaub, self).save(*args, **kwargs)
+
+
+    def __str__(self):
+        return f'{self.mitarbeiter} - {self.beginn} - {self.ende} - {self.statusUrlaub}'
