@@ -11208,7 +11208,7 @@ body {
 
 /* ##############  */
 
-.capture_time {
+.content_top {
   padding-top: 15%;
   padding-left: 0%;
   padding-right: 0%;
@@ -11313,7 +11313,7 @@ body {
 }
 
 .header_text {
-  font-size: 1.5vw;
+  font-size: 1vw;
   color: black;
   display: flex;
   flex-direction: column;
@@ -11329,7 +11329,7 @@ body {
   margin-top: 0px;
   margin-left: 5%;
   margin-bottom: 50px;
-  font-size: 1vw;
+  font-size: 0.8vw;
 }
 
 /* If the screen size is smaller than  */
@@ -11408,3 +11408,4 @@ tr[data-href]:hover {
 .center_td {
   text-align: center;
 }
+

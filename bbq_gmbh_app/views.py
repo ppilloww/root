@@ -8,7 +8,10 @@ from django.http import JsonResponse
 from django.contrib import messages
 from datetime import date, datetime
 from django.utils import timezone
+
+
 import holidays
+
 
 
 
@@ -52,7 +55,10 @@ def get_user_role(request):
 @login_required(login_url='signin')
 def home(request):
     arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
-    return render(request, 'bbq_gmbh_app/home.html', {'arbeitsstunden': arbeitsstunden})
+    weekHours = request.user.wochenarbeitszeit.total_seconds() / 3600
+
+    return render(request, 'bbq_gmbh_app/home.html', {'arbeitsstunden': arbeitsstunden,
+                                                        'weekHours': weekHours})
 
 # This ishandling the refreshing of the time table
 @login_required(login_url='signin')
@@ -63,10 +69,11 @@ def arbeitsstunden(request):
 # This is handling the refreshing of the info box
 @login_required(login_url='signin')
 def infoBox(request):
-    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
+    
     sessionAge = request.session.get_expiry_age()
-    print('sessionAge', sessionAge)
-    return render(request, 'bbq_gmbh_app/_infoBox.html', {'arbeitsstunden': arbeitsstunden, 'sesssionAge': sessionAge})
+
+    # print('sessionAge', sessionAge)
+    return render(request, 'bbq_gmbh_app/_infoBox.html')
 
 # This view is used to display all users
 # It is fetching all users from the database
@@ -80,8 +87,8 @@ def employeeManagement(request):
 
 @login_required(login_url='signin')
 def profile(request):
-    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
-    return render(request, 'bbq_gmbh_app/profile.html', {'arbeitsstunden': arbeitsstunden})
+    
+    return render(request, 'bbq_gmbh_app/profile.html')
 
 @login_required(login_url='signin')
 def changePassword(request):
@@ -150,14 +157,9 @@ def createUser(request):
 login_required(login_url='signin')
 def userDetail(request, user_id):
     user = Mitarbeiter.objects.get(id=user_id)
-    if request.method == 'POST':
-        form = CreateUserForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('bbq_gmbh_app/', user_id=user.id)
-    else:
-        form = CreateUserForm(instance=user)
-    return render(request, 'bbq_gmbh_app/userDetail.html', {'user': user, 'form': form})
+    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=user)
+
+    return render(request, 'bbq_gmbh_app/userDetail.html', {'user': user, 'arbeitsstunden': arbeitsstunden})
 
 # This view is used to check if today is a public holiday
 # or a sunday. It is returning a JsonResponse with a boolean
@@ -172,13 +174,19 @@ def checkHolidays(request):
 
     # This is handling a cross block of the checkIn and checkOut status
     # if the last Arbeitsstunden object of the currently logged in user
-    # has the status 'True' the checkInStatus is set to True and the user can't check in again
+        # has the status 'True' the checkInStatus is set to True and the user can't check in again
     # if the last Arbeitsstunden object of the currently logged in user
-    # has the status 'False' the checkOutStatus is set to False and the user can't check out again
-    checkInStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
-    checkInStatus = checkInStatus.status
-    checkOutStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
-    checkOutStatus = not checkOutStatus.status
+        # has the status 'False' the checkOutStatus is set to False and the user can't check out again
+    # .exists() is used to check if the user has any Arbeitsstunden objects in the database at all
+        # if not the checkOutStatus is set to True and the user can't check out again until he checked in
+    if Arbeitsstunden.objects.filter(mitarbeiter=request.user).exists():
+        checkInStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
+        checkInStatus = checkInStatus.status
+        checkOutStatus = Arbeitsstunden.objects.filter(mitarbeiter=request.user).last()
+        checkOutStatus = not checkOutStatus.status
+    else:
+        checkOutStatus = True
+        checkInStatus = False
 
     # This is handling the allowed working hours
     # if the current time is between 06:00 and 22:00 the user can check in
