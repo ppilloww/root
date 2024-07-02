@@ -19,7 +19,7 @@
                         </div>
                         <br>
 
-                        <form class="row g-3" action="/createUser/" method="post">
+                        <form class="row g-3" action="/createUser/" method="post" style="max-height: 400px; overflow: auto;">
                           {% csrf_token %}
                           <div class="col-md-6">
                             <label for="first_name" class="form-label">First Name</label>
@@ -99,11 +99,11 @@
                             </select>
                           </div>
                           <div class="col-md-2">
-                            <label for="inputVacation" class="form-label">CAGV</label>
+                            <label for="inputVacation" class="form-label">CAGV <i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="contractually agreed vacation days"></i></label>
                             <input type="number" min="24" max="40" class="form-control" id="inputVacation">
                           </div>
                           <div class="col-md-2">
-                            <label for="wochenarbeitszeit" class="form-label">HR/W</label>
+                            <label for="wochenarbeitszeit" class="form-label" >HR/W <i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="working hours per week"></i></label>
                             <select id="wochenarbeitszeit" class="form-select" name="wochenarbeitszeit" required>
                               {% for value, display in userForm.fields.wochenarbeitszeit.choices %}
                                 <option value="{{ value }}">{{ display }}</option>
@@ -154,5 +154,7 @@
 <!-- Footer-->
 
 <!-- extra scripts -->
-
+{% block extra_js_bottom %}
+<script src="{% static 'bbq_gmbh_app/js/toolTip.js' %}"></script>
+{% endblock extra_js_bottom %}
 
