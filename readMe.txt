@@ -12,9 +12,12 @@ python -m venv env(_"küezel"_"nb oder pc")
 //virtuelle Umgebung aktivieren
 "./env/Scripts/activate"
 "./env_nb/Scripts/activate"
+"./env_pz_nb/Scripts/activate"
+
 
 "./env/Scripts/deactivate"
 "./env_nb/Scripts/deactivate"
+"./env_pz_nb/Scripts/deactivate"
 
 
 //django install LTS
