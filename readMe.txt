@@ -7,7 +7,7 @@
     !!! ACHTUNG ... Lege für deinen PC eine neu virtuelle Umgebung an und installiere requirements.txt in deiner virtuellen Umgebung !!!
 
 //virtuelle Umgebung erstellen
-python -m venv env
+python -m venv env(_"küezel"_"nb oder pc")
 
 //virtuelle Umgebung aktivieren
 "./env/Scripts/activate"
