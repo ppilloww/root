@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
+
+
 <!-- Head -->
 
 
@@ -13,11 +16,10 @@
             <div class="card" id="myElement">
                 <div class="container mt-3">
                     <div class="header_text">
-                        <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> Profile</p>
+                        <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i>{% trans 'profileID_1' %}</p> <!--Translation: Profile-->
                         {% if arbeitsstunden.last.status %}
-                        <p class="card-text" style="font-size: 1rem"><span class="dot dot_online"></span> Online</p>
-                        {% else %}
-                        <p class="card-text" style="font-size: 1rem"><span class="dot bg-secondary"></span> Offline</p>
+                        <p class="card-text" style="font-size: 1rem"><span class="dot dot_online"></span>{% trans 'profileID_2' %}</p> <!--Translation: Online-->
+                        <p class="card-text" style="font-size: 1rem"><span class="dot bg-secondary"></span>{% trans 'profileID_3' %}</p> <!--Translation: Offline-->
                         {% endif %}
                         
                     </div>
@@ -32,14 +34,14 @@
                         <div class="card-body col-md-8">
                             {% if request.user.is_authenticated %}
                                 <h4 class="card-title">{{ request.user.first_name }} {{ request.user.last_name }}</h4>
-                                <p class="card-text">User role: {{ request.user.role|upper }}</p>
+                                <p class="card-text">{% trans 'profileID_10' %}: {{ request.user.role|upper }}</p> <!--Translation: User Role-->
 
                                 <div class="col-lg-8">
                                     <div class="card mb-4">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <p class="mb-0">Date of Birth</p>
+                                                <p class="mb-0">{% trans 'profileID_4' %}</p> <!--Translation: Date of Birth-->
                                             </div>
                                             <div class="col-sm-9">
                                                 <p class="text-muted mb-0">{{ request.user.birthday }}</p>
@@ -48,7 +50,7 @@
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <p class="mb-0">Email</p>
+                                                <p class="mb-0">{% trans 'profileID_5' %}</p> <!--Translation: Email-->
                                             </div>
                                             <div class="col-sm-9">
                                                 <p class="text-muted mb-0">{{ request.user.email }}</p>
@@ -57,48 +59,48 @@
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <p class="mb-0">Address</p>
+                                                <p class="mb-0">{% trans 'profileID_6' %}</p> <!--Translation: Address-->
                                             </div>
                                             <div class="col-sm-9">
                                                 {% if user.adresse %}
                                                     <p class="text-muted mb-0">{{request.user.adresse.strasse}}, {{request.user.adresse.plz}}, {{request.user.adresse.stadt}}</p>
                                                 {% else %}
-                                                    <p class="text-muted mb-0">No data available</p>
+                                                    <p class="text-muted mb-0">{% trans 'profileID_11' %}</p> <!--Translation: No data available-->
                                                 {% endif %}
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="row">
                                         <div class="col-sm-3">
-                                            <p class="mb-0">Business mobile phone</p>
+                                            <p class="mb-0">{% trans 'profileID_7' %}</p> <!--Translation: Business mobile phone-->
                                         </div>
                                         <div class="col-sm-9">
                                             {% if request.user.phone %}
                                             <p class="text-muted mb-0">{{ request.user.phone }}</p>
                                             {% else %}
-                                            <p class="text-muted mb-0">No data available</p>
+                                            <p class="text-muted mb-0">{% trans 'profileID_12' %}</p> <!--Translation: No data available-->
                                             {% endif %}
                                         </div>
                                         </div>
                                         <hr>
                                         <div class="row">
                                         <div class="col-sm-3">
-                                            <p class="mb-0">Gender</p>
+                                            <p class="mb-0">{% trans 'profileID_13' %}</p> <!--Translation: Gender-->
                                         </div>
                                         <div class="col-sm-9">
                                             {% if request.user.gender == 'M' %}
-                                                <p class="text-muted mb-0">Male</p>
+                                                <p class="text-muted mb-0">{% trans 'profileID_14' %}</p> <!--Translation: Male-->
                                             {% elif request.user.gender == 'F' %}
-                                                <p class="text-muted mb-0">Male</p>
+                                                <p class="text-muted mb-0">{% trans 'profileID_15' %}</p> <!--Translation: Female-->
                                             {% else %}
-                                                <p class="text-muted mb-0">Other</p>
+                                                <p class="text-muted mb-0">{% trans 'profileID_16' %}</p> <!--Translation: Other-->
                                             {% endif %}
                                         </div>
                                         </div>
                                     </div>
                                 </div>
                             {% else %}
-                                <h4 class="card-title">Guest</h4>
+                                <h4 class="card-title">{% trans 'profileID_9' %}</h4> <!--Translation: Guest-->
                             {% endif %}
                         </div> 
                     </div>                              

@@ -1,4 +1,5 @@
 {% load durationFilters %}
+{% load i18n %}
 
 {% if request.user.is_authenticated %}
     {% for user in arbeitsstunden|dictsortreversed:"id" %}
@@ -22,11 +23,10 @@
     </tr>
     {% empty %}
     <tr>
-        <td colspan="8">No data available</td>
+        <td colspan="8">{% trans 'timeTableID_1' %}</td> <!--Translation: No data available-->
     </tr>
     {% endfor %}
 {% else %}
     <tr>
-        <td colspan="8">No data available</td>
-    </tr>
+        <td colspan="8">{% trans 'timeTableID_2' %}</td> <!--Translation: No data available-->
 {% endif %}

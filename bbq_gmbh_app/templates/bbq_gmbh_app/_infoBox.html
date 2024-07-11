@@ -1,6 +1,8 @@
+{% load i18n %}
 
-<h5 class="card-title">Welcome to BBQ GmbH</h5>
-<p class="card-text" style="font-size: 1rem;">Please check in and out to track your time.</p>
+
+<h5 class="card-title">{% trans 'infoBoxID_1' %}</h5> <!--Translation: Welcome to BBQ GmbH-->
+<p class="card-text" style="font-size: 1rem;">{% trans 'infoBoxID_2' %}</p> <!--Translation: Please check in and out to track your time spent at work.-->
 <div class="row" style="font-size: 0.8rem">
     <div class="col-md-3">
         {% if arbeitsstunden.last.status %}
@@ -10,15 +12,15 @@
         {% endif %}
     </div>
     <div class="col">
-        <p class="card-text">Last check-in: {{ arbeitsstunden.last.datum|date:"d.m.Y" }} at {{ arbeitsstunden.last.beginn|time:"H:i" }}h</p>
+        <p class="card-text">{% trans 'infoBoxID_3' %} {{ arbeitsstunden.last.datum|date:"d.m.Y" }} at {{ arbeitsstunden.last.beginn|time:"H:i" }}h</p> <!--Translation: Last check-in:-->
     </div>
 </div>
 <hr style="margin: 5px 0;">
 <div class="row" style="font-size: 0.8rem">
     <div class="col">
-        <p class="card-text">Weekly Hours: {{ weekHours }}h</p>
+        <p class="card-text">{% trans 'infoBoxID_4' %} {{ weekHours }}h</p> <!--Translation: Weekly Hours:-->
     </div>
     <div class="col">
-        <p class="card-text">Violations:</p>
+        <p class="card-text">{% trans 'infoBoxID_5' %}</p> <!--Translation: Violations:-->
     </div>
 </div>

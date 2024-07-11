@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 
 <!-- Navigation-->
@@ -14,45 +15,44 @@
                 <div class="card-body">
                     <div class="container mt-3">
                         <div class="header_text">
-                          <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> Employee Management</p>
-                          <p class="link">Create new employee for EasyTimer</p>
+                          <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i>{% trans 'createUserID_1' %}</p> <!--Translation: Employee Management-->
                         </div>
                         <br>
 
                         <form class="row g-3" action="/createUser/" method="post" style="max-height: 400px; overflow: auto;">
                           {% csrf_token %}
                           <div class="col-md-6">
-                            <label for="first_name" class="form-label">First Name</label>
+                            <label for="first_name" class="form-label">{% trans 'createUserID_3' %}</label> <!--Translation: First Name-->
                             <input type="text" class="form-control" id="first_name" name="first_name" value="{{ userForm.first_name.value|default:'' }}" required>
                           </div>
                           <div class="col-md-6">
-                            <label for="last_name" class="form-label">Last Name</label>
+                            <label for="last_name" class="form-label">{% trans 'createUserID_4' %}</label> <!--Translation: Last Name-->
                             <input type="text" class="form-control" id="last_name" name="last_name" value="{{ userForm.last_name.value|default:'' }}" required>
                           </div>
                           <div class="col-md-6">
-                            <label for="email" class="form-label">Email</label>
+                            <label for="email" class="form-label">{% trans 'createUserID_5' %}</label> <!--Translation: Email-->
                             <input type="email" class="form-control" id="email" name="email" value="{{ userForm.email.value|default:'' }}" required>
                           </div>
                           <div class="col-md-6">
-                            <label for="password1" class="form-label">Password</label>
+                            <label for="password1" class="form-label">{% trans 'createUserID_6' %}</label> <!--Translation: Password-->
                             <input type="password" class="form-control" id="password1" name="password1" value="{{ userForm.password1.value|default:'' }}" required>
                           </div>
                           <div class="col-md-6"></div>
                           <div class="col-md-6">
-                            <label for="password2" class="form-label">Repeat Password</label>
+                            <label for="password2" class="form-label">{% trans 'createUserID_7' %}</label> <!--Translation: Repeat Password-->
                             <input type="password" class="form-control" id="password2" name="password2" value="{{ userForm.password2.value|default:'' }}" required>
                           </div>                                  
                           <div class="col-6">
-                            <label for="strasse" class="form-label">Address</label>
+                            <label for="strasse" class="form-label">{% trans 'createUserID_8' %}</label> <!--Translation: Address-->
                             <input type="text" class="form-control" id="strasse" name="strasse" placeholder="MainSt 1234" value="{{ adresseForm.strasse.value|default:'' }}" required>
                           </div>
                           <br>
                           <div class="col-md-6">
-                            <label for="stadt" class="form-label">City</label>
+                            <label for="stadt" class="form-label">{% trans 'createUserID_9' %}</label> <!--Translation: City-->
                             <input type="text" class="form-control" id="stadt" name='stadt' value="{{ adresseForm.stadt.value|default:'' }}" required>
                           </div>
                           <div class="col-md-4">
-                            <label for="land" class="form-label">Country</label>
+                            <label for="land" class="form-label">{% trans 'createUserID_10' %}</label> <!--Translation: Country-->
                             <select id="land" class="form-select" name="land" required>
                               {% for country_code, country_name in adresseForm.fields.land.choices %}
                                   <option value="{{ country_code }}" {% if adresseForm.land.value == country_code %}selected{% endif %}>
@@ -62,16 +62,16 @@
                           </select>
                           </div>
                           <div class="col-md-2">
-                            <label for="plz" class="form-label">Zip</label>
+                            <label for="plz" class="form-label">{% trans 'createUserID_11' %}</label> <!--Translation: Zip-->
                             <input type="text" class="form-control" id="plz" name="plz" value="{{ adresseForm.plz.value|default:'' }}" required>
                           </div>
 
                           <div class="col-md-2">
-                            <label for="birthday" class="form-label">Date of Birth</label>
+                            <label for="birthday" class="form-label">{% trans 'createUserID_12' %}</label> <!--Translation: Date of Birth-->
                             <input type="date" class="form-control" id="birthday" name="birthday" value="{{ userForm.birthday.value|date:'Y-m-d' }}" required>
                           </div>
                           <div class="col-md-2">
-                            <label for="gender" class="form-label">Gender</label>
+                            <label for="gender" class="form-label">{% trans 'createUserID_13' %}</label> <!--Translation: Gender-->
                             <select id="gender" class="form-select" name="gender" required>
                               {% for value, display in userForm.fields.gender.choices %}
                                 <option value="{{ value }}">{{ display }}</option>
@@ -81,29 +81,29 @@
                           <div class="col-md-6"></div>
 
                           <div class="col-md-8">
-                            <label for="inputPosition" class="form-label">Job title</label>
+                            <label for="inputPosition" class="form-label">{% trans 'createUserID_14' %}</label> <!--Translation: Job title-->
                             <input type="text" class="form-control" id="inputPosition">
                           </div>
                           <div class="col-md-2">
-                            <label for="inputDepartment" class="form-label">Department</label>
+                            <label for="inputDepartment" class="form-label">{% trans 'createUserID_15' %}</label> <!--Translation: Department-->
                             <select id="inputDepartment" class="form-select">
-                              <option selected>Choose...</option>
+                              <option selected>{% trans 'createUserID_16' %}...</option> <!--Translation: Choose-->
                             </select>
                           </div>
                           <div class="col-md-2"></div>
 
                           <div class="col-md-2">
-                            <label for="inputSalaryGroup" class="form-label">Salary group</label>
+                            <label for="inputSalaryGroup" class="form-label">{% trans 'createUserID_17' %}</label> <!--Translation: Salary group-->
                             <select id="inputSalaryGroup" class="form-select">
-                              <option selected>Choose...</option>
+                              <option selected>{% trans 'createUserID_18' %}...</option> <!--Translation: Choose-->
                             </select>
                           </div>
                           <div class="col-md-2">
-                            <label for="inputVacation" class="form-label">CAGV <i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="contractually agreed vacation days"></i></label>
+                            <label for="inputVacation" class="form-label">{% trans 'createUserID_19' %}<i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="contractually agreed vacation days"></i></label> <!--Translation: CAGV-->
                             <input type="number" min="24" max="40" class="form-control" id="inputVacation">
                           </div>
                           <div class="col-md-2">
-                            <label for="wochenarbeitszeit" class="form-label" >HR/W <i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="working hours per week"></i></label>
+                            <label for="wochenarbeitszeit" class="form-label" >{% trans 'createUserID_20' %}<i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="working hours per week"></i></label> <!--Translation: HR/W-->
                             <select id="wochenarbeitszeit" class="form-select" name="wochenarbeitszeit" required>
                               {% for value, display in userForm.fields.wochenarbeitszeit.choices %}
                                 <option value="{{ value }}">{{ display }}</option>
@@ -111,7 +111,7 @@
                             </select>
                           </div>
                           <div class="col-md-2">
-                            <label for="inputRole" class="form-label">Role</label>
+                            <label for="inputRole" class="form-label">{% trans 'createUserID_21' %}</label> <!--Translation: Role-->
                             <select id="inputRole" class="form-select" name="role" required>
                               {% for value, display in userForm.fields.role.choices %}
                                 <option value="{{ value }}">{{ display }}</option>
@@ -120,7 +120,7 @@
                           </div>
 
                           <div class="col-12" style="text-align: right;">
-                            <button type="submit" class="btn btn-primary">Create User</button>
+                            <button type="submit" class="btn btn-primary">{% trans 'createUserID_22' %}</button> <!--Translation: Create User-->
                           </div>
                         </form>
                     </div>

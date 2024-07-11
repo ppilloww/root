@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +37,7 @@
         {% include 'bbq_gmbh_app/_contact.html' %}
 
         <!-- Footer-->
-        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; BBQ GmbH 2024</div></footer>
+        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">{% trans 'baseID_2' %} &copy; BBQ GmbH 2024</div></footer> <!--Translation: Copyright-->
 
         <!-- extra scripts -->
         {% block extra_js %} {% endblock extra_js %}
