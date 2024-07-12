@@ -240,8 +240,16 @@ class Arbeitsstunden(models.Model):
     
 
 class Urlaub(models.Model):
+    URLAUB_CHOICES = [
+        (0, '0'),
+        (25, '25'),
+        (30, '30'),
+        (35, '35'),
+        (40, '40'),
+    ]
+
     mitarbeiter = models.ForeignKey(Mitarbeiter, on_delete=models.CASCADE)
-    vertraglicheUrlaubstage = models.IntegerField(default=0)
+    vertraglicheUrlaubstage = models.IntegerField(choices=URLAUB_CHOICES, blank=True, null=True)
     sonderurlaub = models.IntegerField(default=0)
     resturlaub = models.IntegerField(default=0)
     beginn = models.DateField()
