@@ -6,7 +6,7 @@
 
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from bbq_gmbh_app.models import Mitarbeiter, Adresse, Arbeitsstunden
+from bbq_gmbh_app.models import Mitarbeiter, Adresse, Arbeitsstunden, Urlaub
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import ValidationError
 from datetime import date, timedelta
@@ -51,6 +51,11 @@ class CreateUserForm(UserCreationForm):
             raise forms.ValidationError("Invalid age. Are you sure, this person is still alive?")
 
         return birthday
+    
+class UrlaubForm(forms.ModelForm):
+    class Meta:
+        model = Urlaub
+        fields = ['vertraglicheUrlaubstage']
 
 
 class CheckInForm(forms.ModelForm):
