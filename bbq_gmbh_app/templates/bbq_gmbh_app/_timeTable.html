@@ -1,0 +1,32 @@
+{% load durationFilters %}
+
+{% if request.user.is_authenticated %}
+    {% for user in arbeitsstunden|dictsortreversed:"id" %}
+    <tr>
+        <td>{{ user.datum }}</td>
+        {% if user.beginn %}
+            <td>{{ user.beginn|time:"H:i" }}h</td>
+        {% else %}
+            <td>---</td>
+        {% endif %}
+        {% if user.ende %}
+            <td>{{ user.ende|time:"H:i" }}h</td>
+        {% else %}
+            <td>---</td>
+        {% endif %}
+        <td>{{ user.pause|duration }}h</td>
+        <td>{{ user.minArbeitszeitTag|duration }}h</td>
+        <td>{{ user.averageArbeitszeit|duration }}h</td>
+        <td>{{ user.arbeitszeitTag|duration }}h</td>
+        <td>{{ user.gleitzeitTag|duration }}h</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="8">No data available</td>
+    </tr>
+    {% endfor %}
+{% else %}
+    <tr>
+        <td colspan="8">No data available</td>
+    </tr>
+{% endif %}

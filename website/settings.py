@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import gettext
+import os
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +28,10 @@ SECRET_KEY = 'django-insecure-z2^oy&^ku@i1(p&$w!-7vw6j^_0o^a4=7gj!3o96gzc_m-zreo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'bbq-fom.azurewebsites.net',
+    'localhost',
+]
 
 
 # Application definition
@@ -39,16 +45,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bbq_gmbh_app.apps.BbqGmbhAppConfig',
     'django_countries',
+    'rosetta',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware', #Middelware für Übersetzung
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'bbq_gmbh_app.middleware.ForcePasswordChangeMiddleware',
 ]
 
 ROOT_URLCONF = 'website.urls'
@@ -111,7 +120,12 @@ AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('de', _('Deutsch')),
+]
 
 TIME_ZONE = 'Europe/Berlin'
 
@@ -125,6 +139,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -134,3 +152,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 1800
+SESSION_SAVE_EVERY_REQUEST = True

@@ -11208,8 +11208,10 @@ body {
 
 /* ##############  */
 
-.capture_time {
+.content_top {
   padding-top: 15%;
+  padding-left: 0%;
+  padding-right: 0%;
   
 }
 
@@ -11220,12 +11222,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 /* If the screen size is bigger than  */
 @media (min-width: 701px) {
   .system_date span {
-      font-size: 4vw;
+      font-size: 4.5em;
       width: auto;
       display: inline-block;
       text-align: center;
@@ -11235,7 +11238,7 @@ body {
 /* If the screen size is smaller than */
 @media (max-width: 700px) {
   .system_date span {
-      font-size: 60px;
+      font-size: 2em;
       width: auto;
       display: inline-block;
       text-align: center;
@@ -11257,12 +11260,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 /* If the screen size is bigger than  */
 @media (min-width: 701px) {
   .clock span {
-      font-size: 4vw;
+      font-size: 4.5em;
       width: auto;
       display: inline-block;
       text-align: center;
@@ -11272,7 +11276,7 @@ body {
 /* If the screen size is smaller than  */
 @media (max-width: 700px) {
   .clock span {
-      font-size: 60px;
+      font-size: 2em;
       width: auto;
       display: inline-block;
       text-align: center;
@@ -11309,7 +11313,7 @@ body {
 }
 
 .header_text {
-  font-size: 1.5vw;
+  font-size: 1vw;
   color: black;
   display: flex;
   flex-direction: column;
@@ -11325,7 +11329,7 @@ body {
   margin-top: 0px;
   margin-left: 5%;
   margin-bottom: 50px;
-  font-size: 1vw;
+  font-size: 0.8vw;
 }
 
 /* If the screen size is smaller than  */
@@ -11394,3 +11398,14 @@ tr[data-href]:hover {
 .dot_online {
   background-color: #90ee90;
 }
+
+/* no Padding beween rows */
+.no-padding {
+  padding: 0 !important;
+}
+
+/* centering td home */
+.center_td {
+  text-align: center;
+}
+
