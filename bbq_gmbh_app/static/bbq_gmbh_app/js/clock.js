@@ -15,7 +15,7 @@ let currentTime
 currentDate = new Date();
 
 let dayOfMonth = currentDate.getDate();
-let dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; 
+let dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 let dayOfWeek = dayNames[currentDate.getDay()]; 
 let currentMonth = currentDate.getMonth() + 1;
 let currentYear = currentDate.getFullYear();
