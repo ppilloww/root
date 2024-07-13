@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-12 17:32+0200\n"
+"POT-Creation-Date: 2024-07-13 12:31+0200\n"
 "PO-Revision-Date: 2024-07-12 17:40+0200\n"
 "Last-Translator: Admin Adminhausen <admin@bbq.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -327,48 +327,39 @@ msgstr "Overtime"
 msgid "indexID_1"
 msgstr "BBQ GmbH - EasyTimer"
 
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:19
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:17
 msgid "indexID_2"
 msgstr "Change Language"
 
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:25
-msgid "indexID_3"
-msgstr "Contact"
-
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:37
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:35
 msgid "indexID_4"
 msgstr "BBQ GmbH"
 
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:38
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:36
 msgid "indexID_5"
 msgstr "Employee time recording"
 
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:39
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:37
 msgid "indexID_6"
 msgstr "sign-in"
 
 #: .\bbq_gmbh_app\templates\bbq_gmbh_app\newPassword.html:20
-#| msgid "changePasswordID_2"
 msgid "newPasswordID_2"
 msgstr "Admin is forcing you to reset your password."
 
 #: .\bbq_gmbh_app\templates\bbq_gmbh_app\newPassword.html:28
-#| msgid "changePasswordID_3"
 msgid "newPasswordID_3"
 msgstr "Old Password"
 
 #: .\bbq_gmbh_app\templates\bbq_gmbh_app\newPassword.html:32
-#| msgid "changePasswordID_4"
 msgid "newPasswordID_4"
 msgstr "New Password"
 
 #: .\bbq_gmbh_app\templates\bbq_gmbh_app\newPassword.html:36
-#| msgid "changePasswordID_1"
 msgid "newPasswordID_5"
 msgstr "Confirm New Password"
 
 #: .\bbq_gmbh_app\templates\bbq_gmbh_app\newPassword.html:39
-#| msgid "changePasswordID_1"
 msgid "newPasswordID_6"
 msgstr "Change Password"
 
@@ -646,11 +637,11 @@ msgstr ""
 #: .\env_nb\Lib\site-packages\django\core\validators.py:267
 #: .\env_pz_nb\Lib\site-packages\django\core\validators.py:267
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
 msgstr ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
 
 #: .\env\Lib\site-packages\django\core\validators.py:279
 #: .\env\Lib\site-packages\django\core\validators.py:287
@@ -952,22 +943,22 @@ msgstr "Date (without time)"
 #: .\env_pz_nb\Lib\site-packages\django\db\models\fields\__init__.py:1489
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 
 #: .\env\Lib\site-packages\django\db\models\fields\__init__.py:1497
 #: .\env_nb\Lib\site-packages\django\db\models\fields\__init__.py:1497
 #: .\env_pz_nb\Lib\site-packages\django\db\models\fields\__init__.py:1497
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 msgstr ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 
 #: .\env\Lib\site-packages\django\db\models\fields\__init__.py:1502
 #: .\env_nb\Lib\site-packages\django\db\models\fields\__init__.py:1502
@@ -993,11 +984,11 @@ msgstr "Decimal number"
 #: .\env_pz_nb\Lib\site-packages\django\db\models\fields\__init__.py:1789
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 
 #: .\env\Lib\site-packages\django\db\models\fields\__init__.py:1793
 #: .\env_nb\Lib\site-packages\django\db\models\fields\__init__.py:1793
@@ -1231,8 +1222,7 @@ msgid "Many-to-many relationship"
 msgstr "Many-to-many relationship"
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the
-#. label
+#. characters will prevent the default label_suffix to be appended to the label
 #: .\env\Lib\site-packages\django\forms\boundfield.py:184
 #: .\env_nb\Lib\site-packages\django\forms\boundfield.py:184
 #: .\env_pz_nb\Lib\site-packages\django\forms\boundfield.py:184
@@ -1310,8 +1300,7 @@ msgstr "The submitted file is empty."
 #: .\env_nb\Lib\site-packages\django\forms\fields.py:625
 #: .\env_pz_nb\Lib\site-packages\django\forms\fields.py:625
 #, python-format
-msgid ""
-"Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -1450,8 +1439,7 @@ msgstr "Please correct the duplicate data for %(field)s."
 #: .\env_pz_nb\Lib\site-packages\django\forms\models.py:891
 #, python-format
 msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
-"Please correct the duplicate data for %(field)s, which must be unique."
+msgstr "Please correct the duplicate data for %(field)s, which must be unique."
 
 #: .\env\Lib\site-packages\django\forms\models.py:898
 #: .\env_nb\Lib\site-packages\django\forms\models.py:898
@@ -1479,8 +1467,7 @@ msgstr "The inline value did not match the parent instance."
 #: .\env\Lib\site-packages\django\forms\models.py:1429
 #: .\env_nb\Lib\site-packages\django\forms\models.py:1429
 #: .\env_pz_nb\Lib\site-packages\django\forms\models.py:1429
-msgid ""
-"Select a valid choice. That choice is not one of the available choices."
+msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 "Select a valid choice. That choice is not one of the available choices."
 
@@ -2150,17 +2137,17 @@ msgstr ""
 #: .\env_nb\Lib\site-packages\django\views\csrf.py:127
 #: .\env_pz_nb\Lib\site-packages\django\views\csrf.py:127
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
-" including the “Referrer-Policy: no-referrer” header, please remove them. "
-"The CSRF protection requires the “Referer” header to do strict referer "
-"checking. If you’re concerned about privacy, use alternatives like <a "
-"rel=\"noreferrer\" …> for links to third-party sites."
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
+"\" …> for links to third-party sites."
 msgstr ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
-" including the “Referrer-Policy: no-referrer” header, please remove them. "
-"The CSRF protection requires the “Referer” header to do strict referer "
-"checking. If you’re concerned about privacy, use alternatives like <a "
-"rel=\"noreferrer\" …> for links to third-party sites."
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
+"\" …> for links to third-party sites."
 
 #: .\env\Lib\site-packages\django\views\csrf.py:136
 #: .\env_nb\Lib\site-packages\django\views\csrf.py:136
@@ -2241,11 +2228,11 @@ msgstr "No %(verbose_name_plural)s available"
 #: .\env_pz_nb\Lib\site-packages\django\views\generic\dates.py:652
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 msgstr ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 
 #: .\env\Lib\site-packages\django\views\generic\dates.py:692
 #: .\env_nb\Lib\site-packages\django\views\generic\dates.py:692
@@ -2326,15 +2313,15 @@ msgstr ""
 #: .\env_pz_nb\Lib\site-packages\django\views\templates\default_urlconf.html:221
 #, python-format
 msgid ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
 msgstr ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
 
 #: .\env\Lib\site-packages\django\views\templates\default_urlconf.html:229
 #: .\env_nb\Lib\site-packages\django\views\templates\default_urlconf.html:229
@@ -2388,6 +2375,9 @@ msgstr "English"
 #: .\website\settings.py:127
 msgid "Deutsch"
 msgstr "German"
+
+#~ msgid "indexID_3"
+#~ msgstr "Contact"
 
 #, fuzzy
 #~ msgid "contactID_"

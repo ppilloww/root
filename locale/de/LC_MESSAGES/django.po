@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-12 17:32+0200\n"
+"POT-Creation-Date: 2024-07-13 12:31+0200\n"
 "PO-Revision-Date: 2024-07-11 20:38+0200\n"
 "Last-Translator: Admin Adminhausen <admin@bbq.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -327,23 +327,19 @@ msgstr "Überstunden"
 msgid "indexID_1"
 msgstr "BBQ GmbH - EasyTimer"
 
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:19
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:17
 msgid "indexID_2"
 msgstr "Sprache Ändern"
 
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:25
-msgid "indexID_3"
-msgstr "Kontakt"
-
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:37
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:35
 msgid "indexID_4"
 msgstr "BBQ GmbH"
 
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:38
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:36
 msgid "indexID_5"
 msgstr "Mitarbeiterzeiterfassung"
 
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:39
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:37
 msgid "indexID_6"
 msgstr "Anmelden"
 
@@ -2413,6 +2409,9 @@ msgstr "English"
 #: .\website\settings.py:127
 msgid "Deutsch"
 msgstr "German"
+
+#~ msgid "indexID_3"
+#~ msgstr "Kontakt"
 
 #, fuzzy
 #~ msgid "contactID_"
