@@ -33,9 +33,15 @@ class AdresseForm(forms.ModelForm):
                 raise ValidationError("The city doesn't match the country.")
 
         return stadt
+    
+class UrlaubForm(forms.ModelForm):
+    class Meta:
+        model = Urlaub
+        fields = ['vertraglicheUrlaubstage']
 
 class CreateUserForm(UserCreationForm):
     adresse = AdresseForm() # never touch a running system !!
+    urlaub = UrlaubForm()
     class Meta:
         model = Mitarbeiter
         fields = ['email', 'role', 'birthday', 'first_name', 'last_name', 'gender', 'adresse', 'wochenarbeitszeit', 'password1', 'password2']
@@ -52,10 +58,6 @@ class CreateUserForm(UserCreationForm):
 
         return birthday
     
-class UrlaubForm(forms.ModelForm):
-    class Meta:
-        model = Urlaub
-        fields = ['vertraglicheUrlaubstage']
 
 
 class CheckInForm(forms.ModelForm):
