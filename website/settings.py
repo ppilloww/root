@@ -121,6 +121,7 @@ AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
+
 ############## PRODUCTION SETTINGS ####################
 
 CSRF_COOKIE_SECURE = True
@@ -132,6 +133,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 SECURE_SSL_REDIRECT = True #a security feature that, when set to True, ensures that all HTTP requests to your application are redirected to HTTPS
+
 
 LANGUAGE_CODE = 'en'
 
