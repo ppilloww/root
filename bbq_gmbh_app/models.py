@@ -69,7 +69,7 @@ class Mitarbeiter(AbstractUser):
 
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, blank=True, null=True)
     must_change_password = models.BooleanField(default=True)
 
     # extra fields which are not required in the backend
@@ -240,12 +240,20 @@ class Arbeitsstunden(models.Model):
     
 
 class Urlaub(models.Model):
+    URLAUB_CHOICES = [
+        (0, '0'),
+        (25, '25'),
+        (30, '30'),
+        (35, '35'),
+        (40, '40'),
+    ]
+
     mitarbeiter = models.ForeignKey(Mitarbeiter, on_delete=models.CASCADE)
-    vertraglicheUrlaubstage = models.IntegerField(default=0)
+    vertraglicheUrlaubstage = models.IntegerField(choices=URLAUB_CHOICES, blank=True, null=True)
     sonderurlaub = models.IntegerField(default=0)
     resturlaub = models.IntegerField(default=0)
-    beginn = models.DateField()
-    ende = models.DateField()
+    beginn = models.DateField(blank=True, null=True)
+    ende = models.DateField(blank=True, null=True)
     statusUrlaub = models.BooleanField(default=False)
     genehmigtVon = models.ForeignKey(Mitarbeiter, on_delete=models.PROTECT, related_name='genehmigtVon', null=True, blank=True)
 

@@ -6,7 +6,7 @@
 
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from bbq_gmbh_app.models import Mitarbeiter, Adresse, Arbeitsstunden
+from bbq_gmbh_app.models import Mitarbeiter, Adresse, Arbeitsstunden, Urlaub
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import ValidationError
 from datetime import date, timedelta
@@ -33,9 +33,15 @@ class AdresseForm(forms.ModelForm):
                 raise ValidationError("The city doesn't match the country.")
 
         return stadt
+    
+class UrlaubForm(forms.ModelForm):
+    class Meta:
+        model = Urlaub
+        fields = ['vertraglicheUrlaubstage']
 
 class CreateUserForm(UserCreationForm):
     adresse = AdresseForm() # never touch a running system !!
+    urlaub = UrlaubForm()
     class Meta:
         model = Mitarbeiter
         fields = ['email', 'role', 'birthday', 'first_name', 'last_name', 'gender', 'adresse', 'wochenarbeitszeit', 'password1', 'password2']
@@ -51,6 +57,7 @@ class CreateUserForm(UserCreationForm):
             raise forms.ValidationError("Invalid age. Are you sure, this person is still alive?")
 
         return birthday
+    
 
 
 class CheckInForm(forms.ModelForm):

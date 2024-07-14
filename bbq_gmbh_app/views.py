@@ -1,4 +1,4 @@
-from bbq_gmbh_app.forms import CreateUserForm, AdresseForm, CheckInForm, CheckOutForm, CustomPasswordChangeForm
+from bbq_gmbh_app.forms import CreateUserForm, AdresseForm, CheckInForm, CheckOutForm, CustomPasswordChangeForm, UrlaubForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -138,19 +138,26 @@ def createUser(request):
     if request.method == 'POST':
         userForm = CreateUserForm(request.POST)
         adresseForm = AdresseForm(request.POST)
+        urlaubForm = UrlaubForm(request.POST)
         # print("request.POST", request.POST)
-        if userForm.is_valid() and adresseForm.is_valid():
+        if userForm.is_valid() and adresseForm.is_valid() and urlaubForm.is_valid():
             user = userForm.save(commit=False)
             adresse = adresseForm.save()
             user.adresse = adresse
             user.save()
+            urlaub = urlaubForm.save(commit=False)
+            urlaub.mitarbeiter = user
+            urlaub.save()
+
             return redirect('employeeManagement')
     else:
         userForm = CreateUserForm()
         adresseForm = AdresseForm()
+        urlaubForm = UrlaubForm()
     return render(request, 'bbq_gmbh_app/createUser.html', {
         'userForm': userForm, 
-        'adresseForm': adresseForm
+        'adresseForm': adresseForm,
+        'urlaubForm': urlaubForm
         })
 
 
