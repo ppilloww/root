@@ -22,37 +22,37 @@
                         <form class="row g-3" action="/createUser/" method="post" style="max-height: 400px; overflow: auto;">
                           {% csrf_token %}
                           <div class="col-md-6">
-                            <label for="first_name" class="form-label">First Name</label>
+                            <label for="first_name" class="form-label">First Name<span style="color: red;">*</span></label>
                             <input type="text" class="form-control" id="first_name" name="first_name" value="{{ userForm.first_name.value|default:'' }}" placeholder="E.g John" required>
                           </div>
                           <div class="col-md-6">
-                            <label for="last_name" class="form-label">Last Name</label>
+                            <label for="last_name" class="form-label">Last Name<span style="color: red;">*</span></label>
                             <input type="text" class="form-control" id="last_name" name="last_name" value="{{ userForm.last_name.value|default:'' }}" placeholder="E.g Wick" required>
                           </div>
                           <div class="col-md-6">
-                            <label for="email" class="form-label">Business Email</label>
+                            <label for="email" class="form-label">Business Email<span style="color: red;">*</span></label>
                             <input type="email" class="form-control" id="email" name="email" value="{{ userForm.email.value|default:'' }}" placeholder="E.g john.wick@bbq.de" required>
                           </div>
                           <div class="col-md-6">
-                            <label for="password1" class="form-label">Password</label>
+                            <label for="password1" class="form-label">Password<span style="color: red;">*</span></label>
                             <input type="password" class="form-control" id="password1" name="password1" value="{{ userForm.password1.value|default:'' }}" required>
                           </div>
                           <div class="col-md-6"></div>
                           <div class="col-md-6">
-                            <label for="password2" class="form-label">Repeat Password</label>
+                            <label for="password2" class="form-label">Repeat Password<span style="color: red;">*</span></label>
                             <input type="password" class="form-control" id="password2" name="password2" value="{{ userForm.password2.value|default:'' }}" required>
                           </div>                                  
                           <div class="col-6">
-                            <label for="strasse" class="form-label">Address</label>
+                            <label for="strasse" class="form-label">Address<span style="color: red;">*</span></label>
                             <input type="text" class="form-control" id="strasse" name="strasse" placeholder="E.g MainSt 1234" value="{{ adresseForm.strasse.value|default:'' }}" required>
                           </div>
                           <br>
                           <div class="col-md-6">
-                            <label for="stadt" class="form-label">City</label>
+                            <label for="stadt" class="form-label">City<span style="color: red;">*</span></label>
                             <input type="text" class="form-control" id="stadt" name='stadt' value="{{ adresseForm.stadt.value|default:'' }}" placeholder="E.g Berlin" required>
                           </div>
                           <div class="col-md-4">
-                            <label for="land" class="form-label">Country</label>
+                            <label for="land" class="form-label">Country<span style="color: red;">*</span></label>
                             <select id="land" class="form-select" name="land" required>
                               {% for country_code, country_name in adresseForm.fields.land.choices %}
                                   <option value="{{ country_code }}" {% if adresseForm.land.value == country_code %}selected{% endif %}>
@@ -62,16 +62,16 @@
                           </select>
                           </div>
                           <div class="col-md-2">
-                            <label for="plz" class="form-label">Zip</label>
+                            <label for="plz" class="form-label">Zip<span style="color: red;">*</span></label>
                             <input type="text" class="form-control" id="plz" name="plz" value="{{ adresseForm.plz.value|default:'' }}" placeholder="E.g 12345" required>
                           </div>
 
                           <div class="col-md-2">
-                            <label for="birthday" class="form-label">Date of Birth</label>
+                            <label for="birthday" class="form-label">Date of Birth<span style="color: red;">*</span></label>
                             <input type="date" class="form-control" id="birthday" name="birthday" value="{{ userForm.birthday.value|date:'Y-m-d' }}" required>
                           </div>
                           <div class="col-md-2">
-                            <label for="gender" class="form-label">Gender</label>
+                            <label for="gender" class="form-label">Gender<span style="color: red;">*</span></label>
                             <select id="gender" class="form-select" name="gender" required>
                               {% for value, display in userForm.fields.gender.choices %}
                                 <option value="{{ value }}">{{ display }}</option>
@@ -99,7 +99,7 @@
                             </select>
                           </div>
                           <div class="col-md-2">
-                            <label for="inputVacation" class="form-label">CAGV <i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="contractually agreed vacation days"></i></label>
+                            <label for="inputVacation" class="form-label">CAGV<span style="color: red;">*</span><i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="contractually agreed vacation days"></i></label>
                             <select id="vertraglicheUrlaubstage" class="form-select" name="vertraglicheUrlaubstage" required>
                               {% for value, display in urlaubForm.fields.vertraglicheUrlaubstage.choices %}
                                 <option value="{{ value }}">{{ display }}</option>
@@ -107,7 +107,7 @@
                             </select>
                           </div>
                           <div class="col-md-2">
-                            <label for="wochenarbeitszeit" class="form-label" >HR/W <i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="working hours per week"></i></label>
+                            <label for="wochenarbeitszeit" class="form-label" >HR/W<span style="color: red;">*</span><i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="working hours per week"></i></label>
                             <select id="wochenarbeitszeit" class="form-select" name="wochenarbeitszeit" required>
                               {% for value, display in userForm.fields.wochenarbeitszeit.choices %}
                                 <option value="{{ value }}">{{ display }}</option>
@@ -115,7 +115,7 @@
                             </select>
                           </div>
                           <div class="col-md-2">
-                            <label for="inputRole" class="form-label">Role</label>
+                            <label for="inputRole" class="form-label">Role<span style="color: red;">*</span></label>
                             <select id="inputRole" class="form-select" name="role" required>
                               {% for value, display in userForm.fields.role.choices %}
                                 <option value="{{ value }}">{{ display }}</option>
