@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-z2^oy&^ku@i1(p&$w!-7vw6j^_0o^a4=7gj!3o96gzc_m-zreo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'bbq-fom.azurewebsites.net',
@@ -120,6 +120,16 @@ AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://bbq-fom.azurewebsites.net',
+    'http://bbq-fom.azurewebsites.net',
+]
+
 
 LANGUAGE_CODE = 'en'
 
