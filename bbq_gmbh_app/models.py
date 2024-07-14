@@ -69,7 +69,7 @@ class Mitarbeiter(AbstractUser):
 
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, blank=True, null=True)
     must_change_password = models.BooleanField(default=True)
 
     # extra fields which are not required in the backend

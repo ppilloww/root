@@ -144,9 +144,10 @@ def createUser(request):
             user = userForm.save(commit=False)
             adresse = adresseForm.save()
             user.adresse = adresse
-            urlaub = urlaubForm.save()
-            user.urlaub = urlaub
             user.save()
+            urlaub = urlaubForm.save(commit=False)
+            urlaub.mitarbeiter = user
+            urlaub.save()
 
             return redirect('employeeManagement')
     else:
