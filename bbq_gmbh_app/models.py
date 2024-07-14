@@ -252,8 +252,8 @@ class Urlaub(models.Model):
     vertraglicheUrlaubstage = models.IntegerField(choices=URLAUB_CHOICES, blank=True, null=True)
     sonderurlaub = models.IntegerField(default=0)
     resturlaub = models.IntegerField(default=0)
-    beginn = models.DateField()
-    ende = models.DateField()
+    beginn = models.DateField(blank=True, null=True)
+    ende = models.DateField(blank=True, null=True)
     statusUrlaub = models.BooleanField(default=False)
     genehmigtVon = models.ForeignKey(Mitarbeiter, on_delete=models.PROTECT, related_name='genehmigtVon', null=True, blank=True)
 
