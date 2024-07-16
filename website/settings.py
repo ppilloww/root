@@ -26,11 +26,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-z2^oy&^ku@i1(p&$w!-7vw6j^_0o^a4=7gj!3o96gzc_m-zreo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
-    'bbq-fom.azurewebsites.net',
     'bbq-gmbh2.azurewebsites.net',
+    'bbq-fom.azurewebsites.net',
     'localhost',
 ]
 
