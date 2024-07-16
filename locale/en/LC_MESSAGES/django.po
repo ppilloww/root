@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-17 00:19+0200\n"
-"PO-Revision-Date: 2024-07-17 00:10+0200\n"
+"POT-Creation-Date: 2024-07-17 00:42+0200\n"
+"PO-Revision-Date: 2024-07-17 00:40+0200\n"
 "Last-Translator: Admin Adminhausen <admin@bbq.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -143,20 +143,27 @@ msgstr "Change Password"
 msgid "navbarID_6"
 msgstr "Logout"
 
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:5
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:25
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_timeTable.html:26
+msgid "timeTableID_1"
+msgstr "No data available"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_timeTable.html:31
+msgid "timeTableID_2"
+msgstr "No data available"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:24
 msgid "changePasswordID_1"
 msgstr "Old Password"
 
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:29
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:28
 msgid "changePasswordID_2"
 msgstr "New Password"
 
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:33
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:32
 msgid "changePasswordID_3"
 msgstr "Confirm New Password"
 
-#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:36
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:35
 msgid "changePasswordID_4"
 msgstr "Change Password"
 
@@ -236,9 +243,17 @@ msgstr "Choose"
 msgid "createUserID_19"
 msgstr "CAGV"
 
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:102
+msgid "createUserID_23"
+msgstr "contractually agreed vacation days"
+
 #: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:110
 msgid "createUserID_20"
 msgstr "HR/W"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:110
+msgid "createUserID_24"
+msgstr "working hours per week"
 
 #: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:118
 msgid "createUserID_21"
@@ -282,7 +297,7 @@ msgstr "Birthday"
 
 #: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:39
 msgid "employeeManagementID_8"
-msgstr "Sex"
+msgstr "Gender"
 
 #: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:40
 msgid "employeeManagementID_9"
@@ -2502,12 +2517,6 @@ msgstr "German"
 
 #~ msgid "navbarID_3"
 #~ msgstr "Hello"
-
-#~ msgid "timeTableID_1"
-#~ msgstr "No data available"
-
-#~ msgid "timeTableID_2"
-#~ msgstr "No data available"
 
 #~ msgid "homeID_13"
 #~ msgstr "Compulsory hours"

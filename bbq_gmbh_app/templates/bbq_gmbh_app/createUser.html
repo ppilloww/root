@@ -99,7 +99,7 @@
                             </select>
                           </div>
                           <div class="col-md-2">
-                            <label for="inputVacation" class="form-label">{% trans 'createUserID_19' %}<span style="color: red;">*</span><i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="contractually agreed vacation days"></i></label> <!--Translation: CAGV-->
+                            <label for="inputVacation" class="form-label">{% trans 'createUserID_19' %}<span style="color: red;">*</span><i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="{% trans 'createUserID_23' %}"></i></label> <!--Translation: CAGV--><!--Translation: contractually agreed vacation days-->
                             <select id="vertraglicheUrlaubstage" class="form-select" name="vertraglicheUrlaubstage" required>
                               {% for value, display in urlaubForm.fields.vertraglicheUrlaubstage.choices %}
                                 <option value="{{ value }}">{{ display }}</option>
@@ -107,7 +107,7 @@
                             </select>
                           </div>
                           <div class="col-md-2">
-                            <label for="wochenarbeitszeit" class="form-label" >{% trans 'createUserID_20' %}<span style="color: red;">*</span><i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="working hours per week"></i></label> <!--Translation: HR/W-->
+                            <label for="wochenarbeitszeit" class="form-label" >{% trans 'createUserID_20' %}<span style="color: red;">*</span><i class="fa-solid fa-circle-info" style="color: #74C0FC;" data-bs-toggle="tooltip" title="{% trans 'createUserID_24' %}"></i></label> <!--Translation: HR/W--><!--Translation: working hours per week-->
                             <select id="wochenarbeitszeit" class="form-select" name="wochenarbeitszeit" required>
                               {% for value, display in userForm.fields.wochenarbeitszeit.choices %}
                                 <option value="{{ value }}">{{ display }}</option>
