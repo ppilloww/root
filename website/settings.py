@@ -50,12 +50,13 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware', # Whitenoise Middleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware', #Middelware für Übersetzung
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+   
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -125,15 +126,15 @@ AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
 
 ############## PRODUCTION SETTINGS ####################
 
-#CSRF_COOKIE_SECURE = True
-#SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
-#CSRF_TRUSTED_ORIGINS = [
-#    'https://bbq-gmbh2.azurewebsites.net',
-#    'http://bbq-gmbh2.azurewebsites.net', # HTTPS and HTTP versions of a domain is not typically recommended for production environments due to the potential security risks associated with non-secure HTTP traffic
-#]
+CSRF_TRUSTED_ORIGINS = [
+    'https://bbq-fom2.azurewebsites.net',
+    'http://bbq-fom2.azurewebsites.net', # HTTPS and HTTP versions of a domain is not typically recommended for production environments due to the potential security risks associated with non-secure HTTP traffic
+]
 
-#SECURE_SSL_REDIRECT = True #a security feature that, when set to True, ensures that all HTTP requests to your application are redirected to HTTPS
+SECURE_SSL_REDIRECT = True #a security feature that, when set to True, ensures that all HTTP requests to your application are redirected to HTTPS
 
 
 LANGUAGE_CODE = 'en'
