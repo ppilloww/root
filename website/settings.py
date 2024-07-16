@@ -30,6 +30,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'bbq-fom.azurewebsites.net',
+    'bbq-gmbh2.azurewebsites.net',
     'localhost',
 ]
 
