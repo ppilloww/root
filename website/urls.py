@@ -18,8 +18,12 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path, include
 
-urlpatterns = i18n_patterns(
-    path('', include('bbq_gmbh_app.urls')),
+urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('bbq_gmbh_app.urls')),
+]
+
+urlpatterns += i18n_patterns(
     path('rosetta/', include('rosetta.urls')),
+    path('', include('bbq_gmbh_app.urls')),
 )
