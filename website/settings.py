@@ -125,8 +125,8 @@ AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
 
 ############## PRODUCTION SETTINGS ####################
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
+#SESSION_COOKIE_SECURE = True
 
 CSRF_TRUSTED_ORIGINS = [
     'https://bbq-gmbh2.azurewebsites.net',
