@@ -55,6 +55,16 @@
                                         {% endif %}
 
                                     </p>
+                                    <p class="card-text mb-1">Country: {{ user.adresse.land.name }}</p>
+                                    <p class="card-text mb-1">Vacation left: {{ user.urlaub_set.last.resturlaub }} Days</p>
+                                    <p class="card-text mb-1">Special leave: {{ user.urlaub_set.last.sonderurlaub }} Days</p>
+                                    <p class="card-text mb-1">Weekly Hours: {{ weekHours }}h</p>
+                                    {% if violations %}
+                                        <p class="card-text mb-1">Violations: {{ violations }}</p>
+                                    {% else %}
+                                        <p class="card-text mb-1">Violations: N/A</p>
+                                    {% endif %}
+                                    
 
                                 </div>
                                 <div class="col-md-4">
@@ -74,10 +84,16 @@
                     <!-- This is handling breaches and buttons -->
                     <div class="card">
                         <div class="card-body">
-                            <form method="POST" action="">
-                                {% csrf_token %}
-                                <input type="submit" class="btn btn-danger" value="Delete User">
-                            </form>                                                       
+                            <div class="text-end">
+                                <form method="POST" action="">
+                                    {% csrf_token %}
+                                    {% if activeStatus %}
+                                    <input type="submit" name="action" class="btn btn-danger" value="Delete User">
+                                    {% else %}
+                                    <input type="submit" name="action" class="btn btn-success" value="Activate User">
+                                    {% endif %}
+                                </form>
+                            </div>                                                       
                             <p>This is handling breaches and buttons</p>
                         </div>
                     </div>

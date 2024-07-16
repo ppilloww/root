@@ -19,6 +19,37 @@
         <p class="card-text">Weekly Hours: {{ weekHours }}h</p>
     </div>
     <div class="col">
-        <p class="card-text">Violations:</p>
+        {% if violations %}
+        <p class="card-text">Violations: {{ violations }}</p>
+        {% else %}
+        <p class="card-text">Violations: N/A</p>
+        {% endif %}
+    </div>
+</div>
+<div class="row" style="font-size: 0.8rem">
+    <div class="col">
+        {% if urlaub.last.vertraglicheUrlaubstage %}
+        <p class="card-text">Vacation in contract: {{ urlaub.last.vertraglicheUrlaubstage }} Days</p>
+        {% else %}
+        <p class="card-text">Vacation in contract: N/A</p>
+        {% endif %}
+    </div>
+</div>
+<div class="row" style="font-size: 0.8rem">
+    <div class="col">
+        {% if urlaub.last.sonderurlaub %}
+        <p class="card-text">Special leave: {{ urlaub.last.sonderurlaub }} Days</p>
+        {% else %}
+        <p class="card-text">Special leave: N/A</p>
+        {% endif %}
+    </div>
+</div>
+<div class="row" style="font-size: 0.8rem">
+    <div class="col">
+        {% if urlaub.last.resturlaub %}
+        <p class="card-text">Vacation left: {{ urlaub.last.resturlaub }} Days</p>
+        {% else %}
+        <p class="card-text">Vacation: N/A</p>
+        {% endif %}
     </div>
 </div>
