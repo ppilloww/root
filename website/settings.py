@@ -129,6 +129,7 @@ AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_DOMAIN = "bbq-fom2.azurewebsites"
 
 CSRF_TRUSTED_ORIGINS = [
     'https://bbq-fom2.azurewebsites.net',
