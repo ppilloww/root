@@ -89,7 +89,7 @@
                 if (response.ok) {
                     window.location.href = "{% url 'home' %}"; // Redirect to the home page
                 } else {
-                    document.getElementById('message').textContent = 'Email or password is incorrect.';
+                    document.getElementById('message').textContent = 'Invalid Login Data or Unauthorized User Data.';
                     document.querySelector('.card').style.display = 'block'; // Show the card
                 }
             })
