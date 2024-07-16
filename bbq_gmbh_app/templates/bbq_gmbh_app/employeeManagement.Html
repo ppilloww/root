@@ -45,28 +45,33 @@
                               {% if request.user.is_authenticated %}
                                 {% for user in users %}
                                   <tr data-href="{% url 'userDetail' user.id %}">
-                                    <td>{{ user.id }}</td>
-                                    <td>{{ user.first_name }}</td>
-                                    <td>{{ user.last_name }}</td>
-                                    <td>{{ user.birthday }}</td>
-                                    <td>{{ user.gender }}</td>
-                                    <td>{{ user.adresse.land.name }}</td>
-                                    {% if user.arbeitsstunden_set.last.datum %}
-                                      <td>{{ user.arbeitsstunden_set.last.datum|date:"d.m.Y" }} at {{ user.arbeitsstunden_set.last.beginn|time:"H:i" }}h</td>
+                                    {% if user.is_active or role %}
+                                      <td>{{ user.id }}</td>
+                                      <td>{{ user.first_name }}</td>
+                                      <td>{{ user.last_name }}</td>
+                                      <td>{{ user.birthday }}</td>
+                                      <td>{{ user.gender }}</td>
+                                      <td>{{ user.adresse.land.name }}</td>
+                                      {% if user.arbeitsstunden_set.last.datum %}
+                                        <td>{{ user.arbeitsstunden_set.last.datum|date:"d.m.Y" }} at {{ user.arbeitsstunden_set.last.beginn|time:"H:i" }}h</td>
+                                      {% else %}
+                                        <td>No data available</td>
+                                      {% endif %}
+                                      {% if user.arbeitsstunden_set.last.status %}
+                                        <td style="text-align: center; vertical-align: middle;"><span class="dot dot_online"></span></td>
+                                      {% else %}
+                                        <td style="text-align: center; vertical-align: middle;"><span class="dot bg-secondary"></span></td>
+                                      {% endif %}
                                     {% else %}
-                                      <td>No data available</td>
+
                                     {% endif %}
-                                    {% if user.arbeitsstunden_set.last.status %}
-                                      <td><span class="dot dot_online"></span> Online</td>
-                                    {% else %}
-                                      <td><span class="dot bg-secondary"></span> Offline</td>
-                                    {% endif %}
+                                      
                                   </tr>
                                   {% empty %}
                                   <tr>
                                       <td colspan="8">No data available</td>
                                   </tr>
-                                  {% endfor %}
+                                {% endfor %}
                               {% else %}
                                 <tr>
                                     <td colspan="8">No data available</td>

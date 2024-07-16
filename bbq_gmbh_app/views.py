@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
-from bbq_gmbh_app.models import Mitarbeiter, Arbeitsstunden
+from bbq_gmbh_app.models import Mitarbeiter, Arbeitsstunden, Urlaub
 from django.http import JsonResponse
 from django.contrib import messages
 from datetime import date, datetime
@@ -56,9 +56,12 @@ def get_user_role(request):
 def home(request):
     arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
     weekHours = request.user.wochenarbeitszeit.total_seconds() / 3600
+    urlaub = Urlaub.objects.filter(mitarbeiter=request.user)
 
     return render(request, 'bbq_gmbh_app/home.html', {'arbeitsstunden': arbeitsstunden,
-                                                        'weekHours': weekHours})
+                                                        'weekHours': weekHours,
+                                                        'urlaub': urlaub,
+                                                        })
 
 # This ishandling the refreshing of the time table
 @login_required(login_url='signin')
@@ -82,8 +85,12 @@ def infoBox(request):
 @login_required(login_url='signin')
 def employeeManagement(request):
     users = Mitarbeiter.objects.all()
+    if request.user.role == 'Admin':
+        role = True
+    else:
+        role = False
 
-    return render(request, 'bbq_gmbh_app/employeeManagement.html', {'users': users})
+    return render(request, 'bbq_gmbh_app/employeeManagement.html', {'users': users, 'role': role})
 
 @login_required(login_url='signin')
 def profile(request):
@@ -165,8 +172,27 @@ login_required(login_url='signin')
 def userDetail(request, user_id):
     user = Mitarbeiter.objects.get(id=user_id)
     arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=user)
+    urlaub = Urlaub.objects.filter(mitarbeiter=user)
+    weekHours = request.user.wochenarbeitszeit.total_seconds() / 3600
+    activeStatus = user.is_active
+    if request.method == "POST":
+        if 'action' in request.POST:
+            if request.POST['action'] == 'Delete User':
+                user.is_active = False
+                user.save()
+                pass
+            elif request.POST['action'] == 'Activate User':
+                user.is_active = True
+                user.save()
+                pass
 
-    return render(request, 'bbq_gmbh_app/userDetail.html', {'user': user, 'arbeitsstunden': arbeitsstunden})
+
+    return render(request, 'bbq_gmbh_app/userDetail.html', {'user': user,
+                                                            'arbeitsstunden': arbeitsstunden,
+                                                            'urlaub': urlaub,
+                                                            'weekHours': weekHours,
+                                                            'activeStatus': activeStatus,
+                                                            })
 
 # This view is used to check if today is a public holiday
 # or a sunday. It is returning a JsonResponse with a boolean

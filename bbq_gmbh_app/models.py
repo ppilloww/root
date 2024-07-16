@@ -273,4 +273,4 @@ class Urlaub(models.Model):
 
 
     def __str__(self):
-        return f'{self.mitarbeiter} - {self.beginn} - {self.ende} - {self.statusUrlaub}'
+        return f'{self.mitarbeiter} {self.vertraglicheUrlaubstage} - {self.sonderurlaub} - {self.resturlaub} - {self.beginn} - {self.ende} - {self.statusUrlaub}'
