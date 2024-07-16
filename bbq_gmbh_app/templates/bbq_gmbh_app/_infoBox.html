@@ -1,55 +1,57 @@
+{% load i18n %}
 
-<h5 class="card-title">Welcome to BBQ GmbH</h5>
-<p class="card-text" style="font-size: 1rem;">Please check in and out to track your time.</p>
+
+<h5 class="card-title">{% trans 'infoBoxID_1' %}</h5> <!--Translation: Welcome to BBQ GmbH-->
+<p class="card-text" style="font-size: 1rem;">{% trans 'infoBoxID_2' %}</p> <!--Translation: Please check in and out to track your time-->
 <div class="row" style="font-size: 0.8rem">
     <div class="col-md-3">
         {% if arbeitsstunden.last.status %}
-        <p class="card-text" ><span class="dot dot_online"></span> Online</p>
+        <p class="card-text" ><span class="dot dot_online"></span> {% trans 'infoBoxID_3' %}</p> <!--Translation: Online-->
         {% else %}
-        <p class="card-text"><span class="dot bg-secondary"></span> Offline</p>
+        <p class="card-text"><span class="dot bg-secondary"></span> {% trans 'infoBoxID_4' %}</p> <!--Translation: Offline-->
         {% endif %}
     </div>
     <div class="col">
-        <p class="card-text">Last check-in: {{ arbeitsstunden.last.datum|date:"d.m.Y" }} at {{ arbeitsstunden.last.beginn|time:"H:i" }}h</p>
+        <p class="card-text">{% trans 'infoBoxID_5' %} {{ arbeitsstunden.last.datum|date:"d.m.Y" }} {% trans 'infoBoxID_6' %} {{ arbeitsstunden.last.beginn|time:"H:i" }}{% trans 'infoBoxID_7' %}</p> <!--Translation: Last check-in:--><!--Translation: at--><!--Translation: h-->
     </div>
 </div>
 <hr style="margin: 5px 0;">
 <div class="row" style="font-size: 0.8rem">
     <div class="col">
-        <p class="card-text">Weekly Hours: {{ weekHours }}h</p>
+        <p class="card-text">{% trans 'infoBoxID_8' %} {{ weekHours }}{% trans 'infoBoxID_20' %}</p> <!--Translation: Weekly Hours:--><!--Translation: h-->
     </div>
     <div class="col">
         {% if violations %}
-        <p class="card-text">Violations: {{ violations }}</p>
+        <p class="card-text">{% trans 'infoBoxID_9' %}</p> <!--Translation: Violations:-->
         {% else %}
-        <p class="card-text">Violations: N/A</p>
+        <p class="card-text">{% trans 'infoBoxID_10' %}</p> <!--Translation: Violations: N/A-->
         {% endif %}
     </div>
 </div>
 <div class="row" style="font-size: 0.8rem">
     <div class="col">
         {% if urlaub.last.vertraglicheUrlaubstage %}
-        <p class="card-text">Vacation in contract: {{ urlaub.last.vertraglicheUrlaubstage }} Days</p>
+        <p class="card-text">{% trans 'infoBoxID_11' %}: {{ urlaub.last.vertraglicheUrlaubstage }} {% trans 'infoBoxID_12' %}</p> <!--Translation: Vacation in contract:--><!--Translation: Days-->
         {% else %}
-        <p class="card-text">Vacation in contract: N/A</p>
+        <p class="card-text">{% trans 'infoBoxID_13' %}</p> <!--Translation: Vacation in contract: N/A-->
         {% endif %}
     </div>
 </div>
 <div class="row" style="font-size: 0.8rem">
     <div class="col">
         {% if urlaub.last.sonderurlaub %}
-        <p class="card-text">Special leave: {{ urlaub.last.sonderurlaub }} Days</p>
+        <p class="card-text">{% trans 'infoBoxID_14' %}: {{ urlaub.last.sonderurlaub }} {% trans 'infoBoxID_15' %}</p> <!--Translation: Special leave--><!--Translation: Days-->
         {% else %}
-        <p class="card-text">Special leave: N/A</p>
+        <p class="card-text">{% trans 'infoBoxID_16' %}</p> <!--Translation: Special leave: N/A-->
         {% endif %}
     </div>
 </div>
 <div class="row" style="font-size: 0.8rem">
     <div class="col">
         {% if urlaub.last.resturlaub %}
-        <p class="card-text">Vacation left: {{ urlaub.last.resturlaub }} Days</p>
+        <p class="card-text">{% trans 'infoBoxID_17' %}: {{ urlaub.last.resturlaub }} {% trans 'infoBoxID_18' %}</p> <!--Translation: Vacation left--><!--Translation: Days-->
         {% else %}
-        <p class="card-text">Vacation: N/A</p>
+        <p class="card-text">{% trans 'infoBoxID_19' %}</p> <!--Translation: Vacation: N/A-->
         {% endif %}
     </div>
 </div>
