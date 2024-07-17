@@ -127,16 +127,16 @@ AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
 
 ############## PRODUCTION SETTINGS ####################
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_DOMAIN = "bbq-fom2.azurewebsites"
+#CSRF_COOKIE_SECURE = True
+#SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_DOMAIN = "bbq-fom2.azurewebsites.net"
 
 CSRF_TRUSTED_ORIGINS = [
     'https://bbq-fom2.azurewebsites.net',
     'http://bbq-fom2.azurewebsites.net', # HTTPS and HTTP versions of a domain is not typically recommended for production environments due to the potential security risks associated with non-secure HTTP traffic
 ]
 
-SECURE_SSL_REDIRECT = True #a security feature that, when set to True, ensures that all HTTP requests to your application are redirected to HTTPS
+#SECURE_SSL_REDIRECT = True #a security feature that, when set to True, ensures that all HTTP requests to your application are redirected to HTTPS
 
 
 LANGUAGE_CODE = 'en'
