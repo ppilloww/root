@@ -14,10 +14,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.conf import settings
 
 urlpatterns = [
-    path('', include('bbq_gmbh_app.urls')),
     path('admin/', admin.site.urls),
+    path('', include('bbq_gmbh_app.urls')),
 ]
+
+urlpatterns += i18n_patterns(
+    path('', include('bbq_gmbh_app.urls')),
+)
+
+if 'rosetta' in settings.INSTALLED_APPS:
+    urlpatterns += [
+        re_path(r'^rosetta/', include('rosetta.urls'))
+    ]

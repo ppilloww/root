@@ -1,3 +1,6 @@
+{% load i18n %}
+
+
 <section class="contact-section bg-black" id="contact" >
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5">
@@ -5,7 +8,7 @@
                 <div class="card py-4 h-100">
                     <div class="card-body text-center">
                         <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                        <h4 class="text-uppercase m-0">Address</h4>
+                        <h4 class="text-uppercase m-0">{% trans 'contactID_1' %}</h4> <!--Translation: Address-->
                         <hr class="my-4 mx-auto" />
                         <div class="small text-black-50">Rotebühlstraße 121, 70178 Stuttgart</div>
                     </div>
@@ -15,7 +18,7 @@
                 <div class="card py-4 h-100">
                     <div class="card-body text-center">
                         <i class="fas fa-envelope text-primary mb-2"></i>
-                        <h4 class="text-uppercase m-0">Email</h4>
+                        <h4 class="text-uppercase m-0">{% trans 'contactID_2' %}</h4> <!--Translation: Email-->
                         <hr class="my-4 mx-auto" />
                         <div class="small text-black-50"><a href="#!">admin@bbq.de</a></div>
                     </div>
@@ -25,7 +28,7 @@
                 <div class="card py-4 h-100">
                     <div class="card-body text-center">
                         <i class="fas fa-phone-volume text-primary mb-2"></i>
-                        <h4 class="text-uppercase m-0">Phone</h4>
+                        <h4 class="text-uppercase m-0">{% trans 'contactID_3' %}</h4> <!--Translation: Phone-->
                         <hr class="my-4 mx-auto" />
                         <div class="small text-black-50">+49 (711) 696969</div>
                     </div>
