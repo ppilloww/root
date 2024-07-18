@@ -1,19 +1,27 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 
 <!-- Navigation-->
 {% block navigationBar %}
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#page-top">BBQ GmbH - EasyTimer</a>
+        <a class="navbar-brand" href="#page-top">{% trans 'indexID_1' %}</a> <!--Translation: BBQ GmbH - EasyTimer-->
         <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Change Language</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <div class="nav-item dropdown">
+                    {% get_current_language as CURRENT-LANGUAGE %}
+                    {% get_available_languages as AVAILABLE-LANGUAGES %}
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" >{% trans 'indexID_2' %}</a> <!--Translation: Change Language-->
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href=" /en ">🇬🇧 English</a></li>
+                                <li><a class="dropdown-item" href=" /de ">🇩🇪 Deutsch</a></li>                            
+                            </ul>
+                </div>
+                <li class="nav-item"><a class="nav-link" href="#contact">{% trans 'indexID_3' %}</a></li> <!--Translation: Contact-->
             </ul>
         </div>
     </div>
@@ -25,9 +33,9 @@
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center" id="myElement">
         <div class="d-flex justify-content-center">
             <div class="text-center">
-                <h1 class="mx-auto my-0 text-uppercase">BBQ GmbH</h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">Employee time recording</h2>
-                <a class="btn btn-primary" href="{% url 'signin' %}">sign-in</a>
+                <h1 class="mx-auto my-0 text-uppercase">{% trans 'indexID_4' %}</h1> <!--Translation: BBQ GmbH-->
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">{% trans 'indexID_5' %}</h2> <!--Translation: Employee time recording-->
+                <a class="btn btn-primary" href="{% url 'signin' %}">{% trans 'indexID_6' %}</a> <!--Translation: sign-in-->
             </div>
         </div>
     </div>
