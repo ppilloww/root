@@ -48,23 +48,25 @@ document.getElementById('checkin').addEventListener('click', function(event) {
                     card.classList.add('bg-warning');
                     throw new Error('Network response was not ok');
                 } else {
-                    document.getElementById('message').textContent = 'Have a nice day at work. ';
-                    var card = document.querySelector('.alert');
-                    card.style.display = 'block'; // Show the card and store it in a variable
-                    card.classList.add('bg-success');
+                    // document.getElementById('message').textContent = 'Have a nice day at work. ';
+                    // var card = document.querySelector('.alert');
+                    // card.style.display = 'block'; // Show the card and store it in a variable
+                    // card.classList.add('bg-success');
 
-                    // refresh the table after check-in
-                    fetch('/arbeitsstunden/')  
-                    .then(response => response.text())
-                    .then(html => {
-                        document.getElementById('table_body').innerHTML = html;
-                    });
-                    // refresh infobox
-                    fetch('/infoBox/') 
-                    .then(response => response.text())
-                    .then(html => {
-                        document.getElementById('infobox').innerHTML = html;
-                    });
+                    // // refresh the table after check-in
+                    // fetch('/arbeitsstunden/')  
+                    // .then(response => response.text())
+                    // .then(html => {
+                    //     document.getElementById('table_body').innerHTML = html;
+                    // });
+                    // // refresh infobox
+                    // fetch('/infoBox/') 
+                    // .then(response => response.text())
+                    // .then(html => {
+                    //     document.getElementById('infobox').innerHTML = html;
+                    // });
+
+                    location.reload(); // reload the page to refresh the table and infobox
                 }
 
             })
@@ -128,23 +130,25 @@ document.getElementById('checkout').addEventListener('click', function(event) {
                     card.classList.add('bg-warning');
                     throw new Error('Network response was not ok');
                 } else{
-                    document.getElementById('message').textContent = 'Have a great evening. ';
-                    var card = document.querySelector('.alert');
-                    card.style.display = 'block'; // Show the card and store it in a variable
-                    card.classList.add('bg-danger');
+                    // document.getElementById('message').textContent = 'Have a great evening. ';
+                    // var card = document.querySelector('.alert');
+                    // card.style.display = 'block'; // Show the card and store it in a variable
+                    // card.classList.add('bg-danger');
 
-                    // refresh the table after check-out
-                    fetch('/arbeitsstunden/')  
-                    .then(response => response.text())
-                    .then(html => {
-                        document.getElementById('table_body').innerHTML = html;
-                    });
-                    // refresh infobox
-                    fetch('/infoBox/')  
-                    .then(response => response.text())
-                    .then(html => {
-                        document.getElementById('infobox').innerHTML = html;
-                    });
+                    // // refresh the table after check-out
+                    // fetch('/arbeitsstunden/')  
+                    // .then(response => response.text())
+                    // .then(html => {
+                    //     document.getElementById('table_body').innerHTML = html;
+                    // });
+                    // // refresh infobox
+                    // fetch('/infoBox/')  
+                    // .then(response => response.text())
+                    // .then(html => {
+                    //     document.getElementById('infobox').innerHTML = html;
+                    // });
+
+                    location.reload(); // reload the page to refresh the table and infobox
                 }
 
             })
