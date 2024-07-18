@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-09 18:12+0200\n"
-"PO-Revision-Date: 2024-07-07 20:40+0200\n"
+"POT-Creation-Date: 2024-07-17 00:42+0200\n"
+"PO-Revision-Date: 2024-07-17 00:40+0200\n"
 "Last-Translator: Admin Adminhausen <admin@bbq.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -22,6 +22,669 @@ msgstr ""
 #: .\bbq_gmbh_app\models.py:71
 msgid "email address"
 msgstr "email address"
+
+#: .\bbq_gmbh_app\templates\base.html:12
+msgid "baseID_1"
+msgstr "BBQ GmbH - Employee time recording"
+
+#: .\bbq_gmbh_app\templates\base.html:40
+msgid "baseID_2"
+msgstr "Copyright"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_contact.html:11
+msgid "contactID_1"
+msgstr "Address"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_contact.html:21
+msgid "contactID_2"
+msgstr "Email"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_contact.html:31
+msgid "contactID_3"
+msgstr "Phone"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:4
+msgid "infoBoxID_1"
+msgstr "Welcome to BBQ GmbH"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:5
+msgid "infoBoxID_2"
+msgstr "Please check in and out to track your time spent at work."
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:9
+msgid "infoBoxID_3"
+msgstr "Online"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:11
+msgid "infoBoxID_4"
+msgstr "Offline"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:15
+msgid "infoBoxID_5"
+msgstr "Last check-in:"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:15
+msgid "infoBoxID_6"
+msgstr "at"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:15
+msgid "infoBoxID_7"
+msgstr "h"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:21
+msgid "infoBoxID_8"
+msgstr "Weekly Hours:"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:21
+msgid "infoBoxID_20"
+msgstr "h"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:25
+msgid "infoBoxID_9"
+msgstr "Violations:"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:27
+msgid "infoBoxID_10"
+msgstr "Violations: N/A"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:34
+msgid "infoBoxID_11"
+msgstr "Violations:"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:34
+msgid "infoBoxID_12"
+msgstr "Days"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:36
+msgid "infoBoxID_13"
+msgstr "Vacation in contract: N/A"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:43
+msgid "infoBoxID_14"
+msgstr "Special leave"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:43
+msgid "infoBoxID_15"
+msgstr "Days"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:45
+msgid "infoBoxID_16"
+msgstr "Special leave: N/A"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:52
+msgid "infoBoxID_17"
+msgstr "Vacation left"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:52
+msgid "infoBoxID_18"
+msgstr "Days"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_infoBox.html:54
+msgid "infoBoxID_19"
+msgstr "Vacation: N/A"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_navbar.html:15
+msgid "navbarID_1"
+msgstr "Capture Time"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_navbar.html:16
+msgid "navbarID_2"
+msgstr "Contact"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_navbar.html:21
+msgid "navbarID_4"
+msgstr "Profile"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_navbar.html:22
+msgid "navbarID_5"
+msgstr "Change Password"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_navbar.html:23
+msgid "navbarID_6"
+msgstr "Logout"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_timeTable.html:26
+msgid "timeTableID_1"
+msgstr "No data available"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\_timeTable.html:31
+msgid "timeTableID_2"
+msgstr "No data available"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:24
+msgid "changePasswordID_1"
+msgstr "Old Password"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:28
+msgid "changePasswordID_2"
+msgstr "New Password"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:32
+msgid "changePasswordID_3"
+msgstr "Confirm New Password"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\changePassword.html:35
+msgid "changePasswordID_4"
+msgstr "Change Password"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:17
+msgid "createUserID_1"
+msgstr "Employee Management"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:18
+msgid "createUserID_2"
+msgstr "Create new employee for EasyTimer"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:25
+msgid "createUserID_3"
+msgstr "First Name"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:29
+msgid "createUserID_4"
+msgstr "Last Name"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:33
+msgid "createUserID_5"
+msgstr "Email"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:37
+msgid "createUserID_6"
+msgstr "Password"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:42
+msgid "createUserID_7"
+msgstr "Password"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:46
+msgid "createUserID_8"
+msgstr "Address"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:51
+msgid "createUserID_9"
+msgstr "City"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:55
+msgid "createUserID_10"
+msgstr "Country"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:65
+msgid "createUserID_11"
+msgstr "Zip"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:70
+msgid "createUserID_12"
+msgstr "Date of Birth"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:74
+msgid "createUserID_13"
+msgstr "Gender"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:84
+msgid "createUserID_14"
+msgstr "Job title"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:88
+msgid "createUserID_15"
+msgstr "Department"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:90
+msgid "createUserID_16"
+msgstr "Choose"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:96
+msgid "createUserID_17"
+msgstr "Salary group"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:98
+msgid "createUserID_18"
+msgstr "Choose"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:102
+msgid "createUserID_19"
+msgstr "CAGV"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:102
+msgid "createUserID_23"
+msgstr "contractually agreed vacation days"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:110
+msgid "createUserID_20"
+msgstr "HR/W"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:110
+msgid "createUserID_24"
+msgstr "working hours per week"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:118
+msgid "createUserID_21"
+msgstr "Role"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\createUser.html:127
+msgid "createUserID_22"
+msgstr "Create User"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:17
+msgid "employeeManagementID_1"
+msgstr "Employee Management"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:18
+msgid "employeeManagementID_2"
+msgstr "Employees in EasyTimer"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:24
+msgid "employeeManagementID_13"
+msgstr "search"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:25
+msgid "employeeManagementID_3"
+msgstr "search"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:35
+msgid "employeeManagementID_4"
+msgstr "Employee Id"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:36
+msgid "employeeManagementID_5"
+msgstr "Firstname"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:37
+msgid "employeeManagementID_6"
+msgstr "Lastname"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:38
+msgid "employeeManagementID_7"
+msgstr "Birthday"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:39
+msgid "employeeManagementID_8"
+msgstr "Gender"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:40
+msgid "employeeManagementID_9"
+msgstr "Country"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:41
+msgid "employeeManagementID_14"
+msgstr "Last Online"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:42
+msgid "employeeManagementID_15"
+msgstr "Status"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:57
+msgid "employeeManagementID_16"
+msgstr "at"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:57
+msgid "employeeManagementID_17"
+msgstr "h"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:73
+msgid "employeeManagementID_10"
+msgstr "No data available"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:78
+msgid "employeeManagementID_11"
+msgstr "No data available"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\employeeManagement.html:86
+msgid "employeeManagementID_12"
+msgstr "Create User"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:21
+msgid "homeID_1"
+msgstr "Capture Time"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:22
+msgid "homeID_2"
+msgstr "Track your time spent"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:26
+msgid "homeID_3"
+msgstr "Weekday"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:52
+msgid "homeID_4"
+msgstr "Check In"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:55
+msgid "homeID_5"
+msgstr "Check Out"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:95
+msgid "homeID_6"
+msgstr "Time Table"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:96
+msgid "homeID_7"
+msgstr "EasyTimer"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:102
+msgid "homeID_15"
+msgstr "search"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:103
+msgid "homeID_8"
+msgstr "search"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:113
+msgid "homeID_9"
+msgstr "Date"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:114
+msgid "homeID_10"
+msgstr "Check In"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:115
+msgid "homeID_11"
+msgstr "Check Out"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:116
+msgid "homeID_12"
+msgstr "Break"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:117
+msgid "homeID_16"
+msgstr "Min.Hours"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:118
+msgid "homeID_17"
+msgstr "Avg.Hours"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:119
+msgid "homeID_18"
+msgstr "Is"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\home.html:120
+msgid "homeID_14"
+msgstr "Overtime"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:8
+msgid "indexID_1"
+msgstr "BBQ GmbH - EasyTimer"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:18
+msgid "indexID_2"
+msgstr "Change Language"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:24
+msgid "indexID_3"
+msgstr "Contact"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:36
+msgid "indexID_4"
+msgstr "BBQ GmbH"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:37
+msgid "indexID_5"
+msgstr "Employee time recording"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\index.html:38
+msgid "indexID_6"
+msgstr "sign-in"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\newPassword.html:20
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\newPassword.html:32
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\newPassword.html:36
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\newPassword.html:39
+msgid "newPasswordID_1"
+msgstr "Holy guacamole!"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\newPassword.html:28
+msgid "newPasswordID_2"
+msgstr "Admin is forcing you to reset your password."
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:17
+msgid "profileID_1"
+msgstr "Profile"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:19
+msgid "profileID_2"
+msgstr "Online"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:21
+msgid "profileID_3"
+msgstr "Offline"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:36
+msgid "profileID_10"
+msgstr "User Role"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:43
+msgid "profileID_4"
+msgstr "Date of Birth"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:52
+msgid "profileID_5"
+msgstr "Email"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:61
+msgid "profileID_6"
+msgstr "Address"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:67
+msgid "profileID_11"
+msgstr "No data available"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:74
+msgid "profileID_7"
+msgstr "Business mobile phone"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:80
+msgid "profileID_12"
+msgstr "No data available"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:87
+msgid "profileID_13"
+msgstr "Gender"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:91
+msgid "profileID_14"
+msgstr "Male"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:93
+msgid "profileID_15"
+msgstr "Female"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:95
+msgid "profileID_16"
+msgstr "Other"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\profile.html:102
+msgid "profileID_9"
+msgstr "Guest"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\signin.html:15
+msgid "signInID_1"
+msgstr "BBQ GmbH - EasyTimer"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\signin.html:22
+msgid "signInID_2"
+msgstr "Contact"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\signin.html:38
+msgid "signInID_3"
+msgstr "Email address"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\signin.html:42
+msgid "signInID_4"
+msgstr "Password"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\signin.html:45
+msgid "signInID_5"
+msgstr "Sign in"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\signin.html:73
+msgid "signInID_6"
+msgstr "All fields must be filled out."
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\signin.html:92
+msgid "signInID_7"
+msgstr "Email or password is incorrect."
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\signin.html:97
+msgid "signInID_8"
+msgstr "Network error. Please try again later."
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:23
+msgid "userDetailID_1"
+msgstr "User details"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:29
+msgid "userDetailID_2"
+msgstr "Role"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:31
+msgid "userDetailID_3"
+msgstr "Online"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:33
+msgid "userDetailID_4"
+msgstr "Offline"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:37
+msgid "userDetailID_5"
+msgstr "Last check-in"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:37
+msgid "userDetailID_6"
+msgstr "at"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:37
+msgid "userDetailID_7"
+msgstr "h"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:39
+msgid "userDetailID_8"
+msgstr "Last check-in: No data available"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:43
+msgid "userDetailID_9"
+msgstr "Last check-out"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:43
+msgid "userDetailID_10"
+msgstr "at"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:43
+msgid "userDetailID_11"
+msgstr "h"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:45
+msgid "userDetailID_12"
+msgstr "Last check-out: No data available"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:47
+msgid "userDetailID_13"
+msgstr "Date of Birth"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:48
+msgid "userDetailID_14"
+msgstr "Email"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:49
+msgid "userDetailID_15"
+msgstr "Address"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:53
+msgid "userDetailID_16"
+msgstr "No data available"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:57
+msgid "userDetailID_17"
+msgstr "Country"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:58
+msgid "userDetailID_18"
+msgstr "Vacation left"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:58
+msgid "userDetailID_19"
+msgstr "Days"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:59
+msgid "userDetailID_20"
+msgstr "Special leave"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:59
+msgid "userDetailID_21"
+msgstr "Days"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:60
+msgid "userDetailID_22"
+msgstr "Weekly Hours"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:60
+msgid "userDetailID_23"
+msgstr "h"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:62
+msgid "userDetailID_24"
+msgstr "Violations"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:64
+msgid "userDetailID_25"
+msgstr "Violations: N/A"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:90
+msgid "userDetailID_39"
+msgstr "Delete User"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:92
+msgid "userDetailID_40"
+msgstr "Activate User"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:96
+msgid "userDetailID_26"
+msgstr "This is handling breaches and buttons"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:110
+msgid "userDetailID_27"
+msgstr "Time Table"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:111
+msgid "userDetailID_28"
+msgstr "EasyTimer"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:118
+msgid "userDetailID_29"
+msgstr "search"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:119
+msgid "userDetailID_30"
+msgstr "search"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:129
+msgid "userDetailID_31"
+msgstr "Date"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:130
+msgid "userDetailID_32"
+msgstr "Checkin"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:131
+msgid "userDetailID_33"
+msgstr "Checkout"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:132
+msgid "userDetailID_34"
+msgstr "Break"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:133
+msgid "userDetailID_35"
+msgstr "Min.Hours"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:134
+msgid "userDetailID_36"
+msgstr "Avg.Hours"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:135
+msgid "userDetailID_37"
+msgstr "Is"
+
+#: .\bbq_gmbh_app\templates\bbq_gmbh_app\userDetail.html:136
+msgid "userDetailID_38"
+msgstr "Overtime"
 
 #: .\env\Lib\site-packages\django\contrib\messages\apps.py:15
 #: .\env_nb\Lib\site-packages\django\contrib\messages\apps.py:15
@@ -1844,230 +2507,19 @@ msgstr ""
 "Managementform data is missing or has been tampered with. Missing fields: "
 "%(field_names)s. You may need to file a bug report if the issue persists."
 
-#: .\website\settings.py:126
+#: .\website\settings.py:140
 msgid "English"
 msgstr "English"
 
-#: .\website\settings.py:127
+#: .\website\settings.py:141
 msgid "Deutsch"
 msgstr "German"
-
-#~ msgid "baseID_1"
-#~ msgstr "BBQ GmbH - Employee time recording"
-
-#~ msgid "baseID_2"
-#~ msgstr "Copyright"
-
-#~ msgid "contactID_1"
-#~ msgstr "Address"
-
-#~ msgid "contactID_2"
-#~ msgstr "Email"
-
-#~ msgid "contactID_3"
-#~ msgstr "Phone"
-
-#~ msgid "infoBoxID_1"
-#~ msgstr "Welcome to BBQ GmbH"
-
-#~ msgid "infoBoxID_2"
-#~ msgstr "Please check in and out to track your time spent at work."
-
-#~ msgid "navbarID_1"
-#~ msgstr "Capture Time"
-
-#~ msgid "navbarID_2"
-#~ msgstr "Contact"
 
 #~ msgid "navbarID_3"
 #~ msgstr "Hello"
 
-#~ msgid "navbarID_4"
-#~ msgstr "Profile"
-
-#~ msgid "navbarID_5"
-#~ msgstr "Change Password"
-
-#~ msgid "navbarID_6"
-#~ msgstr "Logout"
-
-#~ msgid "timeTableID_1"
-#~ msgstr "No data available"
-
-#~ msgid "timeTableID_2"
-#~ msgstr "No data available"
-
-#~ msgid "changePasswordID_1"
-#~ msgstr "Old Password"
-
-#~ msgid "changePasswordID_2"
-#~ msgstr "New Password"
-
-#~ msgid "changePasswordID_3"
-#~ msgstr "Confirm New Password"
-
-#~ msgid "changePasswordID_4"
-#~ msgstr "Change Password"
-
-#~ msgid "createUserID_1"
-#~ msgstr "Employee Management"
-
-#~ msgid "createUserID_2"
-#~ msgstr "Create new employee for EasyTimer"
-
-#~ msgid "createUserID_3"
-#~ msgstr "First Name"
-
-#~ msgid "createUserID_4"
-#~ msgstr "Last Name"
-
-#~ msgid "createUserID_5"
-#~ msgstr "Email"
-
-#~| msgid "createUserID_16"
-#~ msgid "createUserID_6"
-#~ msgstr "Password"
-
-#~ msgid "createUserID_7"
-#~ msgstr "Password"
-
-#~ msgid "createUserID_8"
-#~ msgstr "Address"
-
-#~ msgid "createUserID_9"
-#~ msgstr "City"
-
-#~ msgid "createUserID_10"
-#~ msgstr "Country"
-
-#~ msgid "createUserID_11"
-#~ msgstr "Zip"
-
-#~ msgid "createUserID_12"
-#~ msgstr "Date of Birth"
-
-#~ msgid "createUserID_13"
-#~ msgstr "Gender"
-
-#~ msgid "createUserID_14"
-#~ msgstr "Job title"
-
-#~ msgid "createUserID_15"
-#~ msgstr "Department"
-
-#~ msgid "createUserID_16"
-#~ msgstr "Choose"
-
-#~ msgid "createUserID_17"
-#~ msgstr "Salary group"
-
-#~ msgid "createUserID_18"
-#~ msgstr "Choose"
-
-#~ msgid "createUserID_19"
-#~ msgstr "CAGV"
-
-#~ msgid "createUserID_20"
-#~ msgstr "HR/W"
-
-#~ msgid "createUserID_21"
-#~ msgstr "Role"
-
-#~ msgid "createUserID_22"
-#~ msgstr "Create User"
-
-#~ msgid "employeeManagementID_1"
-#~ msgstr "Employee Management"
-
-#~ msgid "employeeManagementID_2"
-#~ msgstr "Employees in EasyTimer"
-
-#~ msgid "employeeManagementID_13"
-#~ msgstr "search"
-
-#~ msgid "employeeManagementID_3"
-#~ msgstr "search"
-
-#~ msgid "employeeManagementID_4"
-#~ msgstr "Employee Id"
-
-#~ msgid "employeeManagementID_5"
-#~ msgstr "Firstname"
-
-#~ msgid "employeeManagementID_6"
-#~ msgstr "Lastname"
-
-#~ msgid "employeeManagementID_7"
-#~ msgstr "Birthday"
-
-#~ msgid "employeeManagementID_8"
-#~ msgstr "Sex"
-
-#~ msgid "employeeManagementID_9"
-#~ msgstr "Country"
-
-#~ msgid "employeeManagementID_10"
-#~ msgstr "No data available"
-
-#~ msgid "employeeManagementID_11"
-#~ msgstr "No data available"
-
-#~ msgid "employeeManagementID_12"
-#~ msgstr "Create User"
-
-#~ msgid "homeID_1"
-#~ msgstr "Capture Time"
-
-#~ msgid "homeID_2"
-#~ msgstr "Track your time spent"
-
-#~ msgid "homeID_3"
-#~ msgstr "Weekday"
-
-#~ msgid "homeID_4"
-#~ msgstr "Check In"
-
-#~ msgid "homeID_5"
-#~ msgstr "Check Out"
-
-#~ msgid "homeID_6"
-#~ msgstr "Time Table"
-
-#~ msgid "homeID_7"
-#~ msgstr "EasyTimer"
-
-#~ msgid "homeID_15"
-#~ msgstr "search"
-
-#~ msgid "homeID_8"
-#~ msgstr "search"
-
-#~ msgid "homeID_9"
-#~ msgstr "Date"
-
-#~ msgid "homeID_10"
-#~ msgstr "Check In"
-
-#~ msgid "homeID_11"
-#~ msgstr "Check Out"
-
-#~ msgid "homeID_12"
-#~ msgstr "Break"
-
 #~ msgid "homeID_13"
 #~ msgstr "Compulsory hours"
-
-#~ msgid "homeID_14"
-#~ msgstr "Overtime"
-
-#~ msgid "homeID_16"
-#~ msgstr "Sunday"
-
-#~ msgid "homeID_17"
-#~ msgstr "Monday"
-
-#~ msgid "homeID_18"
-#~ msgstr "Tuesday"
 
 #~ msgid "homeID_19"
 #~ msgstr "Wednesday"
@@ -2117,39 +2569,13 @@ msgstr "German"
 #~ msgid "homeID_35"
 #~ msgstr "There has been a problem with your fetch holiday checkout operation"
 
-#~ msgid "indexID_1"
-#~ msgstr "BBQ GmbH - EasyTimer"
-
-#~ msgid "indexID_2"
-#~ msgstr "Change Language"
-
 #, fuzzy
-#~| msgid "indexID_1"
 #~ msgid "indexID_7"
 #~ msgstr "BBQ GmbH - EasyTimer"
 
 #, fuzzy
-#~| msgid "indexID_1"
 #~ msgid "indexID_8"
 #~ msgstr "BBQ GmbH - EasyTimer"
-
-#~ msgid "indexID_3"
-#~ msgstr "Contact"
-
-#~ msgid "indexID_4"
-#~ msgstr "BBQ GmbH"
-
-#~ msgid "indexID_5"
-#~ msgstr "Employee time recording"
-
-#~ msgid "indexID_6"
-#~ msgstr "sign-in"
-
-#~ msgid "newPasswordID_1"
-#~ msgstr "Holy guacamole!"
-
-#~ msgid "newPasswordID_2"
-#~ msgstr "Admin is forcing you to reset your password."
 
 #~ msgid "newPasswordID_3"
 #~ msgstr "Old Password"
@@ -2163,59 +2589,8 @@ msgstr "German"
 #~ msgid "newPasswordID_6"
 #~ msgstr "Change Password"
 
-#~ msgid "profileID_1"
-#~ msgstr "Profile"
-
-#~ msgid "profileID_2"
-#~ msgstr "Online"
-
-#~ msgid "profileID_3"
-#~ msgstr "Offline"
-
-#~ msgid "profileID_10"
-#~ msgstr "User Role"
-
-#~ msgid "profileID_4"
-#~ msgstr "Date of Birth"
-
-#~ msgid "profileID_5"
-#~ msgstr "Email"
-
-#~ msgid "profileID_6"
-#~ msgstr "Address"
-
-#~ msgid "profileID_7"
-#~ msgstr "Business mobile phone"
-
 #~ msgid "profileID_8"
 #~ msgstr "Address"
-
-#~ msgid "profileID_9"
-#~ msgstr "Guest"
-
-#~ msgid "signInID_1"
-#~ msgstr "BBQ GmbH - EasyTimer"
-
-#~ msgid "signInID_2"
-#~ msgstr "Contact"
-
-#~ msgid "signInID_3"
-#~ msgstr "Email address"
-
-#~ msgid "signInID_4"
-#~ msgstr "Password"
-
-#~ msgid "signInID_5"
-#~ msgstr "Sign in"
-
-#~ msgid "signInID_6"
-#~ msgstr "All fields must be filled out."
-
-#~ msgid "signInID_7"
-#~ msgstr "Email or password is incorrect."
-
-#~ msgid "signInID_8"
-#~ msgstr "Network error. Please try again later."
 
 #, fuzzy
 #~ msgid "navbarID_7"

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 <!-- display the time in 24-hour format, with a leading zero for hours less than 10 -->
 {% load tz %}
 
@@ -17,12 +18,12 @@
                     <div class="card"  id="myElement">
                         <div class="card-body">
                             <div class="header_text">
-                                <p class="link"><i class="fa-solid fa-clock" style="color: #63E6BE;"></i> Capture Time</p>
-                                <p class="link">Track your time spent</p>
+                                <p class="link"><i class="fa-solid fa-clock" style="color: #63E6BE;"></i>{% trans 'homeID_1' %}</p> <!--Translation: Capture Time-->
+                                <p class="link">{% trans 'homeID_2' %}</p> <!--Translation: Track your time spent-->
                             </div>
                             <div class="time_container row">
                                 <div class="week_day col-12">
-                                    <span id="weekday">Weekday</span>
+                                    <span id="weekday">{% trans 'homeID_3' %}</span> <!--Translation: Weekday-->
                                 </div>
 
                                 <div class="system_date col-md-6">
@@ -48,10 +49,10 @@
                                 {% csrf_token %}
                                 <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
                                 <div class="col-md-6 d-flex justify-content-center align-item-center">
-                                    <button type="button" class="btn btn-primary" id="checkin">Check In</button>
+                                    <button type="button" class="btn btn-primary" id="checkin">{% trans 'homeID_4' %}</button> <!--Translation: Check In-->
                                 </div>
                                 <div class="col-md-6 d-flex justify-content-center align-item-center">
-                                    <button type="button" class="btn btn-danger" id="checkout">Check Out</button>
+                                    <button type="button" class="btn btn-danger" id="checkout">{% trans 'homeID_5' %}</button> <!--Translation: Check Out-->
                                 </div>                        
                             </div>
 
@@ -91,15 +92,15 @@
                     <div class="card-body">
                         <div class="container mt-3">
                         <div class="header_text">
-                            <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> Time Table</p>
-                            <p class="link">EasyTimer</p>
+                            <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> {% trans 'homeID_6' %}</p> <!--Translation: Time Table-->
+                            <p class="link">{% trans 'homeID_7' %}</p> <!--Translation: EasyTimer-->
                         </div>
                             <div class="row">
                             <div class="col-md-8"></div>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                                <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+                                    <input type="search" class="form-control rounded" placeholder="{% trans 'homeID_15' %}" aria-label="Search" aria-describedby="search-addon" /> <!--Translation: search-->
+                                    <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>{% trans 'homeID_8' %}</button> <!--Translation: search-->
                                 </div>
                             </div>
                             </div>
@@ -109,14 +110,14 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th style="position: sticky; top: 0; background: white;">Date</th>
-                                    <th style="position: sticky; top: 0; background: white;">Checkin</th>
-                                    <th style="position: sticky; top: 0; background: white;">Checkout</th>
-                                    <th style="position: sticky; top: 0; background: white;">Break</th>
-                                    <th style="position: sticky; top: 0; background: white;">Min.Hours</th>
-                                    <th style="position: sticky; top: 0; background: white;">Avg.Hours</th>
-                                    <th style="position: sticky; top: 0; background: white;">Is</th>
-                                    <th style="position: sticky; top: 0; background: white;">Overtime</th>
+                                    <th style="position: sticky; top: 0; background: white;">{% trans 'homeID_9' %}</th>  <!--Translation: Date-->
+                                    <th style="position: sticky; top: 0; background: white;">{% trans 'homeID_10' %}</th> <!--Translation: Check In-->
+                                    <th style="position: sticky; top: 0; background: white;">{% trans 'homeID_11' %}</th> <!--Translation: Check Out-->
+                                    <th style="position: sticky; top: 0; background: white;">{% trans 'homeID_12' %}</th> <!--Translation: Break-->
+                                    <th style="position: sticky; top: 0; background: white;">{% trans 'homeID_16' %}</th> <!--Translation: Min.Hours-->
+                                    <th style="position: sticky; top: 0; background: white;">{% trans 'homeID_17' %}</th> <!--Translation: Avg.Hours-->
+                                    <th style="position: sticky; top: 0; background: white;">{% trans 'homeID_18' %}</th> <!--Translation: Is-->
+                                    <th style="position: sticky; top: 0; background: white;">{% trans 'homeID_14' %}</th> <!--Translation: Overtime-->
 
                                 </tr>
                                 </thead>

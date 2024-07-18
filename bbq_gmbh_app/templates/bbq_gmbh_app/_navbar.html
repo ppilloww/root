@@ -1,3 +1,5 @@
+{% load i18n %}
+
 
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -10,15 +12,15 @@
         {% if request.user.is_authenticated %}
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'home'%}">Capture Time</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home'%}">{% trans 'navbarID_1' %}</a></li> <!--Translation: Capture Time-->
+                    <li class="nav-item"><a class="nav-link" href="#contact">{% trans 'navbarID_2' %}</a></li> <!--Translation: Contact-->
                     <!-- Autolink by Tag -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" id="userDropdown">Hello {{ request.user.first_name }}</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'profile'%}"><i class="fa-solid fa-user text-primary"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="{% url 'changePassword'%}"><i class="fa-solid fa-key text-primary"></i> Change Password</a></li>
-                            <li><a class="dropdown-item" href="{% url 'logout'%}"><i class="fa-solid fa-right-from-bracket text-primary"></i> Logout</a></li>
+                            <li><a class="dropdown-item" href="{% url 'profile'%}"><i class="fa-solid fa-user text-primary"></i>{% trans 'navbarID_4' %}</a></li> <!--Translation: Profile-->
+                            <li><a class="dropdown-item" href="{% url 'changePassword'%}"><i class="fa-solid fa-key text-primary"></i>{% trans 'navbarID_5' %}</a></li> <!--Translation: Change Password-->
+                            <li><a class="dropdown-item" href="{% url 'logout'%}"><i class="fa-solid fa-right-from-bracket text-primary"></i>{% trans 'navbarID_6' %}</a></li> <!--Translation: Logout-->
                         </ul>
                     </li>
                 </ul>

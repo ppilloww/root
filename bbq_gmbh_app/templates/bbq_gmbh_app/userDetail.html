@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-
-<!-- head -->
-
+{% load i18n %}
+<!-- Head -->
 
 
 <!-- Navigation-->
@@ -21,48 +20,48 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="header_text">
-                                <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> User details</p>                                
+                                <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i>{% trans 'userDetailID_1' %}</p> <!--Translation: User details-->                                
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-8" style="font-size: 0.8rem;">
                                     <h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>
-                                    <p class="card-text mb-1">Role: {{ user.role|upper }}</p>
+                                    <p class="card-text mb-1">{% trans 'userDetailID_2' %}: {{ user.role|upper }}</p> <!--Translation: Role-->
                                     {% if user.arbeitsstunden_set.last.status %}                                        
-                                        <p class="card-text mb-1" ><span class="dot dot_online"></span> Online</p>
+                                        <p class="card-text mb-1" ><span class="dot dot_online"></span> {% trans 'userDetailID_3' %}</p> <!--Translation: Online-->
                                     {% else %}
-                                        <p class="card-text mb-1"><span class="dot bg-secondary"></span> Offline</p>
+                                        <p class="card-text mb-1"><span class="dot bg-secondary"></span> {% trans 'userDetailID_4' %}</p> <!--Translation: Offline-->
                                     {% endif %}
 
                                     {% if user.arbeitsstunden_set.last.beginn%}
-                                        <p class="card-text mb-1">Last check-in: {{ user.arbeitsstunden_set.last.datum|date:"d.m.Y" }} at {{ user.arbeitsstunden_set.last.beginn|time:"H:i" }}h</p>
+                                        <p class="card-text mb-1">{% trans 'userDetailID_5' %}: {{ user.arbeitsstunden_set.last.datum|date:"d.m.Y" }} {% trans 'userDetailID_6' %} {{ user.arbeitsstunden_set.last.beginn|time:"H:i" }}{% trans 'userDetailID_7' %}h</p> <!--Translation: Last check-in--><!--Translation: at--><!--Translation: h-->
                                     {% else %}
-                                        <p class="card-text mb-1">Last check-in: No data available</p>
+                                        <p class="card-text mb-1">{% trans 'userDetailID_8' %}</p> <!--Translation: Last check-in: No data available-->
                                     {% endif %}
 
                                     {% if user.arbeitsstunden_set.last.ende%}
-                                        <p class="card-text mb-1">Last check-out: {{ user.arbeitsstunden_set.last.datum|date:"d.m.Y" }} at {{ user.arbeitsstunden_set.last.ende|time:"H:i" }}h</p>
+                                        <p class="card-text mb-1">{% trans 'userDetailID_9' %}: {{ user.arbeitsstunden_set.last.datum|date:"d.m.Y" }} {% trans 'userDetailID_10' %} {{ user.arbeitsstunden_set.last.ende|time:"H:i" }}{% trans 'userDetailID_11' %}</p> <!--Translation: Last check-out--><!--Translation: at--><!--Translation: h-->
                                     {% else %}
-                                        <p class="card-text mb-1">Last check-out: No data available</p>
+                                        <p class="card-text mb-1">{% trans 'userDetailID_12' %}</p> <!--Translation: Last check-out: No data available-->
                                     {% endif %}
-                                    <p class="card-text mb-1">Date of Birth: {{ user.birthday }}</p>
-                                    <p class="card-text mb-1">Email: {{ user.email }}</p>
-                                    <p class="card-text mb-1">Address:                                                     
+                                    <p class="card-text mb-1">{% trans 'userDetailID_13' %}: {{ user.birthday }}</p> <!--Translation: Date of Birth-->
+                                    <p class="card-text mb-1">{% trans 'userDetailID_14' %}: {{ user.email }}</p> <!--Translation: Email-->
+                                    <p class="card-text mb-1">{% trans 'userDetailID_15' %}:  <!--Translation: Address-->                                                   
                                         {% if user.adresse %}
                                             {{user.adresse.strasse}}, {{user.adresse.plz}}, {{user.adresse.stadt}}
                                         {% else %}
-                                            No data available
+                                        {% trans 'userDetailID_16' %} <!--Translation: No data available--> 
                                         {% endif %}
 
                                     </p>
-                                    <p class="card-text mb-1">Country: {{ user.adresse.land.name }}</p>
-                                    <p class="card-text mb-1">Vacation left: {{ user.urlaub_set.last.resturlaub }} Days</p>
-                                    <p class="card-text mb-1">Special leave: {{ user.urlaub_set.last.sonderurlaub }} Days</p>
-                                    <p class="card-text mb-1">Weekly Hours: {{ weekHours }}h</p>
+                                    <p class="card-text mb-1">{% trans 'userDetailID_17' %}: {{ user.adresse.land.name }}</p> <!--Translation: Country-->
+                                    <p class="card-text mb-1">{% trans 'userDetailID_18' %}: {{ user.urlaub_set.last.resturlaub }} {% trans 'userDetailID_19' %}</p> <!--Translation: Vacation left--><!--Translation: Days-->
+                                    <p class="card-text mb-1">{% trans 'userDetailID_20' %}: {{ user.urlaub_set.last.sonderurlaub }} {% trans 'userDetailID_21' %}</p> <!--Translation: Special leave--><!--Translation: Days-->
+                                    <p class="card-text mb-1">{% trans 'userDetailID_22' %}: {{ weekHours }}{% trans 'userDetailID_23' %}</p> <!--Translation: Weekly Hours--><!--Translation: h-->
                                     {% if violations %}
-                                        <p class="card-text mb-1">Violations: {{ violations }}</p>
+                                        <p class="card-text mb-1">{% trans 'userDetailID_24' %}: {{ violations }}</p> <!--Translation: Violations-->
                                     {% else %}
-                                        <p class="card-text mb-1">Violations: N/A</p>
+                                        <p class="card-text mb-1">{% trans 'userDetailID_25' %}</p> <!--Translation: Violations: N/A-->
                                     {% endif %}
                                     
 
@@ -88,13 +87,13 @@
                                 <form method="POST" action="">
                                     {% csrf_token %}
                                     {% if activeStatus %}
-                                    <input type="submit" name="action" class="btn btn-danger" value="Delete User">
+                                    <input type="submit" name="action" class="btn btn-danger" value="{% trans 'userDetailID_39' %}"> <!--Translation: Delete User-->
                                     {% else %}
-                                    <input type="submit" name="action" class="btn btn-success" value="Activate User">
+                                    <input type="submit" name="action" class="btn btn-success" value="{% trans 'userDetailID_40' %}"> <!--Translation: Activate User-->
                                     {% endif %}
                                 </form>
                             </div>                                                       
-                            <p>This is handling breaches and buttons</p>
+                            <p>{% trans 'userDetailID_26' %}</p> <!--Translation: This is handling breaches and buttons-->
                         </div>
                     </div>
                 </div>
@@ -108,16 +107,16 @@
                     <div class="card-body">
                         <div class="container mt-3">
                             <div class="header_text">
-                                <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> Time Table</p>
-                                <p class="link">EasyTimer</p>
+                                <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> {% trans 'userDetailID_27' %}</p> <!--Translation: Time Table-->
+                                <p class="link">{% trans 'userDetailID_28' %}</p> <!--Translation: EasyTimer-->
                             </div>
 
                             <div class="row">
                                 <div class="col-md-8"></div>
                                     <div class="col-md-4">
                                         <div class="input-group">
-                                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                                        <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+                                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="{% trans 'userDetailID_29' %}" aria-describedby="search-addon" /> <!--Translation: Search-->
+                                        <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>{% trans 'userDetailID_30' %}</button> <!--Translation: search-->
                                         </div>
                                     </div>
                                 </div>
@@ -127,14 +126,14 @@
                                     <table class="table table-hover">
                                         <thead>
                                         <tr>
-                                            <th style="position: sticky; top: 0; background: white;">Date</th>
-                                            <th style="position: sticky; top: 0; background: white;">Checkin</th>
-                                            <th style="position: sticky; top: 0; background: white;">Checkout</th>
-                                            <th style="position: sticky; top: 0; background: white;">Break</th>
-                                            <th style="position: sticky; top: 0; background: white;">Min.Hours</th>
-                                            <th style="position: sticky; top: 0; background: white;">Avg.Hours</th>
-                                            <th style="position: sticky; top: 0; background: white;">Is</th>
-                                            <th style="position: sticky; top: 0; background: white;">Overtime</th>
+                                            <th style="position: sticky; top: 0; background: white;">{% trans 'userDetailID_31' %}</th> <!--Translation: Date-->
+                                            <th style="position: sticky; top: 0; background: white;">{% trans 'userDetailID_32' %}</th> <!--Translation: Checkin-->
+                                            <th style="position: sticky; top: 0; background: white;">{% trans 'userDetailID_33' %}</th> <!--Translation: Checkout-->
+                                            <th style="position: sticky; top: 0; background: white;">{% trans 'userDetailID_34' %}</th> <!--Translation: Break-->
+                                            <th style="position: sticky; top: 0; background: white;">{% trans 'userDetailID_35' %}</th> <!--Translation: Min.Hours-->
+                                            <th style="position: sticky; top: 0; background: white;">{% trans 'userDetailID_36' %}</th> <!--Translation: Avg.Hours-->
+                                            <th style="position: sticky; top: 0; background: white;">{% trans 'userDetailID_37' %}</th> <!--Translation: Is-->
+                                            <th style="position: sticky; top: 0; background: white;">{% trans 'userDetailID_38' %}</th> <!--Translation: Overtime-->
                                         </tr>
                                         </thead>
                                         <tbody id="table_body">
