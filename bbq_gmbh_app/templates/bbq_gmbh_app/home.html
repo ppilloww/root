@@ -48,10 +48,10 @@
                             <div class="capture_button">
                                 {% csrf_token %}
                                 <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
-                                <div class="col-md-6 d-flex justify-content-center align-item-center">
+                                <div class="col-sm-6 d-flex justify-content-center align-item-center mr-sm-2">
                                     <button type="button" class="btn btn-primary" id="checkin">{% trans 'homeID_4' %}</button> <!--Translation: Check In-->
                                 </div>
-                                <div class="col-md-6 d-flex justify-content-center align-item-center">
+                                <div class="col-sm-6 d-flex justify-content-center align-item-center ml-sm-2">
                                     <button type="button" class="btn btn-danger" id="checkout">{% trans 'homeID_5' %}</button> <!--Translation: Check Out-->
                                 </div>                        
                             </div>
