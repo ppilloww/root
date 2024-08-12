@@ -94,8 +94,9 @@ def employeeManagement(request):
 
 @login_required(login_url='signin')
 def profile(request):
+    arbeitsstunden = Arbeitsstunden.objects.filter(mitarbeiter=request.user)
     
-    return render(request, 'bbq_gmbh_app/profile.html')
+    return render(request, 'bbq_gmbh_app/profile.html', {'arbeitsstunden': arbeitsstunden})
 
 @login_required(login_url='signin')
 def changePassword(request):
