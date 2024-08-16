@@ -14,11 +14,11 @@
             <div class="card" id="myElement">
                 <div class="container mt-3">
                     <div class="header_text">
-                        <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i>{% trans 'profileID_1' %}</p> <!--Translation: Profile-->
+                        <p class="link"><i class="fa-solid fa-user" style="color: #63E6BE;"></i> {% trans 'profileID_1' %}</p> <!--Translation: Profile-->
                         {% if arbeitsstunden.last.status %}
-                        <p class="card-text" style="font-size: 1rem"><span class="dot dot_online"></span>{% trans 'profileID_2' %}</p> <!--Translation: Online-->
+                            <p class="card-text" style="font-size: 1rem"><span class="dot dot_online"></span> {% trans 'profileID_2' %}</p> <!--Translation: Online-->
                         {% else %}
-                        <p class="card-text" style="font-size: 1rem"><span class="dot bg-secondary"></span>{% trans 'profileID_3' %}</p> <!--Translation: Offline-->
+                            <p class="card-text" style="font-size: 1rem"><span class="dot bg-secondary"></span> {% trans 'profileID_3' %}</p> <!--Translation: Offline-->
                         {% endif %}
                         
                     </div>

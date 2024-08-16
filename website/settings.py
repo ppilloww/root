@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-z2^oy&^ku@i1(p&$w!-7vw6j^_0o^a4=7gj!3o96gzc_m-zreo
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'bbq-fom.azurewebsites.net',
+    'bbq-gmbh-final.azurewebsites.net',
     'localhost',
 ]
 
@@ -125,15 +125,13 @@ AUTH_USER_MODEL = 'bbq_gmbh_app.Mitarbeiter'
 ############# PRODUCTION SETTINGS ####################
 
 
-# CSRF_COOKIE_SECURE = True
-# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_DOMAIN = "bbq-gmbh-final.azurewebsites.net"
 
 # CSRF_TRUSTED_ORIGINS = [
-#     'https://bbq-fom.azurewebsites.net',
-#     #'http://bbq-fom.azurewebsites.net', # HTTPS and HTTP versions of a domain is not typically recommended for production environments due to the potential security risks associated with non-secure HTTP traffic
+#     'https://bbq-gmbh-final.azurewebsites.net',
+#     'http://bbq-gmbh-final.azurewebsites.net', # HTTPS and HTTP versions of a domain is not typically recommended for production environments due to the potential security risks associated with non-secure HTTP traffic
 # ]
 
-# SECURE_SSL_REDIRECT = False #a security feature that, when set to True, ensures that all HTTP requests to your application are redirected to HTTPS
 
 
 LANGUAGE_CODE = 'en'
