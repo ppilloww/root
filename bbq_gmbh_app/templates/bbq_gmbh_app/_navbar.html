@@ -11,10 +11,21 @@
         </button>
         {% if request.user.is_authenticated %}
             <div class="collapse navbar-collapse" id="navbarResponsive">
+                
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{% url 'home'%}">{% trans 'navbarID_1' %}</a></li> <!--Translation: Capture Time-->
-                    <li class="nav-item"><a class="nav-link" href="#contact">{% trans 'navbarID_2' %}</a></li> <!--Translation: Contact-->
                     <!-- Autolink by Tag -->
+                    <li class="nav-item"><a class="nav-link" href="#contact">{% trans 'navbarID_2' %}</a></li> <!--Translation: Contact-->
+                    <div class="nav-item dropdown">
+                        {% get_current_language as CURRENT-LANGUAGE %}
+                        {% get_available_languages as AVAILABLE-LANGUAGES %}
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" >{% trans 'indexID_2' %}</a> <!--Translation: Change Language-->
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href=" /en ">🇬🇧 English</a></li>
+                            <li><a class="dropdown-item" href=" /de ">🇩🇪 Deutsch</a></li>                            
+                        </ul>
+                    </div>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" id="userDropdown">Hello {{ request.user.first_name }}</a>
                         <ul class="dropdown-menu">
