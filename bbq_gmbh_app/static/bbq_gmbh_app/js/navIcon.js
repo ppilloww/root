@@ -57,7 +57,7 @@ function executeMyCode(user) {
         newItem.appendChild(newLink);
 
         // Find the position where the new item should be inserted
-        var refItem = document.querySelector('.navbar-nav.ms-auto .nav-item:nth-last-child(2)');
+        var refItem = document.querySelector('.navbar-nav.ms-auto .nav-item:nth-last-child(3)');
 
         // Insert the new item before the reference item
         navbar.insertBefore(newItem, refItem);
